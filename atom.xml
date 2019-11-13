@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="https://www.w3.org/2005/Atom">
+  <title>lemon</title>
+  
+  <subtitle>研一入坑</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://ustblc.github.io/"/>
+  <updated>2019-11-13T09:12:16.301Z</updated>
+  <id>http://ustblc.github.io/</id>
+  
+  <author>
+    <name>lemon</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>django</title>
+    <link href="http://ustblc.github.io/2019/11/12/django/"/>
+    <id>http://ustblc.github.io/2019/11/12/django/</id>
+    <published>2019-11-12T10:18:07.000Z</published>
+    <updated>2019-11-13T09:12:16.301Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"><a href="#sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" class="headerlink" title="sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"></a>sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</h3><p>ddddddd<a id="more"></a> dddddddddddddd这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&quot;&gt;&lt;a href=&quot;#sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&quot; class=&quot;headerlink&quot; title=&quot;sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&quot;&gt;&lt;/a&gt;sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&lt;/h3&gt;&lt;p&gt;ddddddd
+    
+    </summary>
+    
+    
+      <category term="web" scheme="http://ustblc.github.io/categories/web/"/>
+    
+      <category term="python" scheme="http://ustblc.github.io/categories/web/python/"/>
+    
+    
+      <category term="web" scheme="http://ustblc.github.io/tags/web/"/>
+    
+      <category term="python" scheme="http://ustblc.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hello-world</title>
+    <link href="http://ustblc.github.io/2019/11/12/hello-world/"/>
+    <id>http://ustblc.github.io/2019/11/12/hello-world/</id>
+    <published>2019-11-12T08:42:56.494Z</published>
+    <updated>2019-11-12T10:14:13.740Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><a id="more"></a><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><p>2.安装所需要的包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure><p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure><p>4.添加GPG密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure><p>5.添加软件源</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure><p>6.添加成功后更新软件包缓存</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><p>7.安装docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure><p>8.启动 docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;环境配置（ubuntu安装docker）&quot;&gt;&lt;a href=&quot;#环境配置（ubuntu安装docker）&quot; class=&quot;headerlink&quot; title=&quot;环境配置（ubuntu安装docker）&quot;&gt;&lt;/a&gt;环境配置（ubuntu安装docker）&lt;/h3&gt;
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
