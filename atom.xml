@@ -2,11 +2,11 @@
 <feed xmlns="https://www.w3.org/2005/Atom">
   <title>lemon</title>
   
-  <subtitle>研一入坑</subtitle>
+  <subtitle>不断提升自己</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ustblc.github.io/"/>
-  <updated>2019-11-13T10:56:54.831Z</updated>
+  <updated>2019-11-13T11:31:39.658Z</updated>
   <id>http://ustblc.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://ustblc.github.io/2019/11/12/django/"/>
     <id>http://ustblc.github.io/2019/11/12/django/</id>
     <published>2019-11-12T10:18:07.000Z</published>
-    <updated>2019-11-13T10:56:54.831Z</updated>
+    <updated>2019-11-13T11:31:39.658Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"><a href="#1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" class="headerlink" title="1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"></a>1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</h3><p>ddddddd<a id="more"></a> dddddddddddddd这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客</p>]]></content>
     
@@ -35,6 +35,8 @@
       <category term="web" scheme="http://ustblc.github.io/categories/web/"/>
     
       <category term="python" scheme="http://ustblc.github.io/categories/web/python/"/>
+    
+      <category term="django" scheme="http://ustblc.github.io/categories/web/python/django/"/>
     
     
       <category term="web" scheme="http://ustblc.github.io/tags/web/"/>
