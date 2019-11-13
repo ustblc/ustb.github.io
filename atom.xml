@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://ustblc.github.io/"/>
-  <updated>2019-11-13T11:31:39.658Z</updated>
+  <updated>2019-11-13T12:08:50.593Z</updated>
   <id>http://ustblc.github.io/</id>
   
   <author>
@@ -17,50 +17,25 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>django</title>
-    <link href="http://ustblc.github.io/2019/11/12/django/"/>
-    <id>http://ustblc.github.io/2019/11/12/django/</id>
-    <published>2019-11-12T10:18:07.000Z</published>
-    <updated>2019-11-13T11:31:39.658Z</updated>
+    <title>136只出现一次的数字</title>
+    <link href="http://ustblc.github.io/2019/11/13/136%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <id>http://ustblc.github.io/2019/11/13/136%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/</id>
+    <published>2019-11-13T12:07:54.000Z</published>
+    <updated>2019-11-13T12:08:50.593Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"><a href="#1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" class="headerlink" title="1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"></a>1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</h3><p>ddddddd<a id="more"></a> dddddddddddddd这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客这是我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客我的博客</p>]]></content>
+    <content type="html"><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p><a id="more"></a><p>说明：</p><p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">输出: <span class="number">1</span></span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">输出: <span class="number">4</span></span><br></pre></td></tr></table></figure><h6 id="解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a-0-a-a-a-0-并且最关键的就是疑惑还支持交换律-）"><a href="#解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a-0-a-a-a-0-并且最关键的就是疑惑还支持交换律-）" class="headerlink" title="解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a^0=a,a^a=0,并且最关键的就是疑惑还支持交换律- -）"></a>解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a^0=a,a^a=0,并且最关键的就是疑惑还支持交换律- -）</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;uset;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(uset.count(nums[i])&gt;<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> uset.insert(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        unordered_set&lt;int&gt;uset;</span></span><br><span class="line"><span class="comment">        for(int i=0;i&lt;nums.size();i++)&#123;</span></span><br><span class="line"><span class="comment">             uset.insert(nums[i]);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        if(uset.size()==nums.size())return false;</span></span><br><span class="line"><span class="comment">        return true;*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&quot;&gt;&lt;a href=&quot;#1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&quot; class=&quot;headerlink&quot; title=&quot;1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&quot;&gt;&lt;/a&gt;1sdaqdaddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd&lt;/h3&gt;&lt;p&gt;ddddddd
+      &lt;h6 id=&quot;题目描述：&quot;&gt;&lt;a href=&quot;#题目描述：&quot; class=&quot;headerlink&quot; title=&quot;题目描述：&quot;&gt;&lt;/a&gt;题目描述：&lt;/h6&gt;&lt;p&gt;给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。&lt;/p&gt;
     
     </summary>
     
     
-      <category term="web" scheme="http://ustblc.github.io/categories/web/"/>
-    
-      <category term="python" scheme="http://ustblc.github.io/categories/web/python/"/>
-    
-      <category term="django" scheme="http://ustblc.github.io/categories/web/python/django/"/>
+      <category term="leetcode" scheme="http://ustblc.github.io/categories/leetcode/"/>
     
     
-      <category term="web" scheme="http://ustblc.github.io/tags/web/"/>
-    
-      <category term="python" scheme="http://ustblc.github.io/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>hello-world</title>
-    <link href="http://ustblc.github.io/2019/11/12/hello-world/"/>
-    <id>http://ustblc.github.io/2019/11/12/hello-world/</id>
-    <published>2019-11-12T08:42:56.494Z</published>
-    <updated>2019-11-12T10:14:13.740Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><a id="more"></a><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><p>2.安装所需要的包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure><p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure><p>4.添加GPG密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure><p>5.添加软件源</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure><p>6.添加成功后更新软件包缓存</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><p>7.安装docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure><p>8.启动 docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;环境配置（ubuntu安装docker）&quot;&gt;&lt;a href=&quot;#环境配置（ubuntu安装docker）&quot; class=&quot;headerlink&quot; title=&quot;环境配置（ubuntu安装docker）&quot;&gt;&lt;/a&gt;环境配置（ubuntu安装docker）&lt;/h3&gt;
-    
-    </summary>
-    
-    
+      <category term="leetcode" scheme="http://ustblc.github.io/tags/leetcode/"/>
     
   </entry>
   
