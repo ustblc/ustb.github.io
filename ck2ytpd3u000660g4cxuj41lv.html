@@ -54,18 +54,17 @@
   };
 </script>
 
-  <meta name="description" content="1.选择国内的云服务商，这里选择阿里云为例">
-<meta name="keywords" content="部署">
+  <meta name="description" content="题目描述： 给定两个数组，编写一个函数来计算它们的交集。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="django部署">
-<meta property="og:url" content="http:&#x2F;&#x2F;cblog.club&#x2F;ck2ytgewn000c5og4ge371ov4.html">
+<meta property="og:title" content="350两个数组的交集II">
+<meta property="og:url" content="http:&#x2F;&#x2F;cblog.club&#x2F;ck2ytpd3u000660g4cxuj41lv.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="1.选择国内的云服务商，这里选择阿里云为例">
+<meta property="og:description" content="题目描述： 给定两个数组，编写一个函数来计算它们的交集。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-14T13:47:05.753Z">
+<meta property="og:updated_time" content="2019-11-14T14:35:03.314Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://cblog.club/ck2ytgewn000c5og4ge371ov4.html">
+<link rel="canonical" href="http://cblog.club/ck2ytpd3u000660g4cxuj41lv.html">
 
 
 <script id="page-configurations">
@@ -79,7 +78,7 @@
   };
 </script>
 
-  <title>django部署 | lemon</title>
+  <title>350两个数组的交集II | lemon</title>
   
 
 
@@ -220,7 +219,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://cblog.club/ck2ytgewn000c5og4ge371ov4.html">
+    <link itemprop="mainEntityOfPage" href="http://cblog.club/ck2ytpd3u000660g4cxuj41lv.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -233,7 +232,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          django部署
+          350两个数组的交集II
         </h1>
 
         <div class="post-meta">
@@ -244,7 +243,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-14 20:07:08 / 修改时间：21:47:05" itemprop="dateCreated datePublished" datetime="2019-11-14T20:07:08+08:00">2019-11-14</time>
+              <time title="创建时间：2019-11-14 22:23:29 / 修改时间：22:35:03" itemprop="dateCreated datePublished" datetime="2019-11-14T22:23:29+08:00">2019-11-14</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,8 +251,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E9%83%A8%E7%BD%B2/" itemprop="url" rel="index">
-                    <span itemprop="name">部署</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
             </span>
@@ -264,7 +263,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>653</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -283,33 +282,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>1.选择国内的云服务商，这里选择阿里云为例<a id="more"></a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure>
+        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定两个数组，编写一个函数来计算它们的交集。<a id="more"></a> </p>
+<blockquote>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums1 = [1,2,2,1], nums2 = [2,2]</span><br><span class="line">输出: [2,2]</span><br></pre></td></tr></table></figure>
 
-<p>2.安装所需要的包</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]</span><br><span class="line">输出: [4,9]</span><br></pre></td></tr></table></figure>
 
-<p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure>
-
-<p>4.添加GPG密钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure>
-
-<p>5.添加软件源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure>
-
-<p>6.添加成功后更新软件包缓存</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
-
-<p>7.安装docker</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure>
-
-<p>8.启动 docker</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
-
-
-
-
+<p><strong>说明：</strong></p>
+<ul>
+<li>输出结果中每个元素出现的次数，应与元素在两个数组中出现的次数一致。</li>
+<li>我们可以不考虑输出结果的顺序。</li>
+</ul>
+<p><strong><em>\</em>进阶:**</strong></p>
+<ul>
+<li>如果给定的数组已经排好序呢？你将如何优化你的算法？</li>
+<li>如果 <em>nums1</em> 的大小比 <em>nums2</em> 小很多，哪种方法更优？</li>
+<li>如果 <em>nums2</em> 的元素存储在磁盘上，磁盘内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？</li>
+</ul>
+</blockquote>
+<h6 id="解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered-multiset（允许重复元素出现）-那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合-中的当前元素删掉，因为有可能后边还会出现，造成结果错误。"><a href="#解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered-multiset（允许重复元素出现）-那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合-中的当前元素删掉，因为有可能后边还会出现，造成结果错误。" class="headerlink" title="解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered_multiset（允许重复元素出现）,那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合 中的当前元素删掉，因为有可能后边还会出现，造成结果错误。"></a>解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered_multiset（允许重复元素出现）,那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合 中的当前元素删掉，因为有可能后边还会出现，造成结果错误。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersect(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;unums1;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;unums2;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            unums1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            unums2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            it=unums2.find(nums1[i]);</span><br><span class="line">            <span class="keyword">if</span>(it!=unums2.end())&#123;</span><br><span class="line">                result.push_back(nums1[i]);</span><br><span class="line">                unums2.erase(it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -354,7 +347,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://cblog.club/ck2ytgewn000c5og4ge371ov4.html" title="django部署">http://cblog.club/ck2ytgewn000c5og4ge371ov4.html</a>
+    <a href="http://cblog.club/ck2ytpd3u000660g4cxuj41lv.html" title="350两个数组的交集II">http://cblog.club/ck2ytpd3u000660g4cxuj41lv.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -364,24 +357,21 @@
 
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E9%83%A8%E7%BD%B2/" rel="tag"> <i class="fa fa-tag"></i> 部署</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck2ytgeve00005og46alq53uc.html" rel="next" title="1">
-                  <i class="fa fa-chevron-left"></i> 1
+                <a href="/ck2ytpd3v000760g4eur6a2nr.html" rel="next" title="387字符串中的第一个唯一字符">
+                  <i class="fa fa-chevron-left"></i> 387字符串中的第一个唯一字符
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck2ytgewy000i5og40dfecyx2.html" rel="prev" title="599两个列表的最小索引总和">
-                  599两个列表的最小索引总和 <i class="fa fa-chevron-right"></i>
+                <a href="/ck2ytpd3l000260g42r21b4t4.html" rel="prev" title="219存在重复元素II">
+                  219存在重复元素II <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
