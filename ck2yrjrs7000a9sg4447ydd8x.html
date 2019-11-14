@@ -54,12 +54,12 @@
   };
 </script>
 
-  <meta name="description" content="驱动点（motivation）（视频跟踪到底是跟踪什么？）对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。">
+  <meta name="description" content="驱动点（motivation）（视频跟踪到底是跟踪什么？）对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。  为了方便表述，早期的跟踪算法都是坐标轴对齐的的矩形框。但随着跟踪精度的不断提升，数据集的难度在不断提升，在VOT2015时即提出使用旋转矩形框来作为标记。在VOT2016的时候提出自动的通过m">
 <meta property="og:type" content="article">
 <meta property="og:title" content="视觉追踪与视觉分割">
-<meta property="og:url" content="http:&#x2F;&#x2F;cblog.club&#x2F;ck2yqjsxs0007m0g452li6tcb.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;cblog.club&#x2F;ck2yrjrs7000a9sg4447ydd8x.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="驱动点（motivation）（视频跟踪到底是跟踪什么？）对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。">
+<meta property="og:description" content="驱动点（motivation）（视频跟踪到底是跟踪什么？）对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。  为了方便表述，早期的跟踪算法都是坐标轴对齐的的矩形框。但随着跟踪精度的不断提升，数据集的难度在不断提升，在VOT2015时即提出使用旋转矩形框来作为标记。在VOT2016的时候提出自动的通过m">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;mmbiz.qpic.cn&#x2F;mmbiz_jpg&#x2F;gYUsOT36vfoqaonDicB29VlmiczTGRQltIwKs2jkh7bGibdQuVCGF8yfkfUopwnM16dvKj45z3WJZsKMBd91cpR2Q&#x2F;640?wx_fmt=jpeg&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1">
 <meta property="og:image" content="https:&#x2F;&#x2F;mmbiz.qpic.cn&#x2F;mmbiz_gif&#x2F;gYUsOT36vfoqaonDicB29VlmiczTGRQltIaPndfm3IIn0eIhJZblylyHicM6eKmV4bvEba4hLaNh3cpJdiazgvaNNA&#x2F;640?wx_fmt=gif&amp;wxfrom=5&amp;wx_lazy=1">
@@ -80,7 +80,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;mmbiz.qpic.cn&#x2F;mmbiz_jpg&#x2F;gYUsOT36vfoqaonDicB29VlmiczTGRQltIwKs2jkh7bGibdQuVCGF8yfkfUopwnM16dvKj45z3WJZsKMBd91cpR2Q&#x2F;640?wx_fmt=jpeg&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1">
 
-<link rel="canonical" href="http://cblog.club/ck2yqjsxs0007m0g452li6tcb.html">
+<link rel="canonical" href="http://cblog.club/ck2yrjrs7000a9sg4447ydd8x.html">
 
 
 <script id="page-configurations">
@@ -235,7 +235,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://cblog.club/ck2yqjsxs0007m0g452li6tcb.html">
+    <link itemprop="mainEntityOfPage" href="http://cblog.club/ck2yrjrs7000a9sg4447ydd8x.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -287,7 +287,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h4 id="驱动点（motivation）（视频跟踪到底是跟踪什么？）"><a href="#驱动点（motivation）（视频跟踪到底是跟踪什么？）" class="headerlink" title="驱动点（motivation）（视频跟踪到底是跟踪什么？）"></a>驱动点（motivation）（视频跟踪到底是跟踪什么？）</h4><p>对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。 </p><a id="more"></a>
+        <h4 id="驱动点（motivation）（视频跟踪到底是跟踪什么？）"><a href="#驱动点（motivation）（视频跟踪到底是跟踪什么？）" class="headerlink" title="驱动点（motivation）（视频跟踪到底是跟踪什么？）"></a>驱动点（motivation）（视频跟踪到底是跟踪什么？）</h4><p>对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。 </p>
 <p>为了方便表述，早期的跟踪算法都是坐标轴对齐的的矩形框。但随着跟踪精度的不断提升，数据集的难度在不断提升，在VOT2015时即提出使用旋转矩形框来作为标记。在VOT2016的时候提出自动的通过mask来生成旋转框的方法。更为本质的，我们会发现，这个旋转的矩形框实际上就是mask的一种近似。我们所要预测的实际上就是目标物体的mask。利用mask才能得到精度本身的上界。</p>
 <p> <img src="https://mmbiz.qpic.cn/mmbiz_jpg/gYUsOT36vfoqaonDicB29VlmiczTGRQltIwKs2jkh7bGibdQuVCGF8yfkfUopwnM16dvKj45z3WJZsKMBd91cpR2Q/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"> </p>
 <p>2013年以后的跟踪分为几类。</p>
@@ -386,7 +386,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://cblog.club/ck2yqjsxs0007m0g452li6tcb.html" title="视觉追踪与视觉分割">http://cblog.club/ck2yqjsxs0007m0g452li6tcb.html</a>
+    <a href="http://cblog.club/ck2yrjrs7000a9sg4447ydd8x.html" title="视觉追踪与视觉分割">http://cblog.club/ck2yrjrs7000a9sg4447ydd8x.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -401,7 +401,7 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck2yqjsxk0002m0g48lxzdfwg.html" rel="next" title="349两个数组的交集">
+                <a href="/ck2yrjrrp00069sg40rfihags.html" rel="next" title="349两个数组的交集">
                   <i class="fa fa-chevron-left"></i> 349两个数组的交集
                 </a>
             </div>
@@ -409,7 +409,7 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck2yqjsxb0000m0g4h2my64qz.html" rel="prev" title="1">
+                <a href="/ck2yrjrrb00029sg47fcr2y8g.html" rel="prev" title="1">
                   1 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
@@ -465,20 +465,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
