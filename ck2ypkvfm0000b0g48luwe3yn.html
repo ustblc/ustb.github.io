@@ -53,16 +53,17 @@
   };
 </script>
 
-  <meta name="description" content="研一在读">
-<meta property="og:type" content="website">
-<meta property="og:title" content="lemon">
-<meta property="og:url" content="http:&#x2F;&#x2F;cblog.club&#x2F;archives&#x2F;2019&#x2F;11&#x2F;index.html">
+  <meta name="description" content="环境配置（ubuntu安装docker）1.选择国内的云服务商，这里选择阿里云为例1curl -sSL http:&#x2F;&#x2F;acs-public-mirror.oss-cn-hangzhou.aliyuncs.com&#x2F;docker-engine&#x2F;internet | sh -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1">
+<meta property="og:url" content="http:&#x2F;&#x2F;cblog.club&#x2F;ck2ypkvfm0000b0g48luwe3yn.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="研一在读">
+<meta property="og:description" content="环境配置（ubuntu安装docker）1.选择国内的云服务商，这里选择阿里云为例1curl -sSL http:&#x2F;&#x2F;acs-public-mirror.oss-cn-hangzhou.aliyuncs.com&#x2F;docker-engine&#x2F;internet | sh -">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-14T12:06:18.431Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://cblog.club/archives/2019/11/">
+<link rel="canonical" href="http://cblog.club/ck2ypkvfm0000b0g48luwe3yn.html">
 
 
 <script id="page-configurations">
@@ -70,13 +71,13 @@
   CONFIG.page = {
     sidebar: "",
     isHome: false,
-    isPost: false,
+    isPost: true,
     isPage: false,
-    isArchive: true
+    isArchive: false
   };
 </script>
 
-  <title>归档 | lemon</title>
+  <title>1 | lemon</title>
   
 
 
@@ -212,129 +213,168 @@
           <div class="content">
             
 
+  <div class="posts-expand">
+      
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 5 篇日志。 继续努力。</span>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://cblog.club/ck2ypkvfm0000b0g48luwe3yn.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="研一在读">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemon">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-14 19:54:09 / 修改时间：20:06:18" itemprop="dateCreated datePublished" datetime="2019-11-14T19:54:09+08:00">2019-11-14</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>673</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <h1 class="collection-header">2019</h1>
-    </div>
+        <h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-14T20:07:08+08:00"
-              content="2019-11-14">
-          11-14
-        </time>
-      </div>
+<p>2.安装所需要的包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/ck2ypkvhe0008b0g49r43fx4h.html" itemprop="url">
-            <span itemprop="name">django部署</span>
-          </a>
-      </h2>
+<p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
+<p>4.添加GPG密钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>5.添加软件源</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-14T19:54:09+08:00"
-              content="2019-11-14">
-          11-14
-        </time>
-      </div>
+<p>6.添加成功后更新软件包缓存</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/ck2ypkvfm0000b0g48luwe3yn.html" itemprop="url">
-            <span itemprop="name">1</span>
-          </a>
-      </h2>
+<p>7.安装docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure>
 
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-14T19:28:11+08:00"
-              content="2019-11-14">
-          11-14
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/ck2ypkvhm000ab0g46oo456g5.html" itemprop="url">
-            <span itemprop="name">视觉追踪与视觉分割</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-13T22:02:06+08:00"
-              content="2019-11-13">
-          11-13
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/ck2ypkvgp0004b0g48pu19tlz.html" itemprop="url">
-            <span itemprop="name">349两个数组的交集</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-13T20:07:54+08:00"
-              content="2019-11-13">
-          11-13
-        </time>
-      </div>
-
-      <h2 class="post-title">
-          <a class="post-title-link" href="/ck2ypkvgd0002b0g46lgg8tt0.html" itemprop="url">
-            <span itemprop="name">136只出现一次的数字</span>
-          </a>
-      </h2>
-
-    </header>
-  </article>
+<p>8.启动 docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
 
 
     </div>
+
+    
+    
+    
+
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+        <div class="reward-container">
+  <div></div>
+  <button disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="lemon 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="lemon 支付宝">
+        <p>支付宝</p>
+      </div>
+
   </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>lemon
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://cblog.club/ck2ypkvfm0000b0g48luwe3yn.html" title="1">http://cblog.club/ck2ypkvfm0000b0g48luwe3yn.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/ck2ypkvhm000ab0g46oo456g5.html" rel="next" title="视觉追踪与视觉分割">
+                  <i class="fa fa-chevron-left"></i> 视觉追踪与视觉分割
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/ck2ypkvhe0008b0g49r43fx4h.html" rel="prev" title="django部署">
+                  django部署 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
   
   
   
 
-  
-
+  </div>
 
 
           </div>

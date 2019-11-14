@@ -1,9 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>django部署</title>
+    <url>/ck2ypkvhe0008b0g49r43fx4h.html</url>
+    <content><![CDATA[<h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<p>2.安装所需要的包</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+
+<p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure>
+
+<p>4.添加GPG密钥</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure>
+
+<p>5.添加软件源</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure>
+
+<p>6.添加成功后更新软件包缓存</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>7.安装docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure>
+
+<p>8.启动 docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+  1
+
+]]></content>
+      <categories>
+        <category>部署</category>
+      </categories>
+      <tags>
+        <tag>部署</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1</title>
+    <url>/ck2ypkvfm0000b0g48luwe3yn.html</url>
+    <content><![CDATA[<h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+<p>2.安装所需要的包</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure>
+
+<p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure>
+
+<p>4.添加GPG密钥</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure>
+
+<p>5.添加软件源</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure>
+
+<p>6.添加成功后更新软件包缓存</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
+
+<p>7.安装docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure>
+
+<p>8.启动 docker</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+
+]]></content>
+  </entry>
+  <entry>
+    <title>视觉追踪与视觉分割</title>
+    <url>/ck2ypkvhm000ab0g46oo456g5.html</url>
+    <content><![CDATA[<h4 id="驱动点（motivation）（视频跟踪到底是跟踪什么？）"><a href="#驱动点（motivation）（视频跟踪到底是跟踪什么？）" class="headerlink" title="驱动点（motivation）（视频跟踪到底是跟踪什么？）"></a>驱动点（motivation）（视频跟踪到底是跟踪什么？）</h4><p>对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。 </p><a id="more"></a>
+<p>为了方便表述，早期的跟踪算法都是坐标轴对齐的的矩形框。但随着跟踪精度的不断提升，数据集的难度在不断提升，在VOT2015时即提出使用旋转矩形框来作为标记。在VOT2016的时候提出自动的通过mask来生成旋转框的方法。更为本质的，我们会发现，这个旋转的矩形框实际上就是mask的一种近似。我们所要预测的实际上就是目标物体的mask。利用mask才能得到精度本身的上界。</p>
+<p> <img src="https://mmbiz.qpic.cn/mmbiz_jpg/gYUsOT36vfoqaonDicB29VlmiczTGRQltIwKs2jkh7bGibdQuVCGF8yfkfUopwnM16dvKj45z3WJZsKMBd91cpR2Q/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"> </p>
+<p>2013年以后的跟踪分为几类。</p>
+<p>第一类是预测score的方法，这类算法以相关滤波和SiameFC为代表。通过预测候选区域的<strong>score map</strong>来得到物体的位置，物体的尺度大小通常是通过图像金字塔得到。同时无法得到物体的长宽比变化。 </p>
+<p>第二类就是以GOTURN和SiamRPN为代表的做boundingbox regression的方法。这也是SiamRPN取得当前最好结果的核心所在，<strong>充分挖取精度方向的红利</strong>。实际上并不是SiamRPN预测的有多稳定，而是在预测正确的时候，会给出更为精确的box。利用网络预测长宽比可以调整box，这个方向一直以来被大家所忽视，所以SiamRPN很快杀出重围。 </p>
+<p> <img src="https://mmbiz.qpic.cn/mmbiz_gif/gYUsOT36vfoqaonDicB29VlmiczTGRQltIaPndfm3IIn0eIhJZblylyHicM6eKmV4bvEba4hLaNh3cpJdiazgvaNNA/640?wx_fmt=gif&wxfrom=5&wx_lazy=1" alt="img"> </p>
+<p>而在物体发生旋转的时候，简单的box的表述通常会产生极大的损失，这实际上就是表述本身存在的缺陷。而为了进一步探索在精度上存在的问题。我们更进一步，直接预测物体的mask。这种表述使得我们可以得到最为准确的box。最直观的利用一个简单的事例的可视化就可以看出，这三种算法的区别（左中右分别是SiamFC | SiamRPN | <strong>SiamMask</strong>）。 </p>
+<p> <img src="https://mmbiz.qpic.cn/mmbiz_gif/gYUsOT36vfoqaonDicB29VlmiczTGRQltIlRUxmglrwStvDUyicPmZLIqAw5krRpug7A4XB2tg9qT31K3cqJuic5iaQ/640?wx_fmt=gif&wxfrom=5&wx_lazy=1" alt="img"> </p>
+<p>同时，对于视频目标分割（VOS）领域，之前普遍流行的算法是利用语义分割网络在线进行一个二分类的训练，然后再后续帧进行预测。这种方法在训练过程中<strong>一般都会花费数分钟</strong>，给人一种电脑假死的感觉。最近越来越多的不需要在线finetune的算法被提出。但其速度仍然无法到达令人满意的状态，例如FAVOS和OSMN分别需要1s/帧，120ms/帧。这距离真正的实时运行还是有一定差异。另一方面，<strong>VOS算法的第一帧需要给定目标的mask</strong>，这在人机交互的场景中很难时间，这个mask获取成本过高。</p>
+<p>所以我们提出了<strong>对视觉目标跟踪（VOT）和视频目标分割（VOS）的统一框架SiamMask。</strong>我们将初始化简化为视频跟踪的box输入即可，同时得到box和mask两个输出。</p>
+<p> <img src="https://mmbiz.qpic.cn/mmbiz_jpg/gYUsOT36vfoqaonDicB29VlmiczTGRQltItdpgq1bFy8TtII1gxQO74ibTSwSibVDKjuoI4aM8y2KbEWj9xIOQD5Xg/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"> </p>
+<h4 id="知识背景"><a href="#知识背景" class="headerlink" title="知识背景"></a>知识背景</h4><p>文章提出的多任务学习方法，可同时运用于VOT（视频目标跟踪）和VOS（视频目标分割）。模型主要是在全卷积的孪生神经网络（siamese network）上进行改进的，所以下面我先简单介绍一下孪生神经网络和直接相关的两篇文章siamFC和siamFPN。</p>
+<h5 id="Siamese-network"><a href="#Siamese-network" class="headerlink" title="Siamese network"></a>Siamese network</h5><p>Simese是孪生的意思。Siamese Network 是一种神经网络的框架，而不是具体的某种网络，用于评估两个输入样本的相似度。如下图所示：</p>
+<p> <img src="https://img-blog.csdnimg.cn/20190322210127942.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hleV95b3VuZ21hbg==,size_16,color_FFFFFF,t_0#pic_center" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
+<p>这里的network_1和network_2可以是任意的一种网络，比如全连接网络、cnn或者是rnn，根据具体的任务而定。特殊的是，这两个网络是共享权重的，也就是说在代码实现的时候可以使用同一个网络。两个网络分别接收输入X1、X2，输出向量G(X1）和G(X2)，然后通过某种距离度量的方式计算两个输出向量的距离，或者计算相似度。简单来说，就是将两个输入分别经过一个网络，编码成两个向量，再来计算向量的相似度，以此来判别原输入的相似性。这种方法可以用来做很多事情，比如比较两张人脸是否为同一个人的，两个签名是否为同一个人所作等。当然，siamese network不仅只适用这种二分类问题，在目标跟踪领域也被广泛的应用，本文还有siamFC和siamRPN都是基于它的。</p>
+<h5 id="SiamFC（Fully-convolutional-Siamese）"><a href="#SiamFC（Fully-convolutional-Siamese）" class="headerlink" title="SiamFC（Fully-convolutional Siamese）"></a>SiamFC（Fully-convolutional Siamese）</h5><p>SiamFC这篇文章算是将深度学习应用于目标跟踪的开山之作，也是第一个将siamese network用于目标跟踪的，网络的结构很简单，如下图：</p>
+<p><img src="C:%5CUsers%5Cuser%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571061022723.png" alt="1571061022723"></p>
+<p>这里的z是目标图像，也就是视频初始时框出来的那个目标区域，这里的x就是需要找到目标位置的图像，可以理解为视频中的每一帧图像。φ就是前面讲的siamese network，这里是卷积网络，用于提取图像特征。由于z比x的尺寸小，所以生成的特征图F1肯定也是小于x生成的特征图F2。然后将F1在F2上进行滑动，利用一种相似性度量函数将两个矩阵合并成一个得分矩阵。最后，在得分矩阵里面取最大值，也就是置信度最大的点，在图像x上所对应区域即为该帧图像的预测区域。</p>
+<p>SiamFC的方法很简单，但其缺点也是很明显的，就是预测的区域的比例是固定的，而且位置很粗糙（如上图，17x17的得分矩阵对应的只有17x17个原图的位置）。因此，SiamRPN在SiamFC的基础上进行改进，解决了这个缺陷。</p>
+<h5 id="SiamRPN"><a href="#SiamRPN" class="headerlink" title="SiamRPN"></a>SiamRPN</h5><p>SiamRPN也是做目标跟踪的，就是在SiamFC的基础上增加了一个bounding box的预测分支。结构如下：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190322220220703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hleV95b3VuZ21hbg==,size_16,color_FFFFFF,t_70#pic_center" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
+<p>和SiamFC一样，SiamRPN也是先将模板（上）和待搜索区域（下）送入孪生网络得到特征。不同的是，SiamRPN在得到两者的特征之后，并不是直接将两者融合生成得分矩阵。而是对两者（经过上图橙色的卷积，这里不是孪生的）分别生成了分类分支和回归分支的特征，然后再两两组合，经过相关性的操作（星号处）得到后面的分类响应和回归响应。</p>
+<p>SiamRPN通过增加了回归分支，可以让网络学习物体所在的具体位置进行回归，即可得到更加精准的预测，而且尺寸也可以通过预测得到，而不像siamFC中只能是固定比例。</p>
+<p>总的来说，将全卷积的siamese network用于目标跟踪，生成得分矩阵，即得到了siamFC；在siamFC的基础上加上box分支，用于预测box的具体位置和长宽，即得到了siamRPN。那么再接下来，作者在siamRPN的基础上增加mask分支，就得到了本文要讲的siamMask。</p>
+<h4 id="SiamMask"><a href="#SiamMask" class="headerlink" title="SiamMask"></a>SiamMask</h4><p><img src="https://img-blog.csdnimg.cn/20190618123204355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Fhb24yMjM1Nw==,size_16,color_FFFFFF,t_70" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
+<p>SiamMask同样是基于孪生网络，和SiamFC不同的是，这里的*d是depth-wise的cross correlation操作，也就是说这里是对逐通道进行相关性计算，所以得到的响应保持了通道数不变（这里是256）。文章把中间的这个响应称为RoW（response of candidate window），而后在这个RoW的基础上分出了三个分支，分别进行分割，回归和分类。</p>
+<h5 id="Mask-generation"><a href="#Mask-generation" class="headerlink" title="Mask generation"></a>Mask generation</h5><p> 上面的网络结构图中，三个分支中的函数h、b、s实际上都是由两层1x1的卷积组成的。mask分支对应的h，也就是由通道数为256和63x63的两层1x1卷积构成。如果用mn表示第n个Row对应生成的mask，那么mn可以用如下公式表示： </p>
+<p><img src="C:%5CUsers%5Cuser%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571062915498.png" alt="1571062915498"></p>
+<p>其中的z和x分别表示模板和待搜索区域，其余的函数与网络结构图中对应。可以发现，最后生成的mask是待分割图像x和目标图像z的一个函数，因此我们可以看成是用z去指导完成x上的分割。 </p>
+<p>然而，由网络结构图可以看到，每一个RoW对应生成的mask是一个1x1x(63x63)的向量，我们将其展平，得到的mask图像是非常粗糙的，而且尺寸也小于原图。因此，后面其实还有一个上采样和调整的过程， 所以提出了如下图所示的Refine Module用来提升分割的精度，refine module采用top-down的结构。 </p>
+<p> <img src="https://img-blog.csdnimg.cn/2019061822303410.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2Fhb24yMjM1Nw==,size_16,color_FFFFFF,t_70" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
+<p>这一部分借鉴了SharpMask的思路。deepmask和sharpmask是facebook在2015-2016年提出的物体分割proposal框架。作者进行了一个重现。</p>
+<h5 id="Box-generation"><a href="#Box-generation" class="headerlink" title="Box generation"></a>Box generation</h5><p> <img src="https://img-blog.csdnimg.cn/20190323135428697.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hleV95b3VuZ21hbg==,size_16,color_FFFFFF,t_70#pic_center" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
+<p>在VOS（视频目标分割）任务中，需要生成物体的mask；而在VOT(视频目标跟踪中），最终需要的是框出目标的bounding box。对于bounding box的生成，文章给出了多种方案。</p>
+<ul>
+<li><p>利用mask生成<br>（1）axis-aligned bounding rectangle (Min-max)：根据mask的最小最大x、y坐标值生成坐标轴对齐的bounding box，易知，这种方法生成的框是正的，如上图中的红框。<br>（2）rotated minimum bounding rectangle (MBR)：根据mask计算最小外接矩形作为bounding box，这种方式生成的框可以是歪的，如上图中的绿框。<br>（3）Opt：最优的方法。这个最优的策略是在VOT-2016的挑战中被提出来的，生成的框也可以是歪的，如上图中的蓝框。</p>
+</li>
+<li><p>利用box分支预测（这种方法在二分支的变种中用不了）</p>
+</li>
+</ul>
+<p>至于这几种生成方式的优劣，后面有实验证明。</p>
+<h5 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h5><p>总的来说，文章的训练方式是端到端的训练，也就是三个分支同时进行训练。也就是每一对训练样本，都要给出三个分支的label。下面是文章给出的三个计算loss的公式： </p>
+<p><img src="C:%5CUsers%5Cuser%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571063953774.png" alt="1571063953774"></p>
+<p>这里的训练样本是由很多对目标图像（小）和待搜索图像（大）。直观来说，通过训练，可以让网络学会如何提取图片的特征，并且根据目标图像特征搜索待识别的图像，找到目标的位置并精细分割。 </p>
+<h5 id="推断"><a href="#推断" class="headerlink" title="推断"></a>推断</h5><p><img src="C:%5CUsers%5Cuser%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5C1571064064977.png" alt="1571064064977"></p>
+<p>网络推断的过程大致如下：<br>（1）在第一帧，用矩形框框出想要跟踪的物体，作为网络的模板z，即网络上半部分的输入。<br>（2）输入视频中的一帧作为待搜索图像x，即网络下半部分的输入。<br>（3）网络接收两个输入，得到三个分支的预测。<br>（4）根据score分支得到预测的目标区域，然后找到对应位置的mask作为输出，bounding box的生成方式即为3.2中所阐述的。<br>（5）若网络为二分支，则根据Min-max的方法生成一个box，然后用这个box去框出下一帧的对应区域作为下一次的待搜索图像x，再这之前，会先将这个box往外padding一定大小到x的输入尺寸。若是三分支的网络，文中说用box分支去生成这个待搜索区域效果更好。<br>（6）回到第（3）步进行下一帧的推断。</p>
+<p>可以看到，网络只需要给出第一帧，后面就可以自动对目标进行分割和定位。容易产生疑问的是第（5）步中，根据这一帧的预测位置去确定下一帧的搜索区域。</p>
+<h5 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h5><p>作者在两个任务上做了实验，一个是视频目标跟踪（VOT），也就是生成跟踪物体的box；另一个是视频目标分割（VOS），也就是生成跟踪物体的mask。由于实验表格太多，我就选了其中两个有代表性的实验。 </p>
+<h6 id="目标跟踪"><a href="#目标跟踪" class="headerlink" title="目标跟踪"></a>目标跟踪</h6><p> <img src="https://img-blog.csdnimg.cn/2019032316360979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hleV95b3VuZ21hbg==,size_16,color_FFFFFF,t_70#pic_center" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
+<p>这个实验比较有意思，是在VOT-2016数据集上做的，其标注是带有旋转角度的bounding box。实验是为了对比SiamFC、SiamRPN、SiamMask三个网络的表现，并且找到这三者在这个数据集上的上限。第一大栏的三行分别表示再给出ground truth的基础上，用固定比例的框、按照gt的边缘生成和坐标轴平行的框以及用gt的最小外接框这三种方式预测能够得到的最好结果。也就分别对应了SiamFC、SiamRPN以及SiamMask三种方法能够达到的上界。下面两大行就是这几个网络实验结果的对比了，SiamMask明显好于其他两者。</p>
+<h6 id="目标分割"><a href="#目标分割" class="headerlink" title="目标分割"></a>目标分割</h6><p> <img src="https://img-blog.csdnimg.cn/20190323164449151.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hleV95b3VuZ21hbg==,size_16,color_FFFFFF,t_70#pic_center" alt="å¨è¿éæå¥å¾çæè¿°"> </p>
+<p>在视频分割任务中，作者在DAVIS-2016和DAVIS-2017数据集上做了实验，这个坐标图的横坐标是fps，纵坐标是mIoU（ 在计算机视觉深度学习图像分割领域中，mIoU值是一个衡量图像分割精度的重要指标。mIoU可解释为平均交并比， 即预测区域和实际区域交集除以预测区域和实际区域的并集 ）。可以看到，虽然效果不是最好，但是速度远超于其他。按照作者的话说，他们的模型可以作为视频目标分割的一个strong baseline。一方面，siamMask比几乎所有的state of the art模型都要快，而且快了很多。另一方面，siamMask在不需要做fine-tune，只需要离线学习的情况下也产生了很具有竞争力的效果。</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p> 总结来说，siamMask在目标跟踪领域超过了state of the art，而且速度比较快。在视频目标分割领域，做到了最快，而且效果也很不错。网络还具有一些别的优势，比如不需要在线学习，而且初始化只需要一个box。 </p>
+]]></content>
+  </entry>
+  <entry>
     <title>349两个数组的交集</title>
-    <url>/2019/11/13/349%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84%E4%BA%A4%E9%9B%86/</url>
-    <content><![CDATA[<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><h6 id="题目描述：给定两个数组，编写一个函数来计算它们的交集"><a href="#题目描述：给定两个数组，编写一个函数来计算它们的交集" class="headerlink" title="题目描述：给定两个数组，编写一个函数来计算它们的交集"></a>题目描述：给定两个数组，编写一个函数来计算它们的交集</h6><a id="more"></a><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], nums2 = [<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line">输出: [<span class="number">2</span>]</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>], nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line">输出: [<span class="number">9</span>,<span class="number">4</span>]</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">输出结果中的每个元素一定是唯一的。</span><br><span class="line">我们可以不考虑输出结果的顺序。</span><br></pre></td></tr></table></figure>
+    <url>/ck2ypkvgp0004b0g48pu19tlz.html</url>
+    <content><![CDATA[<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><h6 id="题目描述：给定两个数组，编写一个函数来计算它们的交集"><a href="#题目描述：给定两个数组，编写一个函数来计算它们的交集" class="headerlink" title="题目描述：给定两个数组，编写一个函数来计算它们的交集"></a>题目描述：给定两个数组，编写一个函数来计算它们的交集</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], nums2 = [<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line">输出: [<span class="number">2</span>]</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>], nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line">输出: [<span class="number">9</span>,<span class="number">4</span>]</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">输出结果中的每个元素一定是唯一的。</span><br><span class="line">我们可以不考虑输出结果的顺序。</span><br></pre></td></tr></table></figure><a id="more"></a>
 
 <h6 id="解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"><a href="#解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。" class="headerlink" title="解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"></a>解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersection(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s1;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            s1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            s2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> it=s2.begin();it!=s2.end();it++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1.count(*it)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                result.push_back(*it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
@@ -15,11 +140,11 @@
   </entry>
   <entry>
     <title>136只出现一次的数字</title>
-    <url>/2019/11/13/136%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<h2 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h2><h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><a id="more"></a><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
-<p>说明：</p>
-<p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">输出: <span class="number">1</span></span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">输出: <span class="number">4</span></span><br></pre></td></tr></table></figure>
+    <url>/ck2ypkvgd0002b0g46lgg8tt0.html</url>
+    <content><![CDATA[<h2 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h2><h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p><p>说明：</p><p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">输出: <span class="number">1</span></span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">输出: <span class="number">4</span></span><br></pre></td></tr></table></figure><a id="more"></a>
+
+
+
 
 <h6 id="解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a-0-a-a-a-0-并且最关键的就是疑惑还支持交换律-）"><a href="#解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a-0-a-a-a-0-并且最关键的就是疑惑还支持交换律-）" class="headerlink" title="解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a^0=a,a^a=0,并且最关键的就是疑惑还支持交换律- -）"></a>解题思路：本题抛开限制条件，非常简单，就是设置一个multiset（允许重复），然后全部插入之后，再次循环找到个数为1的数字。但是借鉴了别人的思路，太巧妙了，使用异或运算（a^0=a,a^a=0,并且最关键的就是疑惑还支持交换律- -）</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;uset;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(uset.count(nums[i])&gt;<span class="number">0</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">else</span> uset.insert(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        unordered_set&lt;int&gt;uset;</span></span><br><span class="line"><span class="comment">        for(int i=0;i&lt;nums.size();i++)&#123;</span></span><br><span class="line"><span class="comment">             uset.insert(nums[i]);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        if(uset.size()==nums.size())return false;</span></span><br><span class="line"><span class="comment">        return true;*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
