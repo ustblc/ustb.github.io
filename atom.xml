@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://cblog.club/"/>
-  <updated>2019-11-14T12:30:25.655Z</updated>
+  <updated>2019-11-14T13:08:33.155Z</updated>
   <id>http://cblog.club/</id>
   
   <author>
@@ -17,17 +17,43 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>django部署</title>
-    <link href="http://cblog.club/ck2ypkvhe0008b0g49r43fx4h.html"/>
-    <id>http://cblog.club/ck2ypkvhe0008b0g49r43fx4h.html</id>
-    <published>2019-11-14T12:07:08.000Z</published>
-    <updated>2019-11-14T12:30:25.655Z</updated>
+    <title>test</title>
+    <link href="http://cblog.club/ck2yqep9w000ar4g49d01a7wi.html"/>
+    <id>http://cblog.club/ck2yqep9w000ar4g49d01a7wi.html</id>
+    <published>2019-11-14T12:58:07.000Z</published>
+    <updated>2019-11-14T13:08:33.155Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a><p>2.安装所需要的包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure><p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure><p>4.添加GPG密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure><p>5.添加软件源</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure><p>6.添加成功后更新软件包缓存</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><p>7.安装docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure><p>8.启动 docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>  1]]></content>
+    <content type="html"><![CDATA[<p>asd as</p><img src="/ck2yqep9w000ar4g49d01a7wi/test.jpg" class title="This is an example image">]]></content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;环境配置（ubuntu安装docker）&quot;&gt;&lt;a href=&quot;#环境配置（ubuntu安装docker）&quot; class=&quot;headerlink&quot; title=&quot;环境配置（ubuntu安装docker）&quot;&gt;&lt;/a&gt;环境配置（ubuntu安装docker）&lt;/h3&gt;&lt;p&gt;1.选择国内的云服务商，这里选择阿里云为例&lt;/p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+      
+      
+        &lt;p&gt;asd as&lt;/p&gt;&lt;img src=&quot;/ck2yqep9w000ar4g49d01a7wi/test.jpg&quot; class title=&quot;This is an example image&quot;&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="test" scheme="http://cblog.club/categories/test/"/>
+    
+    
+      <category term="test" scheme="http://cblog.club/tags/test/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>django部署</title>
+    <link href="http://cblog.club/ck2yqep9t0008r4g4bxpzca5h.html"/>
+    <id>http://cblog.club/ck2yqep9t0008r4g4bxpzca5h.html</id>
+    <published>2019-11-14T12:07:08.000Z</published>
+    <updated>2019-11-14T12:52:08.938Z</updated>
+    
+    <content type="html"><![CDATA[<p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a><p>2.安装所需要的包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual</span><br></pre></td></tr></table></figure><p>3.添加使用 HTTPS 传输的软件包以及 CA 证书</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install apt-transport-https ca-certificates</span><br></pre></td></tr></table></figure><p>4.添加GPG密钥</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D</span><br></pre></td></tr></table></figure><p>5.添加软件源</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"deb https://apt.dockerproject.org/repo ubuntu-xenial main"</span> | sudo tee /etc/apt/sources.list.d/docker.list</span><br></pre></td></tr></table></figure><p>6.添加成功后更新软件包缓存</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure><p>7.安装docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install docker-engine</span><br></pre></td></tr></table></figure><p>8.启动 docker</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;1.选择国内的云服务商，这里选择阿里云为例&lt;/p&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -41,8 +67,8 @@
   
   <entry>
     <title>1</title>
-    <link href="http://cblog.club/ck2ypkvfm0000b0g48luwe3yn.html"/>
-    <id>http://cblog.club/ck2ypkvfm0000b0g48luwe3yn.html</id>
+    <link href="http://cblog.club/ck2yqep9h0002r4g42byy0d2e.html"/>
+    <id>http://cblog.club/ck2yqep9h0002r4g42byy0d2e.html</id>
     <published>2019-11-14T11:54:09.364Z</published>
     <updated>2019-11-14T12:06:18.431Z</updated>
     
@@ -60,8 +86,8 @@
   
   <entry>
     <title>视觉追踪与视觉分割</title>
-    <link href="http://cblog.club/ck2ypkvhm000ab0g46oo456g5.html"/>
-    <id>http://cblog.club/ck2ypkvhm000ab0g46oo456g5.html</id>
+    <link href="http://cblog.club/ck2yqepa1000er4g41l9o35dn.html"/>
+    <id>http://cblog.club/ck2yqepa1000er4g41l9o35dn.html</id>
     <published>2019-11-14T11:28:11.502Z</published>
     <updated>2019-11-14T11:39:26.561Z</updated>
     
@@ -79,8 +105,8 @@
   
   <entry>
     <title>349两个数组的交集</title>
-    <link href="http://cblog.club/ck2ypkvgp0004b0g48pu19tlz.html"/>
-    <id>http://cblog.club/ck2ypkvgp0004b0g48pu19tlz.html</id>
+    <link href="http://cblog.club/ck2yqep9p0006r4g417wh9rxg.html"/>
+    <id>http://cblog.club/ck2yqep9p0006r4g417wh9rxg.html</id>
     <published>2019-11-13T14:02:06.000Z</published>
     <updated>2019-11-13T14:10:16.955Z</updated>
     
@@ -102,8 +128,8 @@
   
   <entry>
     <title>136只出现一次的数字</title>
-    <link href="http://cblog.club/ck2ypkvgd0002b0g46lgg8tt0.html"/>
-    <id>http://cblog.club/ck2ypkvgd0002b0g46lgg8tt0.html</id>
+    <link href="http://cblog.club/ck2yqep9a0000r4g4dw5t646g.html"/>
+    <id>http://cblog.club/ck2yqep9a0000r4g4dw5t646g.html</id>
     <published>2019-11-13T12:07:54.000Z</published>
     <updated>2019-11-13T14:10:12.716Z</updated>
     

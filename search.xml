@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>test</title>
+    <url>/ck2yqep9w000ar4g49d01a7wi.html</url>
+    <content><![CDATA[<p>asd as</p><img src="/ck2yqep9w000ar4g49d01a7wi/test.jpg" class title="This is an example image">]]></content>
+      <categories>
+        <category>test</category>
+      </categories>
+      <tags>
+        <tag>test</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>django部署</title>
-    <url>/ck2ypkvhe0008b0g49r43fx4h.html</url>
-    <content><![CDATA[<h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a>
+    <url>/ck2yqep9t0008r4g4bxpzca5h.html</url>
+    <content><![CDATA[<p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a>
 
 
 <p>2.安装所需要的包</p>
@@ -27,7 +38,7 @@
 <p>8.启动 docker</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">enable</span> docker</span><br><span class="line">sudo systemctl start docker</span><br></pre></td></tr></table></figure>
 
-  1
+
 
 ]]></content>
       <categories>
@@ -39,7 +50,7 @@
   </entry>
   <entry>
     <title>1</title>
-    <url>/ck2ypkvfm0000b0g48luwe3yn.html</url>
+    <url>/ck2yqep9h0002r4g42byy0d2e.html</url>
     <content><![CDATA[<h3 id="环境配置（ubuntu安装docker）"><a href="#环境配置（ubuntu安装docker）" class="headerlink" title="环境配置（ubuntu安装docker）"></a>环境配置（ubuntu安装docker）</h3><p>1.选择国内的云服务商，这里选择阿里云为例</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -sSL http://acs-public-mirror.oss-cn-hangzhou.aliyuncs.com/docker-engine/internet | sh -</span><br></pre></td></tr></table></figure><a id="more"></a>
 
 
@@ -68,7 +79,7 @@
   </entry>
   <entry>
     <title>视觉追踪与视觉分割</title>
-    <url>/ck2ypkvhm000ab0g46oo456g5.html</url>
+    <url>/ck2yqepa1000er4g41l9o35dn.html</url>
     <content><![CDATA[<h4 id="驱动点（motivation）（视频跟踪到底是跟踪什么？）"><a href="#驱动点（motivation）（视频跟踪到底是跟踪什么？）" class="headerlink" title="驱动点（motivation）（视频跟踪到底是跟踪什么？）"></a>驱动点（motivation）（视频跟踪到底是跟踪什么？）</h4><p>对于目标跟踪而言，一般论文开篇通常都会说在第一帧给定目标位置，在后续帧中预测目标的位置。然而如何对后续帧中表述的定义直接影响了整个跟踪领域的发展。 </p><a id="more"></a>
 <p>为了方便表述，早期的跟踪算法都是坐标轴对齐的的矩形框。但随着跟踪精度的不断提升，数据集的难度在不断提升，在VOT2015时即提出使用旋转矩形框来作为标记。在VOT2016的时候提出自动的通过mask来生成旋转框的方法。更为本质的，我们会发现，这个旋转的矩形框实际上就是mask的一种近似。我们所要预测的实际上就是目标物体的mask。利用mask才能得到精度本身的上界。</p>
 <p> <img src="https://mmbiz.qpic.cn/mmbiz_jpg/gYUsOT36vfoqaonDicB29VlmiczTGRQltIwKs2jkh7bGibdQuVCGF8yfkfUopwnM16dvKj45z3WJZsKMBd91cpR2Q/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1" alt="img"> </p>
@@ -127,7 +138,7 @@
   </entry>
   <entry>
     <title>349两个数组的交集</title>
-    <url>/ck2ypkvgp0004b0g48pu19tlz.html</url>
+    <url>/ck2yqep9p0006r4g417wh9rxg.html</url>
     <content><![CDATA[<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><h6 id="题目描述：给定两个数组，编写一个函数来计算它们的交集"><a href="#题目描述：给定两个数组，编写一个函数来计算它们的交集" class="headerlink" title="题目描述：给定两个数组，编写一个函数来计算它们的交集"></a>题目描述：给定两个数组，编写一个函数来计算它们的交集</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], nums2 = [<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line">输出: [<span class="number">2</span>]</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>], nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line">输出: [<span class="number">9</span>,<span class="number">4</span>]</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">输出结果中的每个元素一定是唯一的。</span><br><span class="line">我们可以不考虑输出结果的顺序。</span><br></pre></td></tr></table></figure><a id="more"></a>
 
 <h6 id="解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"><a href="#解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。" class="headerlink" title="解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"></a>解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersection(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s1;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            s1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            s2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> it=s2.begin();it!=s2.end();it++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1.count(*it)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                result.push_back(*it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
@@ -140,7 +151,7 @@
   </entry>
   <entry>
     <title>136只出现一次的数字</title>
-    <url>/ck2ypkvgd0002b0g46lgg8tt0.html</url>
+    <url>/ck2yqep9a0000r4g4dw5t646g.html</url>
     <content><![CDATA[<h2 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h2><h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p><p>说明：</p><p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">输出: <span class="number">1</span></span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: [<span class="number">4</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">2</span>]</span><br><span class="line">输出: <span class="number">4</span></span><br></pre></td></tr></table></figure><a id="more"></a>
 
 
