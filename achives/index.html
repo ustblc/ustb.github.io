@@ -57,14 +57,14 @@
   <meta name="description" content="研一在读">
 <meta property="og:type" content="website">
 <meta property="og:title" content="归档">
-<meta property="og:url" content="http:&#x2F;&#x2F;cblog.club&#x2F;achives&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;achives&#x2F;index.html">
 <meta property="og:site_name" content="lemon">
 <meta property="og:description" content="研一在读">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-11-13T11:30:14.287Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://cblog.club/achives/">
+<link rel="canonical" href="https://cblog.club/achives/">
 
 
 <script id="page-configurations">
@@ -128,7 +128,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">不断提升自己</p>
+        <p class="site-subtitle">一直在路上</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -254,6 +254,7 @@
 
           </div>
           
+    <div class="comments" id="comments"></div>
 
         </div>
           
@@ -337,7 +338,7 @@
 
 
       </div>
-
+	
     </div>
   </aside>
   <div id="sidebar-dimmer"></div>
@@ -431,6 +432,33 @@
   
 
   
+
+
+<script>
+NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+  var GUEST = ['nick', 'mail', 'link'];
+  var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '2gTMxod3jhz1PoDX6d4NKqQx-gzGzoHsz',
+    appKey: '0aoGT3GaT7ei6OAop6VlIrYV',
+    placeholder: "快来评论吧^ ^!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: true,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
 
 </body>
 </html>

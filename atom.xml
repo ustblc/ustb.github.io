@@ -2,12 +2,12 @@
 <feed xmlns="https://www.w3.org/2005/Atom">
   <title>lemon</title>
   
-  <subtitle>不断提升自己</subtitle>
+  <subtitle>一直在路上</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://cblog.club/"/>
-  <updated>2019-11-14T14:33:38.928Z</updated>
-  <id>http://cblog.club/</id>
+  <link href="https://cblog.club/"/>
+  <updated>2019-11-15T07:02:42.555Z</updated>
+  <id>https://cblog.club/</id>
   
   <author>
     <name>lemon</name>
@@ -18,10 +18,10 @@
   
   <entry>
     <title>219存在重复元素II</title>
-    <link href="http://cblog.club/ck2ytpd3l000260g42r21b4t4.html"/>
-    <id>http://cblog.club/ck2ytpd3l000260g42r21b4t4.html</id>
+    <link href="https://cblog.club/ck2ztrbp90002tgg42gg76khv.html"/>
+    <id>https://cblog.club/ck2ztrbp90002tgg42gg76khv.html</id>
     <published>2019-11-14T14:30:04.000Z</published>
-    <updated>2019-11-14T14:33:38.928Z</updated>
+    <updated>2019-11-15T07:02:42.555Z</updated>
     
     <content type="html"><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组和一个整数 <em>k</em>，判断数组中是否存在两个不同的索引 <em>i</em> 和 <em>j</em>，使得 <strong>nums [i] = nums [j]</strong>，并且 <em>i</em> 和 <em>j</em> 的差的绝对值最大为 <em>k</em>。 </p><a id="more"></a><blockquote><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3,1], k = 3</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,0,1,1], k = 1</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure><p><strong>示例 3:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3,1,2,3], k = 2</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure></blockquote><h6 id="解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-gt-数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。"><a href="#解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-gt-数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。" class="headerlink" title="解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-&gt;数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。"></a>解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-&gt;数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsNearbyDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_multimap</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;umap;</span><br><span class="line">        <span class="built_in">unordered_multimap</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">        <span class="keyword">int</span> cur_distance;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            it=umap.find(nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(it!=umap.end())&#123;</span><br><span class="line">                cur_distance=i-(it-&gt;second);</span><br><span class="line">                <span class="keyword">if</span>(cur_distance&lt;=k)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            umap.insert(&#123;nums[i],i&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -32,15 +32,15 @@
     </summary>
     
     
-      <category term="leetcode" scheme="http://cblog.club/categories/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
     
     
   </entry>
   
   <entry>
     <title>350两个数组的交集II</title>
-    <link href="http://cblog.club/ck2ytpd3u000660g4cxuj41lv.html"/>
-    <id>http://cblog.club/ck2ytpd3u000660g4cxuj41lv.html</id>
+    <link href="https://cblog.club/ck2ztrbrj0009tgg4c9uq03w1.html"/>
+    <id>https://cblog.club/ck2ztrbrj0009tgg4c9uq03w1.html</id>
     <published>2019-11-14T14:23:29.000Z</published>
     <updated>2019-11-14T14:35:03.314Z</updated>
     
@@ -53,15 +53,15 @@
     </summary>
     
     
-      <category term="leetcode" scheme="http://cblog.club/categories/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
     
     
   </entry>
   
   <entry>
     <title>387字符串中的第一个唯一字符</title>
-    <link href="http://cblog.club/ck2ytpd3v000760g4eur6a2nr.html"/>
-    <id>http://cblog.club/ck2ytpd3v000760g4eur6a2nr.html</id>
+    <link href="https://cblog.club/ck2ztrbrl000atgg45r1g6xqu.html"/>
+    <id>https://cblog.club/ck2ztrbrl000atgg45r1g6xqu.html</id>
     <published>2019-11-14T14:16:46.000Z</published>
     <updated>2019-11-14T14:34:33.188Z</updated>
     
@@ -74,15 +74,15 @@
     </summary>
     
     
-      <category term="leetcode" scheme="http://cblog.club/categories/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
     
     
   </entry>
   
   <entry>
     <title>599两个列表的最小索引总和</title>
-    <link href="http://cblog.club/ck2ytpd3z000b60g442y32k6p.html"/>
-    <id>http://cblog.club/ck2ytpd3z000b60g442y32k6p.html</id>
+    <link href="https://cblog.club/ck2ztrbt3000ctgg4fin01l46.html"/>
+    <id>https://cblog.club/ck2ztrbt3000ctgg4fin01l46.html</id>
     <published>2019-11-14T14:05:10.000Z</published>
     <updated>2019-11-14T14:14:22.975Z</updated>
     
@@ -95,15 +95,15 @@
     </summary>
     
     
-      <category term="leetcode" scheme="http://cblog.club/categories/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
     
     
   </entry>
   
   <entry>
     <title>django部署</title>
-    <link href="http://cblog.club/ck2ytpd41000c60g4309b9h9y.html"/>
-    <id>http://cblog.club/ck2ytpd41000c60g4309b9h9y.html</id>
+    <link href="https://cblog.club/ck2ztrbu4000ftgg4drpy7qsr.html"/>
+    <id>https://cblog.club/ck2ztrbu4000ftgg4drpy7qsr.html</id>
     <published>2019-11-14T12:07:08.000Z</published>
     <updated>2019-11-14T13:47:05.753Z</updated>
     
@@ -116,17 +116,17 @@
     </summary>
     
     
-      <category term="部署" scheme="http://cblog.club/categories/%E9%83%A8%E7%BD%B2/"/>
+      <category term="部署" scheme="https://cblog.club/categories/%E9%83%A8%E7%BD%B2/"/>
     
     
-      <category term="部署" scheme="http://cblog.club/tags/%E9%83%A8%E7%BD%B2/"/>
+      <category term="部署" scheme="https://cblog.club/tags/%E9%83%A8%E7%BD%B2/"/>
     
   </entry>
   
   <entry>
     <title>1</title>
-    <link href="http://cblog.club/ck2ytpd3b000060g4bgjvdl7a.html"/>
-    <id>http://cblog.club/ck2ytpd3b000060g4bgjvdl7a.html</id>
+    <link href="https://cblog.club/ck2ztrbok0000tgg4eq39e0mp.html"/>
+    <id>https://cblog.club/ck2ztrbok0000tgg4eq39e0mp.html</id>
     <published>2019-11-14T11:54:09.364Z</published>
     <updated>2019-11-14T12:06:18.431Z</updated>
     
@@ -147,8 +147,8 @@
   
   <entry>
     <title>视觉追踪与视觉分割</title>
-    <link href="http://cblog.club/ck2ytpd44000g60g42jp7d3g5.html"/>
-    <id>http://cblog.club/ck2ytpd44000g60g42jp7d3g5.html</id>
+    <link href="https://cblog.club/ck2ztrbv3000itgg4337c4cj7.html"/>
+    <id>https://cblog.club/ck2ztrbv3000itgg4337c4cj7.html</id>
     <published>2019-11-14T11:28:11.502Z</published>
     <updated>2019-11-14T11:39:26.561Z</updated>
     
@@ -169,8 +169,8 @@
   
   <entry>
     <title>349两个数组的交集</title>
-    <link href="http://cblog.club/ck2ytpd3r000560g4921xhcla.html"/>
-    <id>http://cblog.club/ck2ytpd3r000560g4921xhcla.html</id>
+    <link href="https://cblog.club/ck2ztrbrg0007tgg41b0od52f.html"/>
+    <id>https://cblog.club/ck2ztrbrg0007tgg41b0od52f.html</id>
     <published>2019-11-13T14:02:06.000Z</published>
     <updated>2019-11-14T13:54:38.915Z</updated>
     
@@ -183,17 +183,17 @@
     </summary>
     
     
-      <category term="leetcode" scheme="http://cblog.club/categories/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
     
     
-      <category term="leetcode" scheme="http://cblog.club/tags/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/tags/leetcode/"/>
     
   </entry>
   
   <entry>
     <title>136只出现一次的数字</title>
-    <link href="http://cblog.club/ck2ytpd3j000160g44ct85z86.html"/>
-    <id>http://cblog.club/ck2ytpd3j000160g44ct85z86.html</id>
+    <link href="https://cblog.club/ck2ztrbpq0004tgg4ct2jgeez.html"/>
+    <id>https://cblog.club/ck2ztrbpq0004tgg4ct2jgeez.html</id>
     <published>2019-11-13T12:07:54.000Z</published>
     <updated>2019-11-13T14:10:12.716Z</updated>
     
@@ -209,10 +209,10 @@
     </summary>
     
     
-      <category term="leetcode" scheme="http://cblog.club/categories/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
     
     
-      <category term="leetcode" scheme="http://cblog.club/tags/leetcode/"/>
+      <category term="leetcode" scheme="https://cblog.club/tags/leetcode/"/>
     
   </entry>
   
