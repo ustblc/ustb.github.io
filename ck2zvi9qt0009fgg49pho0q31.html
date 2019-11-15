@@ -56,17 +56,17 @@
   };
 </script>
 
-  <meta name="description" content="题目描述： 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。">
+  <meta name="description" content="题目描述： 给定两个数组，编写一个函数来计算它们的交集。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="219存在重复元素II">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck2zva93a000470g48i3x5irn.html">
+<meta property="og:title" content="350两个数组的交集II">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck2zvi9qt0009fgg49pho0q31.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="题目描述： 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。">
+<meta property="og:description" content="题目描述： 给定两个数组，编写一个函数来计算它们的交集。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-15T07:02:42.555Z">
+<meta property="og:updated_time" content="2019-11-14T14:35:03.314Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://cblog.club/ck2zva93a000470g48i3x5irn.html">
+<link rel="canonical" href="https://cblog.club/ck2zvi9qt0009fgg49pho0q31.html">
 
 
 <script id="page-configurations">
@@ -80,7 +80,7 @@
   };
 </script>
 
-  <title>219存在重复元素II | lemon</title>
+  <title>350两个数组的交集II | lemon</title>
   
 
 
@@ -222,7 +222,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck2zva93a000470g48i3x5irn.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck2zvi9qt0009fgg49pho0q31.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -235,7 +235,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          219存在重复元素II
+          350两个数组的交集II
         </h2>
 
         <div class="post-meta">
@@ -244,16 +244,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-11-14 22:30:04" itemprop="dateCreated datePublished" datetime="2019-11-14T22:30:04+08:00">2019-11-14</time>
+              <time title="创建时间：2019-11-14 22:23:29 / 修改时间：22:35:03" itemprop="dateCreated datePublished" datetime="2019-11-14T22:23:29+08:00">2019-11-14</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-15 15:02:42" itemprop="dateModified" datetime="2019-11-15T15:02:42+08:00">2019-11-15</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -267,7 +261,7 @@
             </span>
 
           
-            <span id="/ck2zva93a000470g48i3x5irn.html" class="post-meta-item leancloud_visitors" data-flag-title="219存在重复元素II" title="阅读次数">
+            <span id="/ck2zvi9qt0009fgg49pho0q31.html" class="post-meta-item leancloud_visitors" data-flag-title="350两个数组的交集II" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -282,8 +276,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/ck2zva93a000470g48i3x5irn.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/ck2zva93a000470g48i3x5irn.html" itemprop="commentCount"></span>
+    <a title="valine" href="/ck2zvi9qt0009fgg49pho0q31.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ck2zvi9qt0009fgg49pho0q31.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -293,7 +287,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>709</span>
+              <span>1.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -312,20 +306,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组和一个整数 <em>k</em>，判断数组中是否存在两个不同的索引 <em>i</em> 和 <em>j</em>，使得 <strong>nums [i] = nums [j]</strong>，并且 <em>i</em> 和 <em>j</em> 的差的绝对值最大为 <em>k</em>。 </p>
-<a id="more"></a>
-
+        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定两个数组，编写一个函数来计算它们的交集。<a id="more"></a> </p>
 <blockquote>
 <p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3,1], k = 3</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums1 = [1,2,2,1], nums2 = [2,2]</span><br><span class="line">输出: [2,2]</span><br></pre></td></tr></table></figure>
 
 <p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,0,1,1], k = 1</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]</span><br><span class="line">输出: [4,9]</span><br></pre></td></tr></table></figure>
 
-<p><strong>示例 3:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3,1,2,3], k = 2</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
+<p><strong>说明：</strong></p>
+<ul>
+<li>输出结果中每个元素出现的次数，应与元素在两个数组中出现的次数一致。</li>
+<li>我们可以不考虑输出结果的顺序。</li>
+</ul>
+<p><strong><em>\</em>进阶:**</strong></p>
+<ul>
+<li>如果给定的数组已经排好序呢？你将如何优化你的算法？</li>
+<li>如果 <em>nums1</em> 的大小比 <em>nums2</em> 小很多，哪种方法更优？</li>
+<li>如果 <em>nums2</em> 的元素存储在磁盘上，磁盘内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？</li>
+</ul>
 </blockquote>
-<h6 id="解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-gt-数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。"><a href="#解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-gt-数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。" class="headerlink" title="解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-&gt;数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。"></a>解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-&gt;数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsNearbyDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_multimap</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;umap;</span><br><span class="line">        <span class="built_in">unordered_multimap</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">        <span class="keyword">int</span> cur_distance;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            it=umap.find(nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(it!=umap.end())&#123;</span><br><span class="line">                cur_distance=i-(it-&gt;second);</span><br><span class="line">                <span class="keyword">if</span>(cur_distance&lt;=k)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            umap.insert(&#123;nums[i],i&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h6 id="解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered-multiset（允许重复元素出现）-那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合-中的当前元素删掉，因为有可能后边还会出现，造成结果错误。"><a href="#解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered-multiset（允许重复元素出现）-那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合-中的当前元素删掉，因为有可能后边还会出现，造成结果错误。" class="headerlink" title="解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered_multiset（允许重复元素出现）,那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合 中的当前元素删掉，因为有可能后边还会出现，造成结果错误。"></a>解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered_multiset（允许重复元素出现）,那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合 中的当前元素删掉，因为有可能后边还会出现，造成结果错误。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersect(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;unums1;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;unums2;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            unums1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            unums2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            it=unums2.find(nums1[i]);</span><br><span class="line">            <span class="keyword">if</span>(it!=unums2.end())&#123;</span><br><span class="line">                result.push_back(nums1[i]);</span><br><span class="line">                unums2.erase(it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -370,7 +371,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cblog.club/ck2zva93a000470g48i3x5irn.html" title="219存在重复元素II">https://cblog.club/ck2zva93a000470g48i3x5irn.html</a>
+    <a href="https://cblog.club/ck2zvi9qt0009fgg49pho0q31.html" title="350两个数组的交集II">https://cblog.club/ck2zvi9qt0009fgg49pho0q31.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -385,14 +386,17 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck2zva93k000970g418lrbo9s.html" rel="next" title="350两个数组的交集II">
-                  <i class="fa fa-chevron-left"></i> 350两个数组的交集II
+                <a href="/ck2zvi9qv000afgg42wtlfqmk.html" rel="next" title="387字符串中的第一个唯一字符">
+                  <i class="fa fa-chevron-left"></i> 387字符串中的第一个唯一字符
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/ck2zvi9qh0002fgg47uet9u8h.html" rel="prev" title="219存在重复元素II">
+                  219存在重复元素II <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
