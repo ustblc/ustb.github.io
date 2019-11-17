@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>3无重复字符的最长子串</title>
-    <url>/ck31q2fd5000bocg4dbyt6b7s.html</url>
+    <url>/ck32bu6um000gxkg4ey3x4ggn.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个字符串，请你找出其中不含有重复字符的 <strong>最长子串</strong> 的长度。</p>
 <a id="more"></a>
 
@@ -26,7 +26,7 @@
   </entry>
   <entry>
     <title>771宝石与石头</title>
-    <url>/ck31q2fdd000kocg42g0war8r.html</url>
+    <url>/ck32bu6v9000nxkg48kpf2h2k.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定字符串<code>J</code> 代表石头中宝石的类型，和字符串 <code>S</code>代表你拥有的石头。 <code>S</code> 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。</p>
 <p><code>J</code> 中的字母不重复，<code>J</code> 和 <code>S</code>中的所有字符都是字母。字母区分大小写，因此<code>&quot;a&quot;</code>和<code>&quot;A&quot;</code>是不同类型的石头。</p>
 <a id="more"></a>
@@ -44,7 +44,7 @@
 <li><code>J</code> 中的字符不重复。</li>
 </ul>
 </blockquote>
-<h6 id="解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，在判断当前元素是否在J中即可，比较水。"><a href="#解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，在判断当前元素是否在J中即可，比较水。" class="headerlink" title="解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，在判断当前元素是否在J中即可，比较水。"></a>解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，在判断当前元素是否在J中即可，比较水。</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numJewelsInStones</span><span class="params">(<span class="built_in">string</span> J, <span class="built_in">string</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">char</span>&gt;J_set;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;J.size();i++)&#123;</span><br><span class="line">            J_set.insert(J[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;S.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(J_set.count(S[i])&gt;<span class="number">0</span>)count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+<h6 id="解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，再判断当前元素是否在J中即可，比较水。"><a href="#解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，再判断当前元素是否在J中即可，比较水。" class="headerlink" title="解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，再判断当前元素是否在J中即可，比较水。"></a>解题思路：本题是最基础的哈希集合的题目，一眼就可以看出来要使用哈希set，将J的插入到set中，然后循环S，再判断当前元素是否在J中即可，比较水。</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numJewelsInStones</span><span class="params">(<span class="built_in">string</span> J, <span class="built_in">string</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">char</span>&gt;J_set;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;J.size();i++)&#123;</span><br><span class="line">            J_set.insert(J[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;S.size();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(J_set.count(S[i])&gt;<span class="number">0</span>)count++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
@@ -54,7 +54,7 @@
   </entry>
   <entry>
     <title>36有效的数独</title>
-    <url>/ck31q2fcu0006ocg4cs162z2s.html</url>
+    <url>/ck32bu6tu000axkg4d1dn1kbp.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>判断一个 9x9 的数独是否有效。只需要<strong>根据以下规则</strong>，验证已经填入的数字是否有效即可。</p>
 <a id="more"></a>
 
@@ -63,7 +63,7 @@
 <li>数字 <code>1-9</code> 在每一列只能出现一次。</li>
 <li>数字 <code>1-9</code> 在每一个以粗实线分隔的 <code>3x3</code> 宫内只能出现一次。</li>
 </ol>
-<img src="/ck31q2fcu0006ocg4cs162z2s/1.jpg" class="">
+<img src="/ck32bu6tu000axkg4d1dn1kbp/1.jpg" class="">
 
 <p>上图是一个部分填充的有效的数独。</p>
 <p>数独部分空格内已填入了数字，空白格用 <code>&#39;.&#39;</code> 表示。</p>
@@ -92,7 +92,7 @@
   </entry>
   <entry>
     <title>49字母异位词分组</title>
-    <url>/ck31q2fdh000rocg45m26h6gv.html</url>
+    <url>/ck32bu6v1000kxkg42qcb70j4.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。 </p>
 <a id="more"></a>
 
@@ -116,7 +116,7 @@
   </entry>
   <entry>
     <title>RNN循环神经网络</title>
-    <url>/ck31q2fda000hocg4b56g376i.html</url>
+    <url>/ck32bu6vp000txkg4fclu1tg6.html</url>
     <content><![CDATA[<h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><ul>
 <li>之前见过的神经网络都有一个特点，就是没有记忆，只能单独处理每个输入，在输入与输入之间没有保存任何状态，对于这种网络，要想处理数据点的序列或时间序列，需要向网络同时展示整个序列，即将序列转换成单个数据点，然后一次性处理，这种网络叫做前馈网络。</li>
 </ul>
@@ -130,26 +130,26 @@
 </li>
 <li><p>RNN之所以称为循环神经网路，即一个序列当前的输出与前面的输出也有关。具体的表现形式为网络会对前面的信息进行记忆并应用于当前输出的计算中，即隐藏层之间的节点不再无连接而是有连接的，并且隐藏层的输入不仅包括输入层的输出还包括上一时刻隐藏层的输出。</p>
 </li>
-<li><img src="/ck31q2fda000hocg4b56g376i/1.png" class="">
+<li><img src="/ck32bu6vp000txkg4fclu1tg6/1.png" class="">
 
 </li>
 </ul>
-<h5 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h5><img src="/ck31q2fda000hocg4b56g376i/2.png" class="">
+<h5 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h5><img src="/ck32bu6vp000txkg4fclu1tg6/2.png" class="">
 
 <p>我们可以看到RNN层级结构较之于CNN来说比较简单, 它主要有<strong>输入层</strong>,<strong>Hidden Layer</strong>, <strong>输出层</strong>组成。</p>
 <p>并且会发现在<strong>Hidden Layer</strong> 有一个箭头表示数据的循环更新, 这个就是实现时间记忆功能的方法。</p>
-<img src="/ck31q2fda000hocg4b56g376i/3.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/3.png" class="">
 
 <p>所示为Hidden Layer的层级展开图. t-1, t, t+1表示时间序列. X表示输入的样本. St表示样本在时间t处的的记忆,<strong>St = f(W*St-1 +U*Xt)</strong>. W表示输入的权重, U表示此刻输入的样本的权重, V表示输出的样本权重。</p>
 <p> 在t =1时刻, 一般初始化输入S0=0, 随机初始化W,U,V, 进行下面的公式计算:</p>
-<img src="/ck31q2fda000hocg4b56g376i/4.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/4.png" class="">
 
 <p>其中,f和g均为激活函数. 其中f可以是tanh,relu,sigmoid等激活函数，g通常是softmax也可以是其他。</p>
 <p>时间就向前推进，此时的状态s1作为时刻1的记忆状态将参与下一个时刻的预测活动，也就是:</p>
-<img src="/ck31q2fda000hocg4b56g376i/5.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/5.png" class="">
 
 <p>以此类推, 可以得到最终的输出值为:</p>
-<img src="/ck31q2fda000hocg4b56g376i/6.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/6.png" class="">
 
 <p><strong>注意</strong>: </p>
 <ul>
@@ -159,38 +159,38 @@
 </li>
 </ul>
 <h5 id="RNN反向传播"><a href="#RNN反向传播" class="headerlink" title="RNN反向传播"></a>RNN反向传播</h5><p>我们介绍了RNN的前向传播的方式, 那么RNN的权重参数W,U,V都是怎么更新的呢?</p>
-<p>每一次的输出值Ot都会产生一个误差值Et, 则总的误差可以表示为:<img src="/ck31q2fda000hocg4b56g376i/7.png" class=""></p>
+<p>每一次的输出值Ot都会产生一个误差值Et, 则总的误差可以表示为:<img src="/ck32bu6vp000txkg4fclu1tg6/7.png" class=""></p>
 <p>则损失函数可以使用交叉熵损失函数也可以使用平方误差损失函数。</p>
 <p>由于每一步的输出不仅仅依赖当前步的网络，并且还需要前若干步网络的状态，那么这种BP改版的算法叫做Backpropagation Through Time(BPTT) , 也就是将输出端的误差值反向传递,运用梯度下降法进行更新。</p>
 <p>也就是要求参数的梯度：</p>
-<img src="/ck31q2fda000hocg4b56g376i/8.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/8.png" class="">
 
 <p>首先我们求解<strong>W的更新方法</strong>, 由前面的W的更新可以看出它是每个时刻的偏差的偏导数之和. </p>
 <p> 在这里我们以 t = 3时刻为例, 根据链式求导法则可以得到t = 3时刻的偏导数为:</p>
-<img src="/ck31q2fda000hocg4b56g376i/9.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/9.png" class="">
 
-<p>此时, 根据公式<img src="/ck31q2fda000hocg4b56g376i/10.png" class="">我们会发现, S3除了和W有关之外, 还和前一时刻S2有关。</p>
+<p>此时, 根据公式<img src="/ck32bu6vp000txkg4fclu1tg6/10.png" class="">我们会发现, S3除了和W有关之外, 还和前一时刻S2有关。</p>
 <p>对于S3直接展开得到下面的式子:</p>
-<img src="/ck31q2fda000hocg4b56g376i/11.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/11.png" class="">
 
 <p>对于S2直接展开得到下面的式子:</p>
-<img src="/ck31q2fda000hocg4b56g376i/12.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/12.png" class="">
 
 <p>对于S1直接展开得到下面的式子:</p>
-<img src="/ck31q2fda000hocg4b56g376i/13.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/13.png" class="">
 
 <p>将上述三个式子合并得到:</p>
-<img src="/ck31q2fda000hocg4b56g376i/14.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/14.png" class="">
 
 <p>这样就得到了公式:</p>
-<img src="/ck31q2fda000hocg4b56g376i/15.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/15.png" class="">
 
-<p>这里要说明的是:<img src="/ck31q2fda000hocg4b56g376i/18.png" class="">表示的是S3对W直接求导, 不考虑S2的影响.(也就是例如y = f(x)*g(x)对x求导一样)</p>
+<p>这里要说明的是:<img src="/ck32bu6vp000txkg4fclu1tg6/18.png" class="">表示的是S3对W直接求导, 不考虑S2的影响.(也就是例如y = f(x)*g(x)对x求导一样)</p>
 <p>其次是对<strong>U的更新方法</strong>. 由于参数U求解和W求解类似,这里就不在赘述了,最终得到的具体的公式如下:</p>
-<img src="/ck31q2fda000hocg4b56g376i/16.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/16.png" class="">
 
 <p>最后,给出<strong>V的更新公式</strong>(V只和输出O有关):</p>
-<img src="/ck31q2fda000hocg4b56g376i/17.png" class="">
+<img src="/ck32bu6vp000txkg4fclu1tg6/17.png" class="">
 
 
 ]]></content>
@@ -203,7 +203,7 @@
   </entry>
   <entry>
     <title>深度学习应用于文本和序列</title>
-    <url>/ck31q2fdf000oocg4autuh3gp.html</url>
+    <url>/ck32bu6vr000vxkg47v3w9clg.html</url>
     <content><![CDATA[<p>文本可以理解成单词序列、字符序列，序列又有时间序列和其他的一般序列。<a id="more"></a></p>
 <p>处理序列的两种基本的深度学习模型</p>
 <ul>
@@ -222,7 +222,7 @@
 </ul>
 <p>将文本分解而成的单元（单词、字符、n-gram）叫做标记</p>
 <p>将文本分解成标记的过程叫做分词</p>
- <img src="/ck31q2fdf000oocg4autuh3gp/fenci.png" class="" title="分词的过程">
+ <img src="/ck32bu6vr000vxkg47v3w9clg/fenci.png" class="" title="分词的过程">
 
 <p>将向量与标记关联的方法：</p>
 <ul>
@@ -230,7 +230,7 @@
 <li>标记嵌入（token embedding），该方法通常只用于单词，叫做词嵌入（word embedding）<ul>
 <li>one-hot得到的向量是二进制的、稀疏的（绝大部分元素都是0）、维数很高的（维数等于词表中单词个数）</li>
 <li>词嵌入是低维的浮点数向量（密集向量），并且是从数据中学习得到的，常见的维度是256、512、1024（处理非常大的词表），而one-hot编码维度很高（20000或更高）</li>
-<li><img src="/ck31q2fdf000oocg4autuh3gp/bianma.png" class="" title="不同方法编码对比">
+<li><img src="/ck32bu6vr000vxkg47v3w9clg/bianma.png" class="" title="不同方法编码对比">
 
 </li>
 </ul>
@@ -247,7 +247,7 @@
 <ul>
 <li>embedding层：可以理解成一个字典，将整数序列（二维整数张量）（表示特定单词）映射为密集向量</li>
 </ul>
-<img src="/ck31q2fdf000oocg4autuh3gp/embedding.png" class="" title="embedding层作用过程">
+<img src="/ck32bu6vr000vxkg47v3w9clg/embedding.png" class="" title="embedding层作用过程">
 
 <ul>
 <li>接收整数序列作为输入，然后在字典中查找整数，最后返回相关联的向量（返回的是一个三维浮点数张量）</li>
@@ -278,7 +278,7 @@
   </entry>
   <entry>
     <title>219存在重复元素II</title>
-    <url>/ck31q2fdi000tocg405sj6k1w.html</url>
+    <url>/ck32bu6ta0006xkg42fgj5dwb.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组和一个整数 <em>k</em>，判断数组中是否存在两个不同的索引 <em>i</em> 和 <em>j</em>，使得 <strong>nums [i] = nums [j]</strong>，并且 <em>i</em> 和 <em>j</em> 的差的绝对值最大为 <em>k</em>。 </p>
 <a id="more"></a>
 
@@ -299,7 +299,7 @@
   </entry>
   <entry>
     <title>350两个数组的交集II</title>
-    <url>/ck31q2fcs0005ocg493a010oj.html</url>
+    <url>/ck32bu6tg0008xkg40tl97kc4.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定两个数组，编写一个函数来计算它们的交集。<a id="more"></a> </p>
 <blockquote>
 <p><strong>示例 1:</strong></p>
@@ -327,7 +327,7 @@
   </entry>
   <entry>
     <title>387字符串中的第一个唯一字符</title>
-    <url>/ck31q2fcw0007ocg44ex06u5c.html</url>
+    <url>/ck32bu6u8000exkg4dkvib3e8.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。 <a id="more"></a></p>
 <blockquote>
 <p>案例:</p>
@@ -342,7 +342,7 @@
   </entry>
   <entry>
     <title>599两个列表的最小索引总和</title>
-    <url>/ck31q2fd7000docg41f6299bi.html</url>
+    <url>/ck32bu6vf000qxkg49ycodp4s.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。<a id="more"></a></p>
 <p>你需要帮助他们用<strong>最少的索引和</strong>找出他们<strong>共同喜爱的餐厅</strong>。 如果答案不止一个，则输出所有答案并且不考虑顺序。 你可以假设总是存在一个答案。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"Piatti"</span>, <span class="string">"The Grill at Torrey Pines"</span>, <span class="string">"Hungry Hunter Steakhouse"</span>, <span class="string">"Shogun"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们唯一共同喜爱的餐厅是“Shogun”。</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"KFC"</span>, <span class="string">"Shogun"</span>, <span class="string">"Burger King"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们共同喜爱且具有最小索引和的餐厅是“Shogun”，它有最小的索引和<span class="number">1</span>(<span class="number">0</span>+<span class="number">1</span>)。</span><br><span class="line">提示:</span><br><span class="line"></span><br><span class="line">两个列表的长度范围都在 [<span class="number">1</span>, <span class="number">1000</span>]内。</span><br><span class="line">两个列表中的字符串的长度将在[<span class="number">1</span>，<span class="number">30</span>]的范围内。</span><br><span class="line">下标从<span class="number">0</span>开始，到列表的长度减<span class="number">1</span>。</span><br><span class="line">两个列表都没有重复的元素。</span><br></pre></td></tr></table></figure>
@@ -354,7 +354,7 @@
   </entry>
   <entry>
     <title>349两个数组的交集</title>
-    <url>/ck31q2fcf0000ocg4783tbno3.html</url>
+    <url>/ck32bu6sj0002xkg4hsxpe9op.html</url>
     <content><![CDATA[<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><h6 id="题目描述：给定两个数组，编写一个函数来计算它们的交集"><a href="#题目描述：给定两个数组，编写一个函数来计算它们的交集" class="headerlink" title="题目描述：给定两个数组，编写一个函数来计算它们的交集"></a>题目描述：给定两个数组，编写一个函数来计算它们的交集<a id="more"></a></h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], nums2 = [<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line">输出: [<span class="number">2</span>]</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>], nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line">输出: [<span class="number">9</span>,<span class="number">4</span>]</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">输出结果中的每个元素一定是唯一的。</span><br><span class="line">我们可以不考虑输出结果的顺序。</span><br></pre></td></tr></table></figure>
 
 <h6 id="解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"><a href="#解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。" class="headerlink" title="解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"></a>解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersection(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s1;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            s1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            s2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> it=s2.begin();it!=s2.end();it++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1.count(*it)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                result.push_back(*it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
@@ -367,7 +367,7 @@
   </entry>
   <entry>
     <title>136只出现一次的数字</title>
-    <url>/ck31q2fcn0002ocg4he2vfwbs.html</url>
+    <url>/ck32bu6rs0000xkg4dlm454pe.html</url>
     <content><![CDATA[<h2 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h2><h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
 <p>说明：</p>
 <p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
