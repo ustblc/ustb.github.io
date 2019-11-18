@@ -57,18 +57,29 @@
   };
 </script>
 
-  <meta name="description" content="题目描述：假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。">
-<meta name="keywords" content="lemon">
+  <meta name="description" content="SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是">
+<meta name="keywords" content="深度学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="599两个列表的最小索引总和">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89kv000tysg4451p3oth.html">
+<meta property="og:title" content="理解LSTM">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="题目描述：假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。">
+<meta property="og:description" content="SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-14T14:14:22.975Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;10.png">
+<meta property="og:updated_time" content="2019-11-17T15:43:35.337Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyjo00185wg4b470clok&#x2F;1.png">
 
-<link rel="canonical" href="https://cblog.club/ck34e89kv000tysg4451p3oth.html">
+<link rel="canonical" href="https://cblog.club/ck34icyjo00185wg4b470clok.html">
 
 
 <script id="page-configurations">
@@ -82,7 +93,7 @@
   };
 </script>
 
-  <title>599两个列表的最小索引总和 | lemon</title>
+  <title>理解LSTM | lemon</title>
   
 
 
@@ -224,7 +235,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck34e89kv000tysg4451p3oth.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck34icyjo00185wg4b470clok.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -237,7 +248,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          599两个列表的最小索引总和
+          理解LSTM
         </h2>
 
         <div class="post-meta">
@@ -248,7 +259,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-14 22:05:10 / 修改时间：22:14:22" itemprop="dateCreated datePublished" datetime="2019-11-14T22:05:10+08:00">2019-11-14</time>
+              <time title="创建时间：2019-11-17 09:38:27 / 修改时间：23:43:35" itemprop="dateCreated datePublished" datetime="2019-11-17T09:38:27+08:00">2019-11-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -256,14 +267,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/ck34e89kv000tysg4451p3oth.html" class="post-meta-item leancloud_visitors" data-flag-title="599两个列表的最小索引总和" title="阅读次数">
+            <span id="/ck34icyjo00185wg4b470clok.html" class="post-meta-item leancloud_visitors" data-flag-title="理解LSTM" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -278,8 +289,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/ck34e89kv000tysg4451p3oth.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/ck34e89kv000tysg4451p3oth.html" itemprop="commentCount"></span>
+    <a title="valine" href="/ck34icyjo00185wg4b470clok.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ck34icyjo00185wg4b470clok.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -289,14 +300,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -308,11 +319,49 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。<a id="more"></a></p>
-<p>你需要帮助他们用<strong>最少的索引和</strong>找出他们<strong>共同喜爱的餐厅</strong>。 如果答案不止一个，则输出所有答案并且不考虑顺序。 你可以假设总是存在一个答案。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"Piatti"</span>, <span class="string">"The Grill at Torrey Pines"</span>, <span class="string">"Hungry Hunter Steakhouse"</span>, <span class="string">"Shogun"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们唯一共同喜爱的餐厅是“Shogun”。</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"KFC"</span>, <span class="string">"Shogun"</span>, <span class="string">"Burger King"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们共同喜爱且具有最小索引和的餐厅是“Shogun”，它有最小的索引和<span class="number">1</span>(<span class="number">0</span>+<span class="number">1</span>)。</span><br><span class="line">提示:</span><br><span class="line"></span><br><span class="line">两个列表的长度范围都在 [<span class="number">1</span>, <span class="number">1000</span>]内。</span><br><span class="line">两个列表中的字符串的长度将在[<span class="number">1</span>，<span class="number">30</span>]的范围内。</span><br><span class="line">下标从<span class="number">0</span>开始，到列表的长度减<span class="number">1</span>。</span><br><span class="line">两个列表都没有重复的元素。</span><br></pre></td></tr></table></figure>
+        <p>SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是为了解决SimpleRNN梯度消失这个问题设计的。<a id="more"></a></p>
+<h4 id="LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。"><a href="#LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。" class="headerlink" title="LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。"></a>LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。</h4><p>所有循环神经网络都具有神经网络的重复模块链的形式。 在标准的RNN中，该重复模块将具有非常简单的结构，例如单个tanh层。标准的RNN网络如下图所示：</p>
+<img src="/ck34icyjo00185wg4b470clok/1.png" class="">
 
-<h6 id="解题思路：本题思路比较清晰，创建两个哈希映射，餐厅名称-gt-索引，然后再循环，如果再另一个哈希表找到当前餐厅，那么就将其两个索引加起来，和min比较，如果比min小，value值就设置成min，反之就设置成2000-（因为两个索引最多为1998），最后再次循环，找到value值为min的加入到数组中即可。"><a href="#解题思路：本题思路比较清晰，创建两个哈希映射，餐厅名称-gt-索引，然后再循环，如果再另一个哈希表找到当前餐厅，那么就将其两个索引加起来，和min比较，如果比min小，value值就设置成min，反之就设置成2000-（因为两个索引最多为1998），最后再次循环，找到value值为min的加入到数组中即可。" class="headerlink" title="解题思路：本题思路比较清晰，创建两个哈希映射，餐厅名称-&gt;索引，然后再循环，如果再另一个哈希表找到当前餐厅，那么就将其两个索引加起来，和min比较，如果比min小，value值就设置成min，反之就设置成2000+（因为两个索引最多为1998），最后再次循环，找到value值为min的加入到数组中即可。"></a>解题思路：本题思路比较清晰，创建两个哈希映射，餐厅名称-&gt;索引，然后再循环，如果再另一个哈希表找到当前餐厅，那么就将其两个索引加起来，和min比较，如果比min小，value值就设置成min，反之就设置成2000+（因为两个索引最多为1998），最后再次循环，找到value值为min的加入到数组中即可。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; findRestaurant(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; list1, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; list2) &#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;map_l1;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;map_l2;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;list1.size();i++)&#123;</span><br><span class="line">            map_l1[list1[i]]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;list2.size();i++)&#123;</span><br><span class="line">            map_l2[list2[i]]=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> min=<span class="number">2000</span>;</span><br><span class="line">        <span class="keyword">int</span> cur_value;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> it=map_l1.begin();it!=map_l1.end();it++)&#123;</span><br><span class="line">            <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;::iterator l2_iter;</span><br><span class="line">            l2_iter=map_l2.find(it-&gt;first);</span><br><span class="line">            <span class="keyword">if</span>(l2_iter!=map_l2.end())&#123;</span><br><span class="line">                cur_value=it-&gt;second+l2_iter-&gt;second;</span><br><span class="line">                <span class="keyword">if</span>(cur_value&lt;=min)&#123;</span><br><span class="line">                    min=cur_value;</span><br><span class="line">                    it-&gt;second=min;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> it-&gt;second=cur_value;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> it-&gt;second+=<span class="number">2000</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> it=map_l1.begin();it!=map_l1.end();it++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(it-&gt;second==min)result.push_back(it-&gt;first);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p> LSTM也具有这种链式结构，但是它的重复单元不同于标准RNN网络里的单元只有一个网络层，它的内部有四个网络层。LSTMs的结构如下图所示：</p>
+<img src="/ck34icyjo00185wg4b470clok/2.png" class="">
+
+<p> 在解释LSTMs的详细结构时先定义一下图中各个符号的含义，符号包括下面几种 </p>
+<img src="/ck34icyjo00185wg4b470clok/3.jpg" class="">
+
+<p>图中黄色类似于CNN里的激活函数操作，粉色圆圈表示点操作，单箭头表示数据流向，箭头合并表示向量的合并（concat）操作，箭头分叉表示向量的拷贝操作 </p>
+<h4 id="LSTM核心思想"><a href="#LSTM核心思想" class="headerlink" title="LSTM核心思想"></a>LSTM核心思想</h4><p>LSTM的关键在于细胞的状态(整个绿色的图表示的是一个cell)，和穿过细胞的那条水平线。</p>
+<p>细胞状态类似于传送带。直接在整个链上运行，只有一些少量的线性交互。信息在上面流传保持不变会很容易。</p>
+<img src="/ck34icyjo00185wg4b470clok/4.png" class="">
+
+<p>若只有上面的那条水平线是没办法实现添加或者删除信息的。而是通过一种叫做 门（gates） 的结构来实现的。</p>
+<p>门 可以实现选择性地让信息通过，主要是通过一个 sigmoid 的神经层 和一个逐点相乘的操作来实现的。</p>
+<img src="/ck34icyjo00185wg4b470clok/5.png" class="">
+
+<p>sigmoid 层输出（是一个向量）的每个元素都是一个在 0 和 1 之间的实数，表示让对应信息通过的权重（或者占比）。比如， 0 表示“不让任何信息通过”， 1 表示“让所有信息通过”。</p>
+<p>LSTM通过三个这样的结构来实现信息的保护和控制。这三个门分别输入门、遗忘门和输出门。</p>
+<h4 id="逐步理解LSTM"><a href="#逐步理解LSTM" class="headerlink" title="逐步理解LSTM"></a>逐步理解LSTM</h4><p>接下来通过三个门来逐步理解LSTM的原理</p>
+<h5 id="遗忘门"><a href="#遗忘门" class="headerlink" title="遗忘门"></a>遗忘门</h5><p>在我们 LSTM 中的第一步是决定我们会从细胞状态中丢弃什么信息。这个决定通过一个称为忘记门层完成。该门会读取 h(t-1)和x(t)， 输出一个在 0到 1之间的数值即每个在细胞状态C(t-1)中的数字， 1 表示“完全保留”，0 表示“完全舍弃” 。</p>
+<p>举个例子，在语言中我们基于已经看到的词来预测下一个词。在这个问题中，细胞状态可能包含当前主语的性别，因此正确的代词可以被选择出来。当我们看到新的主语，我们希望忘记旧的主语。 </p>
+<img src="/ck34icyjo00185wg4b470clok/6.png" class="">
+
+<p> 其中h(t-1)表示的是上一个cell的输出，x(t)表示的是当前细胞的输入。σ表示sigmod函数。 </p>
+<h5 id="输入门"><a href="#输入门" class="headerlink" title="输入门"></a>输入门</h5><p>下一步是决定给细胞状态添加哪些新的信息。这一步又分为两个步骤，首先，利用h(t-1)和x(t)通过一个称为输入门的操作来决定更新哪些信息。然后利用h(t-1)和x(t)通过一个tanh层得到新的候选细胞信息~Ct，这些信息可能会被更新到细胞信息中。这两步描述如下图所示：</p>
+<img src="/ck34icyjo00185wg4b470clok/7.png" class="">
+
+<p> 下面将更新旧的细胞信息C(t-1)，变为新的细胞信息Ct。更新的规则就是通过忘记门选择忘记旧细胞信息的一部分，通过输入门选择添加候选细胞信息~Ct的一部分得到新的细胞信息Ct。更新操作如下图所示:</p>
+<img src="/ck34icyjo00185wg4b470clok/8.png" class="">
+
+<h5 id="输出门"><a href="#输出门" class="headerlink" title="输出门"></a>输出门</h5><p>最终，我们需要确定输出什么值。这个输出将会基于我们的细胞状态，但是也是一个过滤后的版本。首先，我们运行一个 sigmoid 层来确定细胞状态的哪个部分将输出出去。接着，我们把细胞状态通过 tanh 进行处理（得到一个在 -1 到 1 之间的值）并将它和 sigmoid 门的输出相乘，最终我们仅仅会输出我们确定输出的那部分。</p>
+<p> 还是拿语言模型来举例说明，在预测动词形式的时候，我们需要通过输入的主语是单数还是复数来推断输出门输出的预测动词是单数形式还是复数形式。 </p>
+<img src="/ck34icyjo00185wg4b470clok/9.png" class="">
+
+<h4 id="LSTM变体"><a href="#LSTM变体" class="headerlink" title="LSTM变体"></a>LSTM变体</h4><p>下面主要讲一下其中比较著名的变种 GRU（Gated Recurrent Unit ），这是由 Cho, et al. (2014) 提出。在 GRU 中，如下图所示，只有两个门：重置门（reset gate）和更新门（update gate）。同时在这个结构中，把细胞状态和隐藏状态进行了合并。最后模型比标准的 LSTM 结构要简单，而且这个结构后来也非常流行。</p>
+<img src="/ck34icyjo00185wg4b470clok/10.png" class="">
+
+<p> 其中，<strong>r</strong>表示重置门，<strong>t</strong>表示更新门。重置门决定是否将之前的状态忘记。(作用相当于合并了 LSTM 中的遗忘门和传入门）当<strong>r</strong>趋于0的时候，前一个时刻的状态信息 h(t-1)会被忘掉，隐藏状态^ht 会被重置为当前输入的信息。更新门决定是否要将隐藏状态更新为新的状态 ht(作用相当于 LSTM 中的输出门)</p>
+<p>其中重置门为上图中前面那个门，决定了如何将新的输入信息与前面的记忆相结合。更新门为上图中后面那个门，定义了前面记忆保存到当前时间步的量。</p>
+
     </div>
 
     
@@ -357,7 +406,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cblog.club/ck34e89kv000tysg4451p3oth.html" title="599两个列表的最小索引总和">https://cblog.club/ck34e89kv000tysg4451p3oth.html</a>
+    <a href="https://cblog.club/ck34icyjo00185wg4b470clok.html" title="理解LSTM">https://cblog.club/ck34icyjo00185wg4b470clok.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -367,21 +416,24 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"> <i class="fa fa-tag"></i> 深度学习</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck34e89bn0008ysg485s6154a.html" rel="next" title="349两个数组的交集">
-                  <i class="fa fa-chevron-left"></i> 349两个数组的交集
+                <a href="/ck34icygs000i5wg4gc5ccb59.html" rel="next" title="3无重复字符的最长子串">
+                  <i class="fa fa-chevron-left"></i> 3无重复字符的最长子串
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck34e89h8000gysg40ffy5gxw.html" rel="prev" title="387字符串中的第一个唯一字符">
-                  387字符串中的第一个唯一字符 <i class="fa fa-chevron-right"></i>
+                <a href="/ck34icyia000u5wg42o4davwk.html" rel="prev" title="652寻找重复的子树">
+                  652寻找重复的子树 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -437,20 +489,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -487,7 +539,7 @@
 		<div class="widget-wrap">
 			<div id="myCanvasContainer" class="widget tagcloud">
 				<canvas width="250" height="150" id="resCanvas" style="width=100%">
-					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">3</span></li></ul>
+					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">4</span></li></ul>
 				</canvas>
 			</div>
 		</div>
@@ -516,7 +568,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">16 分钟</span>
+    <span title="站点阅读时长">21 分钟</span>
 </div>
 	<div class="powered-by">
 		<i class="fa fa-user-md"></i>
@@ -526,7 +578,7 @@
 	</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共9k字</span>
+  <span class="post-count">博客全站共10.8k字</span>
 </div>
         
 
