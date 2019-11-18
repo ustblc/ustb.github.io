@@ -61,25 +61,25 @@
 <meta name="keywords" content="深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解LSTM">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy.html">
 <meta property="og:site_name" content="lemon">
 <meta property="og:description" content="SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;3.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;4.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;5.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;6.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;7.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;8.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;9.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;10.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;1.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;2.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;3.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;4.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;5.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;6.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;7.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;8.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;9.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;10.png">
 <meta property="og:updated_time" content="2019-11-17T15:43:35.337Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e40h1001890g4d2qwhb8m&#x2F;1.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34e89qr0018ysg43dtlhdhy&#x2F;1.png">
 
-<link rel="canonical" href="https://cblog.club/ck34e40h1001890g4d2qwhb8m.html">
+<link rel="canonical" href="https://cblog.club/ck34e89qr0018ysg43dtlhdhy.html">
 
 
 <script id="page-configurations">
@@ -235,7 +235,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck34e40h1001890g4d2qwhb8m.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck34e89qr0018ysg43dtlhdhy.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -274,7 +274,7 @@
             </span>
 
           
-            <span id="/ck34e40h1001890g4d2qwhb8m.html" class="post-meta-item leancloud_visitors" data-flag-title="理解LSTM" title="阅读次数">
+            <span id="/ck34e89qr0018ysg43dtlhdhy.html" class="post-meta-item leancloud_visitors" data-flag-title="理解LSTM" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -289,8 +289,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/ck34e40h1001890g4d2qwhb8m.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/ck34e40h1001890g4d2qwhb8m.html" itemprop="commentCount"></span>
+    <a title="valine" href="/ck34e89qr0018ysg43dtlhdhy.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ck34e89qr0018ysg43dtlhdhy.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -321,43 +321,43 @@
       
         <p>SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是为了解决SimpleRNN梯度消失这个问题设计的。<a id="more"></a></p>
 <h4 id="LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。"><a href="#LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。" class="headerlink" title="LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。"></a>LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。</h4><p>所有循环神经网络都具有神经网络的重复模块链的形式。 在标准的RNN中，该重复模块将具有非常简单的结构，例如单个tanh层。标准的RNN网络如下图所示：</p>
-<img src="/ck34e40h1001890g4d2qwhb8m/1.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/1.png" class="">
 
 <p> LSTM也具有这种链式结构，但是它的重复单元不同于标准RNN网络里的单元只有一个网络层，它的内部有四个网络层。LSTMs的结构如下图所示：</p>
-<img src="/ck34e40h1001890g4d2qwhb8m/2.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/2.png" class="">
 
 <p> 在解释LSTMs的详细结构时先定义一下图中各个符号的含义，符号包括下面几种 </p>
-<img src="/ck34e40h1001890g4d2qwhb8m/3.jpg" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/3.jpg" class="">
 
 <p>图中黄色类似于CNN里的激活函数操作，粉色圆圈表示点操作，单箭头表示数据流向，箭头合并表示向量的合并（concat）操作，箭头分叉表示向量的拷贝操作 </p>
 <h4 id="LSTM核心思想"><a href="#LSTM核心思想" class="headerlink" title="LSTM核心思想"></a>LSTM核心思想</h4><p>LSTM的关键在于细胞的状态(整个绿色的图表示的是一个cell)，和穿过细胞的那条水平线。</p>
 <p>细胞状态类似于传送带。直接在整个链上运行，只有一些少量的线性交互。信息在上面流传保持不变会很容易。</p>
-<img src="/ck34e40h1001890g4d2qwhb8m/4.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/4.png" class="">
 
 <p>若只有上面的那条水平线是没办法实现添加或者删除信息的。而是通过一种叫做 门（gates） 的结构来实现的。</p>
 <p>门 可以实现选择性地让信息通过，主要是通过一个 sigmoid 的神经层 和一个逐点相乘的操作来实现的。</p>
-<img src="/ck34e40h1001890g4d2qwhb8m/5.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/5.png" class="">
 
 <p>sigmoid 层输出（是一个向量）的每个元素都是一个在 0 和 1 之间的实数，表示让对应信息通过的权重（或者占比）。比如， 0 表示“不让任何信息通过”， 1 表示“让所有信息通过”。</p>
 <p>LSTM通过三个这样的结构来实现信息的保护和控制。这三个门分别输入门、遗忘门和输出门。</p>
 <h4 id="逐步理解LSTM"><a href="#逐步理解LSTM" class="headerlink" title="逐步理解LSTM"></a>逐步理解LSTM</h4><p>接下来通过三个门来逐步理解LSTM的原理</p>
 <h5 id="遗忘门"><a href="#遗忘门" class="headerlink" title="遗忘门"></a>遗忘门</h5><p>在我们 LSTM 中的第一步是决定我们会从细胞状态中丢弃什么信息。这个决定通过一个称为忘记门层完成。该门会读取 h(t-1)和x(t)， 输出一个在 0到 1之间的数值即每个在细胞状态C(t-1)中的数字， 1 表示“完全保留”，0 表示“完全舍弃” 。</p>
 <p>举个例子，在语言中我们基于已经看到的词来预测下一个词。在这个问题中，细胞状态可能包含当前主语的性别，因此正确的代词可以被选择出来。当我们看到新的主语，我们希望忘记旧的主语。 </p>
-<img src="/ck34e40h1001890g4d2qwhb8m/6.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/6.png" class="">
 
 <p> 其中h(t-1)表示的是上一个cell的输出，x(t)表示的是当前细胞的输入。σ表示sigmod函数。 </p>
 <h5 id="输入门"><a href="#输入门" class="headerlink" title="输入门"></a>输入门</h5><p>下一步是决定给细胞状态添加哪些新的信息。这一步又分为两个步骤，首先，利用h(t-1)和x(t)通过一个称为输入门的操作来决定更新哪些信息。然后利用h(t-1)和x(t)通过一个tanh层得到新的候选细胞信息~Ct，这些信息可能会被更新到细胞信息中。这两步描述如下图所示：</p>
-<img src="/ck34e40h1001890g4d2qwhb8m/7.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/7.png" class="">
 
 <p> 下面将更新旧的细胞信息C(t-1)，变为新的细胞信息Ct。更新的规则就是通过忘记门选择忘记旧细胞信息的一部分，通过输入门选择添加候选细胞信息~Ct的一部分得到新的细胞信息Ct。更新操作如下图所示:</p>
-<img src="/ck34e40h1001890g4d2qwhb8m/8.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/8.png" class="">
 
 <h5 id="输出门"><a href="#输出门" class="headerlink" title="输出门"></a>输出门</h5><p>最终，我们需要确定输出什么值。这个输出将会基于我们的细胞状态，但是也是一个过滤后的版本。首先，我们运行一个 sigmoid 层来确定细胞状态的哪个部分将输出出去。接着，我们把细胞状态通过 tanh 进行处理（得到一个在 -1 到 1 之间的值）并将它和 sigmoid 门的输出相乘，最终我们仅仅会输出我们确定输出的那部分。</p>
 <p> 还是拿语言模型来举例说明，在预测动词形式的时候，我们需要通过输入的主语是单数还是复数来推断输出门输出的预测动词是单数形式还是复数形式。 </p>
-<img src="/ck34e40h1001890g4d2qwhb8m/9.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/9.png" class="">
 
 <h4 id="LSTM变体"><a href="#LSTM变体" class="headerlink" title="LSTM变体"></a>LSTM变体</h4><p>下面主要讲一下其中比较著名的变种 GRU（Gated Recurrent Unit ），这是由 Cho, et al. (2014) 提出。在 GRU 中，如下图所示，只有两个门：重置门（reset gate）和更新门（update gate）。同时在这个结构中，把细胞状态和隐藏状态进行了合并。最后模型比标准的 LSTM 结构要简单，而且这个结构后来也非常流行。</p>
-<img src="/ck34e40h1001890g4d2qwhb8m/10.png" class="">
+<img src="/ck34e89qr0018ysg43dtlhdhy/10.png" class="">
 
 <p> 其中，<strong>r</strong>表示重置门，<strong>t</strong>表示更新门。重置门决定是否将之前的状态忘记。(作用相当于合并了 LSTM 中的遗忘门和传入门）当<strong>r</strong>趋于0的时候，前一个时刻的状态信息 h(t-1)会被忘掉，隐藏状态^ht 会被重置为当前输入的信息。更新门决定是否要将隐藏状态更新为新的状态 ht(作用相当于 LSTM 中的输出门)</p>
 <p>其中重置门为上图中前面那个门，决定了如何将新的输入信息与前面的记忆相结合。更新门为上图中后面那个门，定义了前面记忆保存到当前时间步的量。</p>
@@ -406,7 +406,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cblog.club/ck34e40h1001890g4d2qwhb8m.html" title="理解LSTM">https://cblog.club/ck34e40h1001890g4d2qwhb8m.html</a>
+    <a href="https://cblog.club/ck34e89qr0018ysg43dtlhdhy.html" title="理解LSTM">https://cblog.club/ck34e89qr0018ysg43dtlhdhy.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -424,7 +424,7 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck34e40eb000n90g43d9l5rz1.html" rel="next" title="3无重复字符的最长子串">
+                <a href="/ck34e89jt000kysg4bmub70u6.html" rel="next" title="3无重复字符的最长子串">
                   <i class="fa fa-chevron-left"></i> 3无重复字符的最长子串
                 </a>
             </div>
@@ -432,7 +432,7 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck34e40f7000y90g4ectz32zh.html" rel="prev" title="652寻找重复的子树">
+                <a href="/ck34e89ne000wysg4hhpxcoaw.html" rel="prev" title="652寻找重复的子树">
                   652寻找重复的子树 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
