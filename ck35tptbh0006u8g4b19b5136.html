@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="题目描述： 给定两个数组，编写一个函数来计算它们的交集。">
-<meta name="keywords" content="lemon">
+  <meta name="description" content="题目描述： 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。">
+<meta name="keywords" content="leetcode,动态规划">
 <meta property="og:type" content="article">
-<meta property="og:title" content="350两个数组的交集II">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck34icyek00075wg43av72j1l.html">
+<meta property="og:title" content="322零钱兑换">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck35tptbh0006u8g4b19b5136.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="题目描述： 给定两个数组，编写一个函数来计算它们的交集。">
+<meta property="og:description" content="题目描述： 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 -1。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-14T14:35:03.314Z">
+<meta property="og:updated_time" content="2019-11-19T11:41:57.625Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://cblog.club/ck34icyek00075wg43av72j1l.html">
+<link rel="canonical" href="https://cblog.club/ck35tptbh0006u8g4b19b5136.html">
 
 
 <script id="page-configurations">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>350两个数组的交集II | lemon</title>
+  <title>322零钱兑换 | lemon</title>
   
 
 
@@ -224,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck34icyek00075wg43av72j1l.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck35tptbh0006u8g4b19b5136.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -237,7 +237,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          350两个数组的交集II
+          322零钱兑换
         </h2>
 
         <div class="post-meta">
@@ -248,7 +248,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-14 22:23:29 / 修改时间：22:35:03" itemprop="dateCreated datePublished" datetime="2019-11-14T22:23:29+08:00">2019-11-14</time>
+              <time title="创建时间：2019-11-19 19:33:23 / 修改时间：19:41:57" itemprop="dateCreated datePublished" datetime="2019-11-19T19:33:23+08:00">2019-11-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,10 +260,16 @@
                     <span itemprop="name">leetcode</span>
                   </a>
                 </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
             </span>
 
           
-            <span id="/ck34icyek00075wg43av72j1l.html" class="post-meta-item leancloud_visitors" data-flag-title="350两个数组的交集II" title="阅读次数">
+            <span id="/ck35tptbh0006u8g4b19b5136.html" class="post-meta-item leancloud_visitors" data-flag-title="322零钱兑换" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -278,8 +284,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/ck34icyek00075wg43av72j1l.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/ck34icyek00075wg43av72j1l.html" itemprop="commentCount"></span>
+    <a title="valine" href="/ck35tptbh0006u8g4b19b5136.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ck35tptbh0006u8g4b19b5136.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -289,7 +295,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -308,27 +314,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定两个数组，编写一个函数来计算它们的交集。<a id="more"></a> </p>
+        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 <code>-1</code>。 </p>
+<a id="more"></a>
+
 <blockquote>
 <p><strong>示例 1:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums1 = [1,2,2,1], nums2 = [2,2]</span><br><span class="line">输出: [2,2]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: coins = [1, 2, 5], amount = 11</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 11 = 5 + 5 + 1</span><br></pre></td></tr></table></figure>
 
 <p><strong>示例 2:</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]</span><br><span class="line">输出: [4,9]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: coins = [2], amount = 3</span><br><span class="line">输出: -1</span><br></pre></td></tr></table></figure>
 
-<p><strong>说明：</strong></p>
-<ul>
-<li>输出结果中每个元素出现的次数，应与元素在两个数组中出现的次数一致。</li>
-<li>我们可以不考虑输出结果的顺序。</li>
-</ul>
-<p><strong><em>\</em>进阶:**</strong></p>
-<ul>
-<li>如果给定的数组已经排好序呢？你将如何优化你的算法？</li>
-<li>如果 <em>nums1</em> 的大小比 <em>nums2</em> 小很多，哪种方法更优？</li>
-<li>如果 <em>nums2</em> 的元素存储在磁盘上，磁盘内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？</li>
-</ul>
+<p><strong>说明</strong>:<br>你可以认为每种硬币的数量是无限的。</p>
 </blockquote>
-<h6 id="解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered-multiset（允许重复元素出现）-那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合-中的当前元素删掉，因为有可能后边还会出现，造成结果错误。"><a href="#解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered-multiset（允许重复元素出现）-那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合-中的当前元素删掉，因为有可能后边还会出现，造成结果错误。" class="headerlink" title="解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered_multiset（允许重复元素出现）,那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合 中的当前元素删掉，因为有可能后边还会出现，造成结果错误。"></a>解题思路：本题和之前的求两个数组的交集不同，不同之处就在于，示例1，交集元素如果出现多次，那么结果中应该也是多次，处理操作就是使用unordered_multiset（允许重复元素出现）,那么就是如果当前元素在另一个哈希集合中找到，那么就将其插入到数组中，但是还要有一个操作，就是将另一个集合 中的当前元素删掉，因为有可能后边还会出现，造成结果错误。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersect(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;unums1;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;unums2;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            unums1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            unums2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">unordered_multiset</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            it=unums2.find(nums1[i]);</span><br><span class="line">            <span class="keyword">if</span>(it!=unums2.end())&#123;</span><br><span class="line">                result.push_back(nums1[i]);</span><br><span class="line">                unums2.erase(it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h6 id="解题思路：这一题是动态规划的入门题目，可以说是很经典的一道题，对于动态规划，关键在于你是否能够写出状态转移方程（能写出来就已经成功了80-），这一题的状态转移方程主要是dp-i-min-dp-i-1-dp-i-coin-其中coin为零钱的面额，最后返回dp-总金额-即可。"><a href="#解题思路：这一题是动态规划的入门题目，可以说是很经典的一道题，对于动态规划，关键在于你是否能够写出状态转移方程（能写出来就已经成功了80-），这一题的状态转移方程主要是dp-i-min-dp-i-1-dp-i-coin-其中coin为零钱的面额，最后返回dp-总金额-即可。" class="headerlink" title="解题思路：这一题是动态规划的入门题目，可以说是很经典的一道题，对于动态规划，关键在于你是否能够写出状态转移方程（能写出来就已经成功了80%），这一题的状态转移方程主要是dp[i]=min(dp[i],1+dp[i-coin])其中coin为零钱的面额，最后返回dp[总金额]即可。"></a>解题思路：这一题是动态规划的入门题目，可以说是很经典的一道题，对于动态规划，关键在于你是否能够写出状态转移方程（能写出来就已经成功了80%），这一题的状态转移方程主要是dp[i]=min(dp[i],1+dp[i-coin])其中coin为零钱的面额，最后返回dp[总金额]即可。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">class Solution &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int coinChange(vector&lt;int&gt;&amp; coins, int amount) &#123;</span></span><br><span class="line"><span class="comment">        vector&lt;int&gt;dp(amount+1,amount+1);</span></span><br><span class="line"><span class="comment">        dp[0]=0;</span></span><br><span class="line"><span class="comment">        for(int i=0;i&lt;=amount;i++)&#123;</span></span><br><span class="line"><span class="comment">            for(int coin:coins)&#123;</span></span><br><span class="line"><span class="comment">                if(i&lt;coin)continue;</span></span><br><span class="line"><span class="comment">                dp[i]=min(dp[i],1+dp[i-coin]);</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return (dp[amount]==amount+1)?-1:dp[amount];</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;memo(amount+<span class="number">1</span>,<span class="number">-2</span>);</span><br><span class="line">        <span class="keyword">return</span> helper(coins,amount,memo);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; coins, <span class="keyword">int</span> amount,<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; memo)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(amount==<span class="number">0</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(memo[amount]!=<span class="number">-2</span>)<span class="keyword">return</span> memo[amount];</span><br><span class="line">        <span class="keyword">int</span> ans=__INT_MAX__;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> coin:coins)&#123;</span><br><span class="line">            <span class="keyword">if</span>(amount&lt;coin)<span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">int</span> sub_curcoin=helper(coins,amount-coin,memo);</span><br><span class="line">            <span class="keyword">if</span>(sub_curcoin==<span class="number">-1</span>)<span class="keyword">continue</span>;</span><br><span class="line">            ans=min(ans,<span class="number">1</span>+sub_curcoin);</span><br><span class="line">        &#125;</span><br><span class="line">        memo[amount]=(ans==__INT_MAX__)?<span class="number">-1</span>:ans;</span><br><span class="line">        <span class="keyword">return</span> memo[amount];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -373,7 +371,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cblog.club/ck34icyek00075wg43av72j1l.html" title="350两个数组的交集II">https://cblog.club/ck34icyek00075wg43av72j1l.html</a>
+    <a href="https://cblog.club/ck35tptbh0006u8g4b19b5136.html" title="322零钱兑换">https://cblog.club/ck35tptbh0006u8g4b19b5136.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -383,21 +381,25 @@
 
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/leetcode/" rel="tag"> <i class="fa fa-tag"></i> leetcode</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"> <i class="fa fa-tag"></i> 动态规划</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck34icyga000e5wg4hnvc8xwn.html" rel="next" title="387字符串中的第一个唯一字符">
-                  <i class="fa fa-chevron-left"></i> 387字符串中的第一个唯一字符
+                <a href="/ck35tpte9001pu8g44m3e4vao.html" rel="next" title="动态规划">
+                  <i class="fa fa-chevron-left"></i> 动态规划
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck34icyd700025wg4aj5a3g6r.html" rel="prev" title="219存在重复元素II">
-                  219存在重复元素II <i class="fa fa-chevron-right"></i>
+                <a href="/ck35tptdz0018u8g4f5ep5m1c.html" rel="prev" title="70爬楼梯">
+                  70爬楼梯 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -453,20 +455,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">24</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -503,7 +505,7 @@
 		<div class="widget-wrap">
 			<div id="myCanvasContainer" class="widget tagcloud">
 				<canvas width="250" height="150" id="resCanvas" style="width=100%">
-					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">4</span></li></ul>
+					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li></ul>
 				</canvas>
 			</div>
 		</div>
@@ -532,7 +534,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21 分钟</span>
+    <span title="站点阅读时长">32 分钟</span>
 </div>
 	<div class="powered-by">
 		<i class="fa fa-user-md"></i>
@@ -542,7 +544,7 @@
 	</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共10.8k字</span>
+  <span class="post-count">博客全站共17.6k字</span>
 </div>
         
 
