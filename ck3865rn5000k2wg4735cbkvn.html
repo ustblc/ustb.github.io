@@ -57,18 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="题目描述：给定一棵二叉树，返回所有重复的子树。对于同一类的重复子树，你只需要返回其中任意一棵的根结点即可。 两棵树重复是指它们具有相同的结构以及相同的结点值。">
+  <meta name="description" content="题目描述： 给定一个非空的整数数组，返回其中出现频率前 k 高的元素。">
 <meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="652寻找重复的子树">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck37dv5m8001mzkg46yz38x20.html">
+<meta property="og:title" content="347前K个高频元素">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck3865rn5000k2wg4735cbkvn.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="题目描述：给定一棵二叉树，返回所有重复的子树。对于同一类的重复子树，你只需要返回其中任意一棵的根结点即可。 两棵树重复是指它们具有相同的结构以及相同的结点值。">
+<meta property="og:description" content="题目描述： 给定一个非空的整数数组，返回其中出现频率前 k 高的元素。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-18T11:44:16.095Z">
+<meta property="og:updated_time" content="2019-11-18T12:12:17.093Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://cblog.club/ck37dv5m8001mzkg46yz38x20.html">
+<link rel="canonical" href="https://cblog.club/ck3865rn5000k2wg4735cbkvn.html">
 
 
 <script id="page-configurations">
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>652寻找重复的子树 | lemon</title>
+  <title>347前K个高频元素 | lemon</title>
   
 
 
@@ -224,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck37dv5m8001mzkg46yz38x20.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3865rn5000k2wg4735cbkvn.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -237,7 +237,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          652寻找重复的子树
+          347前K个高频元素
         </h2>
 
         <div class="post-meta">
@@ -248,7 +248,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-18 19:30:05 / 修改时间：19:44:16" itemprop="dateCreated datePublished" datetime="2019-11-18T19:30:05+08:00">2019-11-18</time>
+              <time title="创建时间：2019-11-18 20:06:04 / 修改时间：20:12:17" itemprop="dateCreated datePublished" datetime="2019-11-18T20:06:04+08:00">2019-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -263,7 +263,7 @@
             </span>
 
           
-            <span id="/ck37dv5m8001mzkg46yz38x20.html" class="post-meta-item leancloud_visitors" data-flag-title="652寻找重复的子树" title="阅读次数">
+            <span id="/ck3865rn5000k2wg4735cbkvn.html" class="post-meta-item leancloud_visitors" data-flag-title="347前K个高频元素" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -278,8 +278,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/ck37dv5m8001mzkg46yz38x20.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/ck37dv5m8001mzkg46yz38x20.html" itemprop="commentCount"></span>
+    <a title="valine" href="/ck3865rn5000k2wg4735cbkvn.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ck3865rn5000k2wg4735cbkvn.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -289,7 +289,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>927</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -308,23 +308,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一棵二叉树，返回所有重复的子树。对于同一类的重复子树，你只需要返回其中任意<strong>一棵</strong>的根结点即可。</p>
-<p>两棵树重复是指它们具有相同的结构以及相同的结点值。</p>
+        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个非空的整数数组，返回其中出现频率前 <strong>k</strong> 高的元素。 </p>
 <a id="more"></a>
 
 <blockquote>
-<p><strong>示例 1：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    1</span><br><span class="line">   / \</span><br><span class="line">  2   3</span><br><span class="line"> /   / \</span><br><span class="line">4   2   4</span><br><span class="line">   /</span><br><span class="line">  4</span><br></pre></td></tr></table></figure>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>], k = <span class="number">2</span></span><br><span class="line">输出: [<span class="number">1</span>,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
 
-<p>下面是两个重复的子树：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  2</span><br><span class="line"> /</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<p><strong>示例 2:</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [<span class="number">1</span>], k = <span class="number">1</span></span><br><span class="line">输出: [<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
 
-<p>和</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
-
-<p>因此，你需要以列表的形式返回上述重复子树的根结点。</p>
+<p><strong>说明：</strong></p>
+<ul>
+<li>你可以假设给定的 <em>k</em> 总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。</li>
+<li>你的算法的时间复杂度<strong>必须</strong>优于 O(<em>n</em> log <em>n</em>) , <em>n</em> 是数组的大小。</li>
+</ul>
 </blockquote>
-<h6 id="解题思路：本题刚开始没有解出来，我刚开始的思路就是把键设计成一个数组，然后将其先序序列插入进去，最后再查找键，如果有和它一样的键的话，那么就是相同的子树，但是发现，这么想其实是错的，因为你先序的话，如果采用的不是递归的话，那么默认是不将空指针当作元素的，所以其实序列如果一样，但是树的结构可能是不一样的！然后借鉴了别人的想法，采用string的方法，将遍历序列转换成一个字符串，如果遇到空指针，那么就当作-，这样以来，采用递归遍历，将其遍历序列生成一个字符串，当作其键，然后value值设置成0，1，0代表没出现这个序列，1代表出现了这个序列。遍历到当前结点，只需要判断其遍历序列是否存在即可。"><a href="#解题思路：本题刚开始没有解出来，我刚开始的思路就是把键设计成一个数组，然后将其先序序列插入进去，最后再查找键，如果有和它一样的键的话，那么就是相同的子树，但是发现，这么想其实是错的，因为你先序的话，如果采用的不是递归的话，那么默认是不将空指针当作元素的，所以其实序列如果一样，但是树的结构可能是不一样的！然后借鉴了别人的想法，采用string的方法，将遍历序列转换成一个字符串，如果遇到空指针，那么就当作-，这样以来，采用递归遍历，将其遍历序列生成一个字符串，当作其键，然后value值设置成0，1，0代表没出现这个序列，1代表出现了这个序列。遍历到当前结点，只需要判断其遍历序列是否存在即可。" class="headerlink" title="解题思路：本题刚开始没有解出来，我刚开始的思路就是把键设计成一个数组，然后将其先序序列插入进去，最后再查找键，如果有和它一样的键的话，那么就是相同的子树，但是发现，这么想其实是错的，因为你先序的话，如果采用的不是递归的话，那么默认是不将空指针当作元素的，所以其实序列如果一样，但是树的结构可能是不一样的！然后借鉴了别人的想法，采用string的方法，将遍历序列转换成一个字符串，如果遇到空指针，那么就当作#，这样以来，采用递归遍历，将其遍历序列生成一个字符串，当作其键，然后value值设置成0，1，0代表没出现这个序列，1代表出现了这个序列。遍历到当前结点，只需要判断其遍历序列是否存在即可。"></a>解题思路：本题刚开始没有解出来，我刚开始的思路就是把键设计成一个数组，然后将其先序序列插入进去，最后再查找键，如果有和它一样的键的话，那么就是相同的子树，但是发现，这么想其实是错的，因为你先序的话，如果采用的不是递归的话，那么默认是不将空指针当作元素的，所以其实序列如果一样，但是树的结构可能是不一样的！然后借鉴了别人的想法，采用string的方法，将遍历序列转换成一个字符串，如果遇到空指针，那么就当作#，这样以来，采用递归遍历，将其遍历序列生成一个字符串，当作其键，然后value值设置成0，1，0代表没出现这个序列，1代表出现了这个序列。遍历到当前结点，只需要判断其遍历序列是否存在即可。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * struct TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode *left;</span></span><br><span class="line"><span class="comment"> *     TreeNode *right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment"> * &#125;;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;TreeNode*&gt; findDuplicateSubtrees(TreeNode* root) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;TreeNode*&gt;result;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;node_seq;</span><br><span class="line">        node_sequences(root,result,node_seq);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">node_sequences</span><span class="params">(TreeNode* root,<span class="built_in">vector</span>&lt;TreeNode*&gt;&amp;result,<span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>,<span class="keyword">int</span>&gt;&amp;node_seq)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!root)<span class="keyword">return</span> <span class="string">"#"</span>;</span><br><span class="line">        <span class="built_in">string</span> str=to_string(root-&gt;val)+node_sequences(root-&gt;left,result,node_seq)+node_sequences(root-&gt;right,result,node_seq);</span><br><span class="line">        <span class="keyword">if</span>(node_seq[str]==<span class="number">1</span>)result.push_back(root);</span><br><span class="line">        node_seq[str]++;</span><br><span class="line">        <span class="keyword">return</span> str;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h6 id="解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。"><a href="#解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。" class="headerlink" title="解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。"></a>解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; topKFrequent(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;umap;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            umap[nums[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt;vec_umap(umap.begin(), umap.end());</span><br><span class="line">        sort(vec_umap.begin(), vec_umap.end(), </span><br><span class="line">        [](<span class="keyword">const</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &amp;x, <span class="keyword">const</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &amp;y) -&gt; <span class="keyword">int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x.second &gt; y.second;</span><br><span class="line">    &#125;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;</span><br><span class="line">            result.push_back(vec_umap[i].first);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -369,7 +369,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cblog.club/ck37dv5m8001mzkg46yz38x20.html" title="652寻找重复的子树">https://cblog.club/ck37dv5m8001mzkg46yz38x20.html</a>
+    <a href="https://cblog.club/ck3865rn5000k2wg4735cbkvn.html" title="347前K个高频元素">https://cblog.club/ck3865rn5000k2wg4735cbkvn.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -387,16 +387,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck37dv5o2002hzkg48uuxdjm5.html" rel="next" title="理解LSTM">
-                  <i class="fa fa-chevron-left"></i> 理解LSTM
+                <a href="/ck3865rp700162wg46972hhi8.html" rel="next" title="454四数相加II">
+                  <i class="fa fa-chevron-left"></i> 454四数相加II
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck37dv5kv0011zkg46thr29pc.html" rel="prev" title="454四数相加II">
-                  454四数相加II <i class="fa fa-chevron-right"></i>
+                <a href="/ck3865rvx00252wg4hc2u7bwv.html" rel="prev" title="PyTorch_Day1">
+                  PyTorch_Day1 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -452,7 +452,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -502,7 +502,7 @@
 		<div class="widget-wrap">
 			<div id="myCanvasContainer" class="widget tagcloud">
 				<canvas width="250" height="150" id="resCanvas" style="width=100%">
-					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">17</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li></ul>
+					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">1</span></li></ul>
 				</canvas>
 			</div>
 		</div>
@@ -531,7 +531,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">45 分钟</span>
+    <span title="站点阅读时长">46 分钟</span>
 </div>
 	<div class="powered-by">
 		<i class="fa fa-user-md"></i>
@@ -541,7 +541,7 @@
 	</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共23.3k字</span>
+  <span class="post-count">博客全站共24k字</span>
 </div>
         
 
