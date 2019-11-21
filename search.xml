@@ -1,8 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Python之进程和线程</title>
+    <url>/ck38rgbol002bqsg4eb4l41wi.html</url>
+    <content><![CDATA[<p>刚开始学习Python的时候，只是简单的学习了基础的语法和面向对象相关的资料，但是对于进程和线程并没有花时间来看，并且到这一章，和底层实现就密切相关了，和OS更是密不可分，面试非常喜欢问这类的问题，所以还是花点时间来看看，不妨多看看，多找找相关资料，很有帮助，本人是看的廖雪峰的教程，感觉还可以，就是这一章，最好还是在ubuntu环境下跑，因为linux和windows在进程和线程实现细节上有些不同！</p>
+<a id="more"></a>
+
+<p>很多同学都听说过，现代操作系统比如Mac OS X，UNIX，Linux，Windows等，都是支持“多任务”的操作系统。</p>
+<p>什么叫“多任务”呢？简单地说，就是操作系统可以同时运行多个任务。打个比方，你一边在用浏览器上网，一边在听MP3，一边在用Word赶作业，这就是多任务，至少同时有3个任务正在运行。还有很多任务悄悄地在后台同时运行着，只是桌面上没有显示而已。</p>
+<p>现在，多核CPU已经非常普及了，但是，即使过去的单核CPU，也可以执行多任务。由于CPU执行代码都是顺序执行的，那么，单核CPU是怎么执行多任务的呢？</p>
+<p>答案就是<strong>操作系统轮流让各个任务交替执行</strong>，任务1执行0.01秒，切换到任务2，任务2执行0.01秒，再切换到任务3，执行0.01秒……这样反复执行下去。表面上看，每个任务都是交替执行的，但是，由于CPU的执行速度实在是太快了，我们感觉就像所有任务都在同时执行一样。</p>
+<p>真正的并行执行多任务只能在多核CPU上实现，但是，由于任务数量远远多于CPU的核心数量，所以，操作系统也会自动把很多任务轮流调度到每个核心上执行。</p>
+<p>对于操作系统来说，一个任务就是一个进程（Process），比如打开一个浏览器就是启动一个浏览器进程，打开一个记事本就启动了一个记事本进程，打开两个记事本就启动了两个记事本进程，打开一个Word就启动了一个Word进程。</p>
+<p>有些进程还不止同时干一件事，比如Word，它可以同时进行打字、拼写检查、打印等事情。在一个进程内部，要同时干多件事，就需要同时运行多个“子任务”，我们把进程内的这些“子任务”称为线程（Thread）。</p>
+<p>由于每个进程至少要干一件事，所以，一个进程至少有一个线程。当然，像Word这种复杂的进程可以有多个线程，多个线程可以同时执行，多线程的执行方式和多进程是一样的，也是由操作系统在多个线程之间快速切换，让每个线程都短暂地交替运行，看起来就像同时执行一样。当然，真正地同时执行多线程需要多核CPU才可能实现。</p>
+<p>我们前面编写的所有的Python程序，都是执行单任务的进程，也就是只有一个线程。如果我们要同时执行多个任务怎么办？</p>
+<p>有两种解决方案：</p>
+<ul>
+<li><p>一种是启动多个进程，每个进程虽然只有一个线程，但多个进程可以一块执行多个任务。</p>
+</li>
+<li><p>还有一种方法是启动一个进程，在一个进程内启动多个线程，这样，多个线程也可以一块执行多个任务。</p>
+</li>
+<li><p>当然还有第三种方法，就是启动多个进程，每个进程再启动多个线程，这样同时执行的任务就更多了，当然这种模型更复杂，实际很少采用。</p>
+</li>
+</ul>
+<p>总结一下就是，多任务的实现有3种方式：</p>
+<ul>
+<li>多进程模式；</li>
+<li>多线程模式；</li>
+<li>多进程+多线程模式</li>
+</ul>
+<p>同时执行多个任务通常各个任务之间并不是没有关联的，而是需要相互通信和协调，有时，任务1必须暂停等待任务2完成后才能继续执行，有时，任务3和任务4又不能同时执行，所以，多进程和多线程的程序的复杂度要远远高于我们前面写的单进程单线程的程序。</p>
+<p>因为复杂度高，调试困难，所以，不是迫不得已，我们也不想编写多任务。但是，有很多时候，没有多任务还真不行。想想在电脑上看电影，就必须由一个线程播放视频，另一个线程播放音频，否则，单线程实现的话就只能先把视频播放完再播放音频，或者先把音频播放完再播放视频，这显然是不行的。</p>
+<p>Python既支持多进程，又支持多线程，我们会讨论如何编写这两种多任务程序。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>线程是最小的执行单元，而进程由至少一个线程组成。如何调度进程和线程，完全由操作系统决定，程序自己不能决定什么时候执行，执行多长时间。</p>
+<p>多进程和多线程的程序涉及到同步、数据共享的问题，编写起来更复杂。</p>
+<h4 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h4><p>要让Python程序实现多进程（multiprocessing），我们先了解操作系统的相关知识。</p>
+<p>Unix/Linux操作系统提供了一个<code>fork()</code> 系统调用，它非常特殊。普通的函数调用，调用一次，返回一次，但是fork()调用一次，<strong>返回两次</strong> ，因为操作系统自动把当前进程（称为父进程）复制了一份（称为子进程），然后，分别在父进程和子进程内返回。</p>
+<p>子进程永远返回<code>0</code>，而父进程返回子进程的ID。这样做的理由是，一个父进程可以fork出很多子进程，所以，父进程要记下每个子进程的ID，而子进程只需要调用<code>getppid()</code>就可以拿到父进程的ID。</p>
+<p>Python的os模块封装了常见的系统调用，其中就包括fork，可以在Python程序中轻松创建子进程：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">print(<span class="string">'Process (%s) start...'</span>%os.getpid())</span><br><span class="line">pid=os.fork()</span><br><span class="line"><span class="keyword">if</span> pid == <span class="number">0</span>:</span><br><span class="line">    print(<span class="string">'I am child process (%s) and my parent is %s'</span>%(os.getpid(),os.getppid()))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'I (%s) just created a child process (%s)'</span>%(os.getpid(),pid))</span><br></pre></td></tr></table></figure>
+
+<p>由于Windows没有fork调用，上面的代码在Windows上无法运行。<br>这是我在ubuntu下运行的结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Process (96787) start...</span><br><span class="line">I (96787) just created a child process (96788)</span><br><span class="line">I am child process (96788) and my parent is 96787</span><br></pre></td></tr></table></figure>
+
+<p>有了fork调用，一个进程在接到新任务时就可以复制出一个子进程来处理新任务，常见的Apache服务器就是由父进程监听端口，每当有新的http请求时，就fork出子进程来处理新的http请求。</p>
+<h4 id="multiprocessing"><a href="#multiprocessing" class="headerlink" title="multiprocessing"></a>multiprocessing</h4><p>如果你打算编写多进程的服务程序，Unix/Linux无疑是正确的选择。由于Windows没有fork调用，难道在Windows上无法用Python编写多进程的程序？</p>
+<p>由于Python是跨平台的，自然也应该提供一个跨平台的多进程支持。multiprocessing模块就是跨平台版本的多进程模块。</p>
+<p>multiprocessing模块提供了一个Process类来代表一个进程对象，下面的例子演示了启动一个子进程并等待其结束：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process</span><br><span class="line"><span class="keyword">import</span> os</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#子进程要做的事情</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">run_proc</span><span class="params">(name)</span>:</span></span><br><span class="line">    print(<span class="string">'Run child process %s (%s)...'</span>%(name,os.getpid()))</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">'Parent process %s.'</span>%os.getpid())</span><br><span class="line">    p = Process(target=run_proc,args=(<span class="string">'test'</span>,))</span><br><span class="line">    print(<span class="string">'Child process will start.'</span>)</span><br><span class="line">    p.start()</span><br><span class="line">    p.join()</span><br><span class="line">    print(<span class="string">'Child process end.'</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Parent process 2816.
+Child process will start.
+Child process end.</code></pre><p>这是我在ubuntu下运行的结果，不知道windows为什么有问题</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Parent process 98189.</span><br><span class="line">Child process will start.</span><br><span class="line">Run child process test (98190)...</span><br><span class="line">Child process end.</span><br></pre></td></tr></table></figure>
+
+<p>创建子进程时，只需要传入一个执行函数和函数的参数，创建一个Process实例，用start()方法启动，这样创建进程比fork()还要简单。</p>
+<p>join()方法可以<strong>等待子进程结束后再继续往下运行</strong> ，通常用于进程间的同步。<br>下面是将<code>p.join()</code>注释掉的结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Parent process 98628.</span><br><span class="line">Child process will start.</span><br><span class="line">Child process end.</span><br><span class="line">Run child process test (98629)...</span><br></pre></td></tr></table></figure>
+
+<h4 id="Pool进程池"><a href="#Pool进程池" class="headerlink" title="Pool进程池"></a>Pool进程池</h4><p>如果要启动大量的子进程，可以用进程池的方式批量创建子进程：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Pool</span><br><span class="line"><span class="keyword">import</span> os,time,random</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">long_time_rask</span><span class="params">(name)</span>:</span></span><br><span class="line">    print(<span class="string">'Run task %s (%s)...'</span> % (name, os.getpid()))</span><br><span class="line">    start=time.time()</span><br><span class="line">    time.sleep(random.random()*<span class="number">3</span>)</span><br><span class="line">    end=time.time()</span><br><span class="line">    print(<span class="string">'Task %s runs %0.2f seconds.'</span> % (name, (end - start)))</span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">'Parent process %s.'</span> % os.getpid())</span><br><span class="line">    p=Pool(<span class="number">4</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        p.apply_async(long_time_rask,args=(i,))</span><br><span class="line">    print(<span class="string">'Waiting for all subprocesses done...'</span>)</span><br><span class="line">    p.close()</span><br><span class="line">    p.join()</span><br><span class="line">    print(<span class="string">'All subprocesses done.'</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Parent process 2816.
+Waiting for all subprocesses done...</code></pre><p>哎，这一章节真的不能在windows下运行，如上，在windows运行，会卡住，下面是我在ubuntu下运行的结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Parent process 99268.</span><br><span class="line">Waiting for all subprocesses done...</span><br><span class="line">Run task 0 (99270)...</span><br><span class="line">Run task 1 (99271)...</span><br><span class="line">Run task 2 (99272)...</span><br><span class="line">Run task 3 (99273)...</span><br><span class="line">Task 0 runs 0.30 seconds.</span><br><span class="line">Run task 4 (99270)...</span><br><span class="line">Task 1 runs 0.37 seconds.</span><br><span class="line">Task 4 runs 0.74 seconds.</span><br><span class="line">Task 2 runs 1.85 seconds.</span><br><span class="line">Task 3 runs 2.58 seconds.</span><br><span class="line">All subprocesses done.</span><br></pre></td></tr></table></figure>
+
+<p>对Pool对象调用join()方法会等待所有子进程执行完毕，<strong>调用join()之前必须先调用close()</strong> ，调用close()之后就不能继续添加新的Process了。</p>
+<p>请注意输出的结果，task 0，1，2，3是立刻执行的（也就是说同一时刻，这四个进程是同时进行的），而task 4要等待前面某个task完成后才执行（因为前边有四个进程在执行，而我们设定的同时能运行的进程数4，所以只能等待），这是因为Pool的默认大小在我的电脑上是4，因此，最多同时执行4个进程。这是Pool有意设计的限制，并不是操作系统的限制。如果改成：<br><code>p = Pool(5)</code>，就可以同时跑5个进程。<br>由于Pool的默认大小是CPU的核数，如果你不幸拥有8核CPU，你要提交至少9个子进程才能看到上面的等待效果。</p>
+<h4 id="子进程"><a href="#子进程" class="headerlink" title="子进程"></a>子进程</h4><p>很多时候，子进程并不是自身，而是一个外部进程。我们创建了子进程后，还需要控制子进程的输入和输出。</p>
+<p>subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出。</p>
+<p>下面的例子演示了如何在Python代码中运行命令 <code>nslookup www.python.org</code>，这和命令行直接运行的效果是一样的：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line"><span class="comment">#nslookup命令用于查询DNS的记录，查看域名解析是否正常，在网络故障的时候用来诊断网络问题</span></span><br><span class="line">print(<span class="string">'$ nslookup www.python.org'</span>)</span><br><span class="line">r=subprocess.call([<span class="string">'nslookup'</span>,<span class="string">'www.python.org'</span>])</span><br><span class="line">print(<span class="string">'exit code:'</span>,r)</span><br></pre></td></tr></table></figure>
+
+<pre><code>$ nslookup www.python.org
+exit code: 0</code></pre><p>这是我在Ubuntu下运行的结果</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ nslookup www.python.org</span><br><span class="line">Server:         202.204.48.8</span><br><span class="line">Address:        202.204.48.8#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">www.python.org  canonical name = dualstack.python.map.fastly.net.</span><br><span class="line">Name:   dualstack.python.map.fastly.net</span><br><span class="line">Address: 151.101.24.223</span><br><span class="line"></span><br><span class="line">exit code:</span><br></pre></td></tr></table></figure>
+
+<p>如果子进程还需要输入，则可以通过communicate()方法输入：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">print(<span class="string">'$ nslookup'</span>)</span><br><span class="line">p = subprocess.Popen([<span class="string">'nslookup'</span>], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</span><br><span class="line">output,err=p.communicate(<span class="string">b'set q=mx\npython.org\nexit\n'</span>)</span><br><span class="line">print(output.decode(<span class="string">'utf-8'</span>))</span><br><span class="line">print(<span class="string">'exit code:'</span>,p.returncode)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ nslookup</span><br><span class="line">Server:         202.204.48.8</span><br><span class="line">Address:        202.204.48.8#53</span><br><span class="line"></span><br><span class="line">Non-authoritative answer:</span><br><span class="line">python.org      mail exchanger = 50 mail.python.org.</span><br><span class="line"></span><br><span class="line">Authoritative answers can be found from:</span><br><span class="line">mail.python.org internet address = 188.166.95.178</span><br><span class="line">mail.python.org has AAAA address 2a03:b0c0:2:d0::71:1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">exit code: 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>Process之间肯定是需要通信的，操作系统提供了很多机制来实现进程间的通信。Python的<code>multiprocessing</code>模块包装了底层的机制，提供了<code>Queue</code>、<code>Pipes</code>等多种方式来交换数据。</p>
+<p>我们以<code>Queue</code>为例，在父进程中创建两个子进程，一个往<code>Queue</code>里写数据，一个从<code>Queue</code>里读数据：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#写数据进程执行的代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">write</span><span class="params">(q)</span>:</span></span><br><span class="line">    print(<span class="string">'Process to write: %s'</span> % os.getpid())</span><br><span class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> [<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>]:</span><br><span class="line">        print(<span class="string">'Put %s to queue...'</span> % value)</span><br><span class="line">        q.put(value)</span><br><span class="line">        <span class="comment">#有了这一步，有了一定的时间间隔，那么在这个过程中，也是可以读的，如果注释掉，那么ABCD一股脑全部写入</span></span><br><span class="line">        time.sleep(random.random())</span><br><span class="line"></span><br><span class="line"><span class="comment">#读数据进程执行的代码</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read</span><span class="params">(q)</span>:</span></span><br><span class="line">    print(<span class="string">'Process to read: %s '</span> % os.getpid())</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        value=q.get(<span class="literal">True</span>)</span><br><span class="line">        print(<span class="string">'Get %s from queue.'</span> % value)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment">#父进程创建Queue，并传给各个子进程</span></span><br><span class="line">    q=Queue()</span><br><span class="line">    pw=Process(target=write,args=(q,))</span><br><span class="line">    pr=Process(target=read,args=(q,))</span><br><span class="line"></span><br><span class="line">    <span class="comment">#启动子进程pw，写入数据：</span></span><br><span class="line">    pw.start()</span><br><span class="line">    <span class="comment">#启动子进程pr，读出数据：</span></span><br><span class="line">    pr.start()</span><br><span class="line">    <span class="comment">#等待pw结束</span></span><br><span class="line">    pw.join()</span><br><span class="line">    <span class="comment">#pr进程里是死循环，无法等待其结束，只能强行终止：</span></span><br><span class="line">    pr.terminate()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Process to write: 99800</span><br><span class="line">Put A to queue...</span><br><span class="line">Process to read: 99801 </span><br><span class="line">Get A from queue.</span><br><span class="line">Put B to queue...</span><br><span class="line">Get B from queue.</span><br><span class="line">Put C to queue...</span><br><span class="line">Get C from queue.</span><br><span class="line">Put D to queue...</span><br><span class="line">Get D from queue.</span><br></pre></td></tr></table></figure>
+
+<p>在Unix/Linux下，<code>multiprocessing</code>模块封装了<code>fork()</code>调用，使我们不需要关注<code>fork()</code>的细节。由于Windows没有<code>fork</code>调用，因此，<code>multiprocessing</code>需要“模拟”出fork的效果，父进程所有Python对象都必须通过<code>pickle</code>序列化再传到子进程去，所以，如果<code>multiprocessing</code>在Windows下调用失败了，要先考虑是不是pickle失败了。</p>
+]]></content>
+      <categories>
+        <category>Python</category>
+        <category>OS</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>OS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Django项目的自动化测试</title>
+    <url>/ck38rgbnp0020qsg44cmw880g.html</url>
+    <content><![CDATA[<p>最近，实验室有个小项目，关于企业上云，然后我们这边要做一个Django的web(已经做了很多功能，需要添加和修改一些功能)，所以要给项目添加一些测试，以备后期更改，自动化测试看的是Django 的官方文档。网址是： <a href="https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial05/" target="_blank" rel="noopener">https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial05/</a> 。</p>
+<a id="more"></a>
+
+<h3 id="自动化测试简介"><a href="#自动化测试简介" class="headerlink" title="自动化测试简介"></a>自动化测试简介</h3><h4 id="自动化测试是什么"><a href="#自动化测试是什么" class="headerlink" title="自动化测试是什么"></a>自动化测试是什么</h4><p>测试，是用来检查代码正确性的一些简单的程序。</p>
+<p>测试在不同的层次中都存在。有些测试只关注某个很小的细节（某个模型的某个方法的返回值是否满足预期？），而另一些测试可能检查对某个软件的一系列操作（<em>某一用户输入序列是否造成了预期的结果？</em>）。其实这和我们在 <a href="https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial02/" target="_blank" rel="noopener">教程第 2 部分</a>，里做的并没有什么不同，我们使用 <a href="https://docs.djangoproject.com/zh-hans/2.2/ref/django-admin/#django-admin-shell" target="_blank" rel="noopener"><code>shell</code></a> 来测试某一方法的功能，或者运行某个应用并输入数据来检查它的行为。</p>
+<p>真正不同的地方在于，<em>自动化</em> 测试是由某个系统帮你自动完成的。当你创建好了一系列测试，每次修改应用代码后，就可以自动检查出修改后的代码是否还像你曾经预期的那样正常工作。你不需要花费大量时间来进行手动测试。</p>
+<h4 id="为什么你需要写测试？"><a href="#为什么你需要写测试？" class="headerlink" title="为什么你需要写测试？"></a>为什么你需要写测试？</h4><p>但是，为什么需要测试呢？又为什么是现在呢？</p>
+<p>你可能觉得学 Python/Django 对你来说已经很满足了，再学一些新东西的话看起来有点负担过重并且没什么必要。毕竟，我们的投票应用（官方文档的一个项目举例）看起来已经完美工作了。写一些自动测试并不能让它工作的更好。如果写一个投票应用是你想用 Django 完成的唯一工作，那你确实没必要学写测试。<strong>但是如果你还想写更复杂的项目，现在就是学习测试写法的最好时机了。</strong></p>
+<ul>
+<li><p>测试将节约你的时间</p>
+<p>在某种程度上，能够「判断出代码是否正常工作」的测试，就称得上是个令人满意的了。在更复杂的应用程序中，组件之间可能会有数十个复杂的交互。</p>
+<p>在更加复杂的应用中，各种组件之间的交互可能会及其的复杂。改变其中某一组件的行为，也有可能会造成意想不到的结果。判断「代码是否正常工作」意味着你需要用大量的数据来完整的测试全部代码的功能，以确保你的小修改没有对应用整体造成破坏——这太费时间了。</p>
+<p>尤其是当你发现自动化测试能在几秒钟之内帮你完成这件事时，就更会觉得手动测试实在是太浪费时间了。当某人写出错误的代码时，自动化测试还能帮助你定位错误代码的位置。</p>
+<p>有时候你会觉得，和富有创造性和生产力的业务代码比起来，编写枯燥的测试代码实在是太无聊了，特别是当你知道你的代码完全没有问题的时候。</p>
+<p><strong>然而，编写测试还是要比花费几个小时手动测试你的应用，或者为了找到某个小错误而胡乱翻看代码要有意义的多。</strong></p>
+</li>
+<li><p>测试不仅能发现错误，还能预防错误</p>
+<p>「测试是开发的对立面」，这种思想是不对的。</p>
+<p>如果没有测试，整个应用的行为意图会变得更加的不清晰。甚至当你在看自己写的代码时也是这样，有时候你需要仔细研读一段代码才能搞清楚它有什么用。</p>
+<p>而测试的出现改变了这种情况。测试就好像是从内部仔细检查你的代码，当有些地方出错时，这些地方将会变得很显眼——<em>就算你自己没有意识到那里写错了</em>。</p>
+</li>
+<li><p>测试使你的代码更有吸引力</p>
+<p>你也许遇到过这种情况：你编写了一个绝赞的软件，但是其他开发者看都不看它一眼，因为它缺少测试。<strong>没有测试的代码不值得信任。</strong> Django 最初开发者之一的 Jacob Kaplan-Moss 说过：“项目规划时没有包含测试是不科学的。”</p>
+<p>其他的开发者希望在正式使用你的代码前看到它通过了测试，这是你需要写测试的另一个重要原因。</p>
+</li>
+<li><p>测试有助于团队协作</p>
+<p>前面的几点都是从单人开发的角度来说的。复杂的应用可能由团队维护。测试的存在保证了协作者不会不小心破坏了了你的代码（也保证你不会不小心弄坏他们的）。如果你想作为一个 Django 程序员谋生的话，你必须擅长编写测试！ </p>
+</li>
+</ul>
+<h4 id="基础测试策略"><a href="#基础测试策略" class="headerlink" title="基础测试策略"></a>基础测试策略</h4><p>有好几种不同的方法可以写测试。</p>
+<p>一些开发者遵循 “<a href="https://en.wikipedia.org/wiki/Test-driven_development" target="_blank" rel="noopener">测试驱动</a>“ 的开发原则，他们在写代码之前先写测试。这种方法看起来有点反直觉，但事实上，这和大多数人日常的做法是相吻合的。我们会先描述一个问题，然后写代码来解决它。「测试驱动」的开发方法只是将问题的描述抽象为了 Python 的测试样例。</p>
+<p>更普遍的情况是，一个刚接触自动化测试的新手更倾向于先写代码，然后再写测试。虽然提前写测试可能更好，但是晚点写起码也比没有强。</p>
+<p>有时候很难决定从哪里开始下手写测试。如果你才写了几千行 Python 代码，选择从哪里开始写测试确实不怎么简单。如果是这种情况，那么在你下次修改代码（比如加新功能，或者修复 Bug）之前写个测试是比较合理且有效的。</p>
+<h4 id="Django中的测试"><a href="#Django中的测试" class="headerlink" title="Django中的测试"></a>Django中的测试</h4><p>随着网站的增长，他们越来越难以手动测试。不仅要进行更多的测试，而且随着组件之间的交互变得越来越复杂，一个区域的小改变可能会影响到其他区域，所以需要做更多的改变来确保一切正常运行，并且在进行更多更改时不会引入错误。减轻这些问题的一种方法是编写自动化测试，每当您进行更改时，都可以轻松可靠地运行测试。</p>
+<p>测试一个 Web 应用是一项复杂的工作，因为 Web 应用包含了多层业务逻辑——从 HTTP 层响应请求，到表单有效性检测和处理，再到模板渲染。利用 Django 的测试执行框架和配套的工具，你可以模拟其你去，插入测试数据，检查应用的输出，以此检验你的代码是否按照期望运行。</p>
+<p>最大的优点是，它非常简单。</p>
+<p>此外，自动化测试可以充当代码的第一个真实“用户”，迫使您严格定义和记录网站的行为方式。它们通常是您的代码示例，和文档的基础。由于这些原因，一些软件开发过程，从测试定义和实现开始，之后编写代码以匹配所需的行为（例如，测试驱动<a href="https://en.wikipedia.org/wiki/Test-driven_development" target="_blank" rel="noopener">test-driven</a> 和行为驱动 <a href="https://en.wikipedia.org/wiki/Behavior-driven_development" target="_blank" rel="noopener">behaviour-driven</a>的开发）。 </p>
+<h4 id="测试的类型"><a href="#测试的类型" class="headerlink" title="测试的类型"></a>测试的类型</h4><ul>
+<li>单元测试<ul>
+<li>验证各个组件的功能行为，通常是类别和功能级别 </li>
+</ul>
+</li>
+<li>回归测试<ul>
+<li>测试重现历史错误。最初运行每个测试，以验证错误是否已修复，然后重新运行，以确保在以后更改代码之后，未重新引入该错误。 （有点像测试后发现错误，然后修改错误，再进行测试的意思）</li>
+</ul>
+</li>
+<li>集成测试<ul>
+<li>验证组件分组在一起使用时的工作方式。集成测试了解组件之间所需的交互，但不一定了解每个组件的内部操作。它们可能涵盖整个网站的简单组件分组。 （这就有点像全部来一次测试，验证各个组件之间是否能够正常运行）</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Django</category>
+        <category>自动化测试</category>
+      </categories>
+      <tags>
+        <tag>Django</tag>
+        <tag>自动化测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>279完全平方数</title>
-    <url>/ck38b82g7000dp4g45emy81ei.html</url>
+    <url>/ck38rgbij000cqsg4294m1qdy.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定正整数 <em>n</em>，找到若干个完全平方数（比如 <code>1, 4, 9, 16, ...</code>）使得它们的和等于 <em>n</em>。你需要让组成和的完全平方数的个数最少。 </p>
 <a id="more"></a>
 
@@ -25,7 +194,7 @@
   </entry>
   <entry>
     <title>152乘积最大子序列</title>
-    <url>/ck38b82em0006p4g488cw4kvd.html</url>
+    <url>/ck38rgbhn0007qsg46oie65ib.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组 <code>nums</code> ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。 </p>
 <a id="more"></a>
 
@@ -48,7 +217,7 @@
   </entry>
   <entry>
     <title>Python回顾之OOP</title>
-    <url>/ck38b82ks0029p4g49qr11ru0.html</url>
+    <url>/ck38rgbop002eqsg450f0emaa.html</url>
     <content><![CDATA[<h3 id="面向对象的两个基本概念"><a href="#面向对象的两个基本概念" class="headerlink" title="面向对象的两个基本概念"></a>面向对象的两个基本概念</h3><p>编程语言中，一般有两种编程思维，面向过程和面向对象。</p>
 <p>面向过程，看重的是解决问题的过程。</p>
 <p>这好比我们解决日常生活问题差不多，分析解决问题的步骤，然后一步一步的解决。</p>
@@ -233,7 +402,7 @@ True
   </entry>
   <entry>
     <title>300最长上升子序列</title>
-    <url>/ck38b82gd000ep4g4464a14ht.html</url>
+    <url>/ck38rgbj0000dqsg4enva5jqt.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个无序的整数数组，找到其中最长上升子序列的长度。 </p>
 <a id="more"></a>
 
@@ -264,7 +433,7 @@ True
   </entry>
   <entry>
     <title>62不同路径</title>
-    <url>/ck38b82jp001pp4g40sry4rao.html</url>
+    <url>/ck38rgbmr001oqsg4gc5o94lx.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>一个机器人位于一个 <em>m x n</em> 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
 <p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
 <p>问总共有多少条不同的路径？</p>
@@ -290,7 +459,7 @@ True
   </entry>
   <entry>
     <title>55跳跃游戏</title>
-    <url>/ck38b82j9001ip4g46xk24je7.html</url>
+    <url>/ck38rgbm9001hqsg4f9ov5xzs.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
 <p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
 <p>判断你是否能够到达最后一个位置。</p>
@@ -315,7 +484,7 @@ True
   </entry>
   <entry>
     <title>198打家劫舍</title>
-    <url>/ck38b82ey0008p4g4flvj2z73.html</url>
+    <url>/ck38rgbhv0008qsg47w0eaw7j.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，<strong>如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警</strong>。</p>
 <p>给定一个代表每个房屋存放金额的非负整数数组，计算你<strong>在不触动警报装置的情况下，</strong>能够偷窃到的最高金额。</p>
 <a id="more"></a>
@@ -339,7 +508,7 @@ True
   </entry>
   <entry>
     <title>53最大子序和</title>
-    <url>/ck38b82ix001ep4g41o1gff68.html</url>
+    <url>/ck38rgbly001dqsg4b47yfa58.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 </p>
 <a id="more"></a>
 
@@ -362,7 +531,7 @@ True
   </entry>
   <entry>
     <title>121买卖股票的最佳时机</title>
-    <url>/ck38b82d40000p4g4hsbs4jg2.html</url>
+    <url>/ck38rgbg80001qsg49gobazxk.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个数组，它的第 <em>i</em> 个元素是一支给定股票第 <em>i</em> 天的价格。</p>
 <p>如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。</p>
 <p>注意你不能在买入股票前卖出股票。</p>
@@ -387,7 +556,7 @@ True
   </entry>
   <entry>
     <title>70爬楼梯</title>
-    <url>/ck38b82k3001vp4g42fh689c7.html</url>
+    <url>/ck38rgbnc001uqsg4cbslhit2.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>假设你正在爬楼梯。需要 <em>n</em> 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。</p>
 <p>你有多少种不同的方法可以爬到楼顶呢？</p>
 <p><strong>注意：</strong>给定 <em>n</em> 是一个正整数。</p>
@@ -414,7 +583,7 @@ True
   </entry>
   <entry>
     <title>322零钱兑换</title>
-    <url>/ck38b82gn000ip4g476vw1ghq.html</url>
+    <url>/ck38rgbjh000hqsg4h4bvbf28.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 <code>-1</code>。 </p>
 <a id="more"></a>
 
@@ -439,7 +608,7 @@ True
   </entry>
   <entry>
     <title>动态规划</title>
-    <url>/ck38b82l7002fp4g453ou2da3.html</url>
+    <url>/ck38rgbp2002mqsg4cls666mp.html</url>
     <content><![CDATA[<p>最近在知乎上看到了一篇讲动态规划的文章，感觉还可以，比较好理解。</p>
 <p>出于对作者的尊重，特别感谢作者，其知乎： <a href="https://www.zhihu.com/search?type=content&q=动态规划" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92</a> </p>
 <p>动态规划算法似乎是一种很高深莫测的算法，你会在一些面试或算法书籍的高级技巧部分看到相关内容，什么状态转移方程，重叠子问题，最优子结构等高大上的词汇也可能让你望而却步。</p>
@@ -456,7 +625,7 @@ True
 
 <p>这个不用多说了，学校老师讲递归的时候似乎都是拿这个举例。我们也知道这样写代码虽然简洁易懂，但是十分低效，低效在哪里？假设 n = 20，请画出递归树。</p>
 <p>PS：但凡遇到需要递归的问题，最好都画出递归树，这对你分析算法的复杂度，寻找算法低效的原因都有巨大帮助。</p>
-<img src="/ck38b82l7002fp4g453ou2da3/1.jpg" class="">
+<img src="/ck38rgbp2002mqsg4cls666mp/1.jpg" class="">
 
 <p>这个递归树怎么理解？就是说想要计算原问题 f(20)，我就得先计算出子问题 f(19) 和 f(18)，然后要计算 f(19)，我就要先算出子问题 f(18) 和 f(17)，以此类推。最后遇到 f(1) 或者 f(2) 的时候，结果已知，就能直接返回结果，递归树不再向下生长了。</p>
 <p> <strong>递归算法的时间复杂度怎么计算？子问题个数乘以解决一个子问题需要的时间。</strong> </p>
@@ -471,7 +640,7 @@ True
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (N &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 备忘录全初始化为 0</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; memo(N + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 初始化最简情况</span></span><br><span class="line">    memo[<span class="number">1</span>] = memo[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> helper(memo, N);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; memo, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 未被计算过</span></span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span> &amp;&amp; memo[n] == <span class="number">0</span>) </span><br><span class="line">        memo[n] = helper(memo, n - <span class="number">1</span>) + </span><br><span class="line">                  helper(memo, n - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> memo[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 现在，画出递归树，你就知道「备忘录」到底做了什么。 </p>
-<img src="/ck38b82l7002fp4g453ou2da3/2.jpg" class="">
+<img src="/ck38rgbp2002mqsg4cls666mp/2.jpg" class="">
 
 <p>实际上，带「备忘录」的递归算法，把一棵存在巨量冗余的递归树通过「剪枝」，改造成了一幅不存在冗余的递归图，极大减少了子问题（即递归图中节点）的个数。</p>
 <p>递归算法的时间复杂度怎么算？子问题个数乘以解决一个子问题需要的时间。</p>
@@ -485,11 +654,11 @@ True
 <p> 有了上一步「备忘录」的启发，我们可以把这个「备忘录」独立出来成为一张表，就叫做 DP table 吧，在这张表上完成「自底向上」的推算岂不美哉！ </p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(N + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    dp[<span class="number">1</span>] = dp[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= N; i++)</span><br><span class="line">        dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> dp[N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/ck38b82l7002fp4g453ou2da3/3.jpg" class="">
+<img src="/ck38rgbp2002mqsg4cls666mp/3.jpg" class="">
 
 <p>画个图就很好理解了，而且你发现这个 DP table 特别像之前那个「剪枝」后的结果，只是反过来算而已。实际上，带备忘录的递归解法中的「备忘录」，最终完成后就是这个 DP table，所以说这两种解法其实是差不多的，大部分情况下，效率也基本相同。</p>
 <p>这里，引出「动态转移方程」这个名词，实际上就是描述问题结构的数学形式：</p>
-<img src="/ck38b82l7002fp4g453ou2da3/4.jpg" class="">
+<img src="/ck38rgbp2002mqsg4cls666mp/4.jpg" class="">
 
 <p>为啥叫「状态转移方程」？为了听起来高端。你把 f(n) 想做一个状态 n，这个状态 n 是由状态 n - 1 和状态 n - 2 相加转移而来，这就叫状态转移，仅此而已。</p>
 <p>你会发现，上面的几种解法中的所有操作，例如 return f(n - 1) + f(n - 2)，dp[i] = dp[i - 1] + dp[i - 2]，以及对备忘录或 DP table 的初始化操作，都是围绕这个方程式的不同表现形式。可见列出「状态转移方程」的重要性，它是解决问题的核心。很容易发现，其实状态转移方程直接代表着暴力解法。</p>
@@ -503,7 +672,7 @@ True
 <p>比如说，k = 3，面值分别为 1，2，5，总金额 n = 11，那么最少需要 3 枚硬币，即 11 = 5 + 5 + 1 。下面走流程。</p>
 <p><strong>一、暴力解法</strong></p>
 <p>首先是最困难的一步，写出状态转移方程，这个问题比较好写：</p>
-<img src="/ck38b82l7002fp4g453ou2da3/5.jpg" class="">
+<img src="/ck38rgbp2002mqsg4cls666mp/5.jpg" class="">
 
 <p>其实，这个方程就用到了<strong>「最优子结构」性质：原问题的解由子问题的最优解构成。</strong>即 f(11) 由 f(10), f(9), f(6) 的最优解转移而来。</p>
 <p>记住，<strong>要符合「最优子结构」，子问题间必须互相独立。</strong>啥叫相互独立？你肯定不想看数学证明，我用一个直观的例子来讲解。</p>
@@ -515,7 +684,7 @@ True
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (amount == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> coin : coins) &#123;</span><br><span class="line">        <span class="comment">// 金额不可达</span></span><br><span class="line">        <span class="keyword">if</span> (amount - coin &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> subProb = coinChange(coins, amount - coin);</span><br><span class="line">        <span class="comment">// 子问题无解</span></span><br><span class="line">        <span class="keyword">if</span> (subProb == <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">        ans = min(ans, subProb + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans == INT_MAX ? <span class="number">-1</span> : ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 画出递归树： </p>
-<img src="/ck38b82l7002fp4g453ou2da3/6.jpg" class="">
+<img src="/ck38rgbp2002mqsg4cls666mp/6.jpg" class="">
 
 <p> 时间复杂度分析：子问题总数 x 每个子问题的时间。子问题总数为递归树节点个数，这个比较难看出来，是 O(n^k)，总之是指数级别的。每个子问题中含有一个 for 循环，复杂度为 O(k)。所以总时间复杂度为 O(k*n^k)，指数级别。 </p>
 <p><strong>二、带备忘录的递归算法</strong></p>
@@ -525,7 +694,7 @@ True
 <p> <strong>三、动态规划</strong> </p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(amount + <span class="number">1</span>, amount + <span class="number">1</span>);</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dp.size(); i++) &#123;</span><br><span class="line">        <span class="comment">// 内层 for 在求所有子问题 + 1 的最小值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> coin : coins) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i - coin &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            dp[i] = min(dp[i], <span class="number">1</span> + dp[i - coin]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (dp[amount] == amount + <span class="number">1</span>) ? <span class="number">-1</span> : dp[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/ck38b82l7002fp4g453ou2da3/7.jpg" class="">
+<img src="/ck38rgbp2002mqsg4cls666mp/7.jpg" class="">
 
 <p><strong>最后总结</strong></p>
 <p>如果你不太了解动态规划，还能看到这里，真得给你鼓掌，相信你已经掌握了这个算法的设计技巧。</p>
@@ -542,7 +711,7 @@ True
   </entry>
   <entry>
     <title>PyTorch_Day2</title>
-    <url>/ck38b82kd0021p4g48hnadf4j.html</url>
+    <url>/ck38rgbnw0023qsg4glyv3hzw.html</url>
     <content><![CDATA[<h2 id="Autograd-自动求导机制"><a href="#Autograd-自动求导机制" class="headerlink" title="Autograd: 自动求导机制"></a>Autograd: 自动求导机制</h2><p>PyTorch 中所有神经网络的核心是 autograd 包。 我们先简单介绍一下这个包，然后训练第一个简单的神经网络。<br>autograd包为张量上的所有操作提供了自动求导。 它是一个在运行时定义的框架，这意味着反向传播是根据你的代码来确定如何运行，并且每次迭代可以是不同的。</p>
 <h3 id="张量Tensor"><a href="#张量Tensor" class="headerlink" title="张量Tensor"></a>张量Tensor</h3><ul>
 <li>torch.Tensor 是包的核心类。如果将其属性 .requires_grad 设置为 True，则会开始跟踪针对 tensor 的所有操作。完成计算后，您可以调用 .backward() 来自动计算所有梯度。该张量的梯度将累积到 .grad 属性中。</li>
@@ -583,7 +752,7 @@ True
 <pre><code>True
 True
 False</code></pre><h2 id="神经网络Neural-Networks"><a href="#神经网络Neural-Networks" class="headerlink" title="神经网络Neural Networks"></a>神经网络Neural Networks</h2><p>神经网络可以通过 torch.nn 包来构建。<br>上一讲已经讲过了autograd，nn包依赖autograd包来定义模型并求导。 一个nn.Module包含各个层和一个forward(input)方法，该方法返回output。<br>例如，看一下数字图片识别的网络：</p>
-<img src="/ck38b82kd0021p4g48hnadf4j/1.jpg" class="">
+<img src="/ck38rgbnw0023qsg4glyv3hzw/1.jpg" class="">
 <p>它是一个简单的前馈神经网络，它接受一个输入，然后一层接着一层地传递，最后输出计算的结果。<br>神经网络的典型训练过程如下：</p>
 <ul>
 <li>定义包含一些可学习的参数(或者叫权重)神经网络模型；</li>
@@ -681,7 +850,7 @@ tensor([-0.0026,  0.0136, -0.0092, -0.0128, -0.0098, -0.0080])</code></pre><h4 i
   </entry>
   <entry>
     <title>PyTorch_Day1</title>
-    <url>/ck38b82kj0024p4g4128ycw9x.html</url>
+    <url>/ck38rgboh0028qsg44ygc32l3.html</url>
     <content><![CDATA[<p>之前一直在看keras，但是看了之后，给我一种感觉就是：本来深度学习就已经够黑盒了，你再给我封装的这么死，我不想成为调包侠= =，然后Pytorch最近比较流行，在封装性上也没有keras那么死板，所以尝试学习一下。</p>
 <a id="more"></a>
 
@@ -829,7 +998,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>347前K个高频元素</title>
-    <url>/ck38b82gw000lp4g4541v9fzj.html</url>
+    <url>/ck38rgbjl000kqsg4d5u373j3.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个非空的整数数组，返回其中出现频率前 <strong>k</strong> 高的元素。 </p>
 <a id="more"></a>
 
@@ -856,7 +1025,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>454四数相加II</title>
-    <url>/ck38b82ig0017p4g4bnlygmrn.html</url>
+    <url>/ck38rgblf0016qsg48ulf03lw.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 <code>(i, j, k, l)</code> ，使得 <code>A[i] + B[j] + C[k] + D[l] = 0</code>。</p>
 <p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1 。</p>
 <a id="more"></a>
@@ -874,7 +1043,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>652寻找重复的子树</title>
-    <url>/ck38b82jv001sp4g4fmx5f9z9.html</url>
+    <url>/ck38rgbmz001rqsg457w07ag4.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一棵二叉树，返回所有重复的子树。对于同一类的重复子树，你只需要返回其中任意<strong>一棵</strong>的根结点即可。</p>
 <p>两棵树重复是指它们具有相同的结构以及相同的结点值。</p>
 <a id="more"></a>
@@ -901,46 +1070,46 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>理解LSTM</title>
-    <url>/ck38b82mz002np4g402cygj7y.html</url>
+    <url>/ck38rgbq1002uqsg4cmmcfcn8.html</url>
     <content><![CDATA[<p>SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是为了解决SimpleRNN梯度消失这个问题设计的。<a id="more"></a></p>
 <h4 id="LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。"><a href="#LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。" class="headerlink" title="LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。"></a>LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。</h4><p>所有循环神经网络都具有神经网络的重复模块链的形式。 在标准的RNN中，该重复模块将具有非常简单的结构，例如单个tanh层。标准的RNN网络如下图所示：</p>
-<img src="/ck38b82mz002np4g402cygj7y/1.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/1.png" class="">
 
 <p> LSTM也具有这种链式结构，但是它的重复单元不同于标准RNN网络里的单元只有一个网络层，它的内部有四个网络层。LSTMs的结构如下图所示：</p>
-<img src="/ck38b82mz002np4g402cygj7y/2.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/2.png" class="">
 
 <p> 在解释LSTMs的详细结构时先定义一下图中各个符号的含义，符号包括下面几种 </p>
-<img src="/ck38b82mz002np4g402cygj7y/3.jpg" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/3.jpg" class="">
 
 <p>图中黄色类似于CNN里的激活函数操作，粉色圆圈表示点操作，单箭头表示数据流向，箭头合并表示向量的合并（concat）操作，箭头分叉表示向量的拷贝操作 </p>
 <h4 id="LSTM核心思想"><a href="#LSTM核心思想" class="headerlink" title="LSTM核心思想"></a>LSTM核心思想</h4><p>LSTM的关键在于细胞的状态(整个绿色的图表示的是一个cell)，和穿过细胞的那条水平线。</p>
 <p>细胞状态类似于传送带。直接在整个链上运行，只有一些少量的线性交互。信息在上面流传保持不变会很容易。</p>
-<img src="/ck38b82mz002np4g402cygj7y/4.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/4.png" class="">
 
 <p>若只有上面的那条水平线是没办法实现添加或者删除信息的。而是通过一种叫做 门（gates） 的结构来实现的。</p>
 <p>门 可以实现选择性地让信息通过，主要是通过一个 sigmoid 的神经层 和一个逐点相乘的操作来实现的。</p>
-<img src="/ck38b82mz002np4g402cygj7y/5.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/5.png" class="">
 
 <p>sigmoid 层输出（是一个向量）的每个元素都是一个在 0 和 1 之间的实数，表示让对应信息通过的权重（或者占比）。比如， 0 表示“不让任何信息通过”， 1 表示“让所有信息通过”。</p>
 <p>LSTM通过三个这样的结构来实现信息的保护和控制。这三个门分别输入门、遗忘门和输出门。</p>
 <h4 id="逐步理解LSTM"><a href="#逐步理解LSTM" class="headerlink" title="逐步理解LSTM"></a>逐步理解LSTM</h4><p>接下来通过三个门来逐步理解LSTM的原理</p>
 <h5 id="遗忘门"><a href="#遗忘门" class="headerlink" title="遗忘门"></a>遗忘门</h5><p>在我们 LSTM 中的第一步是决定我们会从细胞状态中丢弃什么信息。这个决定通过一个称为忘记门层完成。该门会读取 h(t-1)和x(t)， 输出一个在 0到 1之间的数值即每个在细胞状态C(t-1)中的数字， 1 表示“完全保留”，0 表示“完全舍弃” 。</p>
 <p>举个例子，在语言中我们基于已经看到的词来预测下一个词。在这个问题中，细胞状态可能包含当前主语的性别，因此正确的代词可以被选择出来。当我们看到新的主语，我们希望忘记旧的主语。 </p>
-<img src="/ck38b82mz002np4g402cygj7y/6.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/6.png" class="">
 
 <p> 其中h(t-1)表示的是上一个cell的输出，x(t)表示的是当前细胞的输入。σ表示sigmod函数。 </p>
 <h5 id="输入门"><a href="#输入门" class="headerlink" title="输入门"></a>输入门</h5><p>下一步是决定给细胞状态添加哪些新的信息。这一步又分为两个步骤，首先，利用h(t-1)和x(t)通过一个称为输入门的操作来决定更新哪些信息。然后利用h(t-1)和x(t)通过一个tanh层得到新的候选细胞信息~Ct，这些信息可能会被更新到细胞信息中。这两步描述如下图所示：</p>
-<img src="/ck38b82mz002np4g402cygj7y/7.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/7.png" class="">
 
 <p> 下面将更新旧的细胞信息C(t-1)，变为新的细胞信息Ct。更新的规则就是通过忘记门选择忘记旧细胞信息的一部分，通过输入门选择添加候选细胞信息~Ct的一部分得到新的细胞信息Ct。更新操作如下图所示:</p>
-<img src="/ck38b82mz002np4g402cygj7y/8.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/8.png" class="">
 
 <h5 id="输出门"><a href="#输出门" class="headerlink" title="输出门"></a>输出门</h5><p>最终，我们需要确定输出什么值。这个输出将会基于我们的细胞状态，但是也是一个过滤后的版本。首先，我们运行一个 sigmoid 层来确定细胞状态的哪个部分将输出出去。接着，我们把细胞状态通过 tanh 进行处理（得到一个在 -1 到 1 之间的值）并将它和 sigmoid 门的输出相乘，最终我们仅仅会输出我们确定输出的那部分。</p>
 <p> 还是拿语言模型来举例说明，在预测动词形式的时候，我们需要通过输入的主语是单数还是复数来推断输出门输出的预测动词是单数形式还是复数形式。 </p>
-<img src="/ck38b82mz002np4g402cygj7y/9.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/9.png" class="">
 
 <h4 id="LSTM变体"><a href="#LSTM变体" class="headerlink" title="LSTM变体"></a>LSTM变体</h4><p>下面主要讲一下其中比较著名的变种 GRU（Gated Recurrent Unit ），这是由 Cho, et al. (2014) 提出。在 GRU 中，如下图所示，只有两个门：重置门（reset gate）和更新门（update gate）。同时在这个结构中，把细胞状态和隐藏状态进行了合并。最后模型比标准的 LSTM 结构要简单，而且这个结构后来也非常流行。</p>
-<img src="/ck38b82mz002np4g402cygj7y/10.png" class="">
+<img src="/ck38rgbq1002uqsg4cmmcfcn8/10.png" class="">
 
 <p> 其中，<strong>r</strong>表示重置门，<strong>t</strong>表示更新门。重置门决定是否将之前的状态忘记。(作用相当于合并了 LSTM 中的遗忘门和传入门）当<strong>r</strong>趋于0的时候，前一个时刻的状态信息 h(t-1)会被忘掉，隐藏状态^ht 会被重置为当前输入的信息。更新门决定是否要将隐藏状态更新为新的状态 ht(作用相当于 LSTM 中的输出门)</p>
 <p>其中重置门为上图中前面那个门，决定了如何将新的输入信息与前面的记忆相结合。更新门为上图中后面那个门，定义了前面记忆保存到当前时间步的量。</p>
@@ -954,7 +1123,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>3无重复字符的最长子串</title>
-    <url>/ck38b82ib0014p4g435610r42.html</url>
+    <url>/ck38rgbl90013qsg42eaw36z2.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个字符串，请你找出其中不含有重复字符的 <strong>最长子串</strong> 的长度。</p>
 <a id="more"></a>
 
@@ -978,7 +1147,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>771宝石与石头</title>
-    <url>/ck38b82k8001yp4g4f7zo89y0.html</url>
+    <url>/ck38rgbnh001xqsg4drnlce0b.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定字符串<code>J</code> 代表石头中宝石的类型，和字符串 <code>S</code>代表你拥有的石头。 <code>S</code> 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。</p>
 <p><code>J</code> 中的字母不重复，<code>J</code> 和 <code>S</code>中的所有字符都是字母。字母区分大小写，因此<code>&quot;a&quot;</code>和<code>&quot;A&quot;</code>是不同类型的石头。</p>
 <a id="more"></a>
@@ -1006,7 +1175,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>36有效的数独</title>
-    <url>/ck38b82hr000wp4g44lfpdux7.html</url>
+    <url>/ck38rgbkk000vqsg437ug5t22.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>判断一个 9x9 的数独是否有效。只需要<strong>根据以下规则</strong>，验证已经填入的数字是否有效即可。</p>
 <a id="more"></a>
 
@@ -1015,7 +1184,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 <li>数字 <code>1-9</code> 在每一列只能出现一次。</li>
 <li>数字 <code>1-9</code> 在每一个以粗实线分隔的 <code>3x3</code> 宫内只能出现一次。</li>
 </ol>
-<img src="/ck38b82hr000wp4g44lfpdux7/1.jpg" class="">
+<img src="/ck38rgbkk000vqsg437ug5t22/1.jpg" class="">
 
 <p>上图是一个部分填充的有效的数独。</p>
 <p>数独部分空格内已填入了数字，空白格用 <code>&#39;.&#39;</code> 表示。</p>
@@ -1044,7 +1213,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>49字母异位词分组</title>
-    <url>/ck38b82iq001bp4g4haxb6dz9.html</url>
+    <url>/ck38rgblp001aqsg4dumhg8xh.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。 </p>
 <a id="more"></a>
 
@@ -1068,7 +1237,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>RNN循环神经网络</title>
-    <url>/ck38b82kz002cp4g41sku4r20.html</url>
+    <url>/ck38rgbox002jqsg4397cc9c4.html</url>
     <content><![CDATA[<h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><ul>
 <li>之前见过的神经网络都有一个特点，就是没有记忆，只能单独处理每个输入，在输入与输入之间没有保存任何状态，对于这种网络，要想处理数据点的序列或时间序列，需要向网络同时展示整个序列，即将序列转换成单个数据点，然后一次性处理，这种网络叫做前馈网络。</li>
 </ul>
@@ -1082,26 +1251,26 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 </li>
 <li><p>RNN之所以称为循环神经网路，即一个序列当前的输出与前面的输出也有关。具体的表现形式为网络会对前面的信息进行记忆并应用于当前输出的计算中，即隐藏层之间的节点不再无连接而是有连接的，并且隐藏层的输入不仅包括输入层的输出还包括上一时刻隐藏层的输出。</p>
 </li>
-<li><img src="/ck38b82kz002cp4g41sku4r20/1.png" class="">
+<li><img src="/ck38rgbox002jqsg4397cc9c4/1.png" class="">
 
 </li>
 </ul>
-<h5 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h5><img src="/ck38b82kz002cp4g41sku4r20/2.png" class="">
+<h5 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h5><img src="/ck38rgbox002jqsg4397cc9c4/2.png" class="">
 
 <p>我们可以看到RNN层级结构较之于CNN来说比较简单, 它主要有<strong>输入层</strong>,<strong>Hidden Layer</strong>, <strong>输出层</strong>组成。</p>
 <p>并且会发现在<strong>Hidden Layer</strong> 有一个箭头表示数据的循环更新, 这个就是实现时间记忆功能的方法。</p>
-<img src="/ck38b82kz002cp4g41sku4r20/3.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/3.png" class="">
 
 <p>所示为Hidden Layer的层级展开图. t-1, t, t+1表示时间序列. X表示输入的样本. St表示样本在时间t处的的记忆,<strong>St = f(W*St-1 +U*Xt)</strong>. W表示输入的权重, U表示此刻输入的样本的权重, V表示输出的样本权重。</p>
 <p> 在t =1时刻, 一般初始化输入S0=0, 随机初始化W,U,V, 进行下面的公式计算:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/4.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/4.png" class="">
 
 <p>其中,f和g均为激活函数. 其中f可以是tanh,relu,sigmoid等激活函数，g通常是softmax也可以是其他。</p>
 <p>时间就向前推进，此时的状态s1作为时刻1的记忆状态将参与下一个时刻的预测活动，也就是:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/5.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/5.png" class="">
 
 <p>以此类推, 可以得到最终的输出值为:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/6.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/6.png" class="">
 
 <p><strong>注意</strong>: </p>
 <ul>
@@ -1111,38 +1280,38 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 </li>
 </ul>
 <h5 id="RNN反向传播"><a href="#RNN反向传播" class="headerlink" title="RNN反向传播"></a>RNN反向传播</h5><p>我们介绍了RNN的前向传播的方式, 那么RNN的权重参数W,U,V都是怎么更新的呢?</p>
-<p>每一次的输出值Ot都会产生一个误差值Et, 则总的误差可以表示为:<img src="/ck38b82kz002cp4g41sku4r20/7.png" class=""></p>
+<p>每一次的输出值Ot都会产生一个误差值Et, 则总的误差可以表示为:<img src="/ck38rgbox002jqsg4397cc9c4/7.png" class=""></p>
 <p>则损失函数可以使用交叉熵损失函数也可以使用平方误差损失函数。</p>
 <p>由于每一步的输出不仅仅依赖当前步的网络，并且还需要前若干步网络的状态，那么这种BP改版的算法叫做Backpropagation Through Time(BPTT) , 也就是将输出端的误差值反向传递,运用梯度下降法进行更新。</p>
 <p>也就是要求参数的梯度：</p>
-<img src="/ck38b82kz002cp4g41sku4r20/8.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/8.png" class="">
 
 <p>首先我们求解<strong>W的更新方法</strong>, 由前面的W的更新可以看出它是每个时刻的偏差的偏导数之和. </p>
 <p> 在这里我们以 t = 3时刻为例, 根据链式求导法则可以得到t = 3时刻的偏导数为:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/9.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/9.png" class="">
 
-<p>此时, 根据公式<img src="/ck38b82kz002cp4g41sku4r20/10.png" class="">我们会发现, S3除了和W有关之外, 还和前一时刻S2有关。</p>
+<p>此时, 根据公式<img src="/ck38rgbox002jqsg4397cc9c4/10.png" class="">我们会发现, S3除了和W有关之外, 还和前一时刻S2有关。</p>
 <p>对于S3直接展开得到下面的式子:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/11.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/11.png" class="">
 
 <p>对于S2直接展开得到下面的式子:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/12.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/12.png" class="">
 
 <p>对于S1直接展开得到下面的式子:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/13.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/13.png" class="">
 
 <p>将上述三个式子合并得到:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/14.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/14.png" class="">
 
 <p>这样就得到了公式:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/15.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/15.png" class="">
 
-<p>这里要说明的是:<img src="/ck38b82kz002cp4g41sku4r20/18.png" class="">表示的是S3对W直接求导, 不考虑S2的影响.(也就是例如y = f(x)*g(x)对x求导一样)</p>
+<p>这里要说明的是:<img src="/ck38rgbox002jqsg4397cc9c4/18.png" class="">表示的是S3对W直接求导, 不考虑S2的影响.(也就是例如y = f(x)*g(x)对x求导一样)</p>
 <p>其次是对<strong>U的更新方法</strong>. 由于参数U求解和W求解类似,这里就不在赘述了,最终得到的具体的公式如下:</p>
-<img src="/ck38b82kz002cp4g41sku4r20/16.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/16.png" class="">
 
 <p>最后,给出<strong>V的更新公式</strong>(V只和输出O有关):</p>
-<img src="/ck38b82kz002cp4g41sku4r20/17.png" class="">
+<img src="/ck38rgbox002jqsg4397cc9c4/17.png" class="">
 
 
 ]]></content>
@@ -1155,7 +1324,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>深度学习应用于文本和序列</title>
-    <url>/ck38b82mj002kp4g45p3z94kr.html</url>
+    <url>/ck38rgbpw002rqsg48z8435di.html</url>
     <content><![CDATA[<p>文本可以理解成单词序列、字符序列，序列又有时间序列和其他的一般序列。<a id="more"></a></p>
 <p>处理序列的两种基本的深度学习模型</p>
 <ul>
@@ -1174,7 +1343,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 </ul>
 <p>将文本分解而成的单元（单词、字符、n-gram）叫做标记</p>
 <p>将文本分解成标记的过程叫做分词</p>
- <img src="/ck38b82mj002kp4g45p3z94kr/fenci.png" class="" title="分词的过程">
+ <img src="/ck38rgbpw002rqsg48z8435di/fenci.png" class="" title="分词的过程">
 
 <p>将向量与标记关联的方法：</p>
 <ul>
@@ -1182,7 +1351,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 <li>标记嵌入（token embedding），该方法通常只用于单词，叫做词嵌入（word embedding）<ul>
 <li>one-hot得到的向量是二进制的、稀疏的（绝大部分元素都是0）、维数很高的（维数等于词表中单词个数）</li>
 <li>词嵌入是低维的浮点数向量（密集向量），并且是从数据中学习得到的，常见的维度是256、512、1024（处理非常大的词表），而one-hot编码维度很高（20000或更高）</li>
-<li><img src="/ck38b82mj002kp4g45p3z94kr/bianma.png" class="" title="不同方法编码对比">
+<li><img src="/ck38rgbpw002rqsg48z8435di/bianma.png" class="" title="不同方法编码对比">
 
 </li>
 </ul>
@@ -1199,7 +1368,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 <ul>
 <li>embedding层：可以理解成一个字典，将整数序列（二维整数张量）（表示特定单词）映射为密集向量</li>
 </ul>
-<img src="/ck38b82mj002kp4g45p3z94kr/embedding.png" class="" title="embedding层作用过程">
+<img src="/ck38rgbpw002rqsg48z8435di/embedding.png" class="" title="embedding层作用过程">
 
 <ul>
 <li>接收整数序列作为输入，然后在字典中查找整数，最后返回相关联的向量（返回的是一个三维浮点数张量）</li>
@@ -1230,7 +1399,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>219存在重复元素II</title>
-    <url>/ck38b82f7000ap4g40p6e1vus.html</url>
+    <url>/ck38rgbi10009qsg40gxa3fzd.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组和一个整数 <em>k</em>，判断数组中是否存在两个不同的索引 <em>i</em> 和 <em>j</em>，使得 <strong>nums [i] = nums [j]</strong>，并且 <em>i</em> 和 <em>j</em> 的差的绝对值最大为 <em>k</em>。 </p>
 <a id="more"></a>
 
@@ -1251,7 +1420,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>350两个数组的交集II</title>
-    <url>/ck38b82he000sp4g4cp11he56.html</url>
+    <url>/ck38rgbk4000rqsg4hr7f5ed8.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定两个数组，编写一个函数来计算它们的交集。<a id="more"></a> </p>
 <blockquote>
 <p><strong>示例 1:</strong></p>
@@ -1279,7 +1448,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>387字符串中的第一个唯一字符</title>
-    <url>/ck38b82hw000zp4g408xh5qu5.html</url>
+    <url>/ck38rgbkq000yqsg436edclfw.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。 <a id="more"></a></p>
 <blockquote>
 <p>案例:</p>
@@ -1294,7 +1463,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>599两个列表的最小索引总和</title>
-    <url>/ck38b82jf001lp4g458ohb2lj.html</url>
+    <url>/ck38rgbmg001kqsg4bf4o0yuh.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。<a id="more"></a></p>
 <p>你需要帮助他们用<strong>最少的索引和</strong>找出他们<strong>共同喜爱的餐厅</strong>。 如果答案不止一个，则输出所有答案并且不考虑顺序。 你可以假设总是存在一个答案。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"Piatti"</span>, <span class="string">"The Grill at Torrey Pines"</span>, <span class="string">"Hungry Hunter Steakhouse"</span>, <span class="string">"Shogun"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们唯一共同喜爱的餐厅是“Shogun”。</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"KFC"</span>, <span class="string">"Shogun"</span>, <span class="string">"Burger King"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们共同喜爱且具有最小索引和的餐厅是“Shogun”，它有最小的索引和<span class="number">1</span>(<span class="number">0</span>+<span class="number">1</span>)。</span><br><span class="line">提示:</span><br><span class="line"></span><br><span class="line">两个列表的长度范围都在 [<span class="number">1</span>, <span class="number">1000</span>]内。</span><br><span class="line">两个列表中的字符串的长度将在[<span class="number">1</span>，<span class="number">30</span>]的范围内。</span><br><span class="line">下标从<span class="number">0</span>开始，到列表的长度减<span class="number">1</span>。</span><br><span class="line">两个列表都没有重复的元素。</span><br></pre></td></tr></table></figure>
@@ -1306,7 +1475,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>349两个数组的交集</title>
-    <url>/ck38b82ha000qp4g497r687h4.html</url>
+    <url>/ck38rgbjz000pqsg44m6r61ut.html</url>
     <content><![CDATA[<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><h6 id="题目描述：给定两个数组，编写一个函数来计算它们的交集"><a href="#题目描述：给定两个数组，编写一个函数来计算它们的交集" class="headerlink" title="题目描述：给定两个数组，编写一个函数来计算它们的交集"></a>题目描述：给定两个数组，编写一个函数来计算它们的交集<a id="more"></a></h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], nums2 = [<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line">输出: [<span class="number">2</span>]</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>], nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line">输出: [<span class="number">9</span>,<span class="number">4</span>]</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">输出结果中的每个元素一定是唯一的。</span><br><span class="line">我们可以不考虑输出结果的顺序。</span><br></pre></td></tr></table></figure>
 
 <h6 id="解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"><a href="#解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。" class="headerlink" title="解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"></a>解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersection(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s1;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            s1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            s2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> it=s2.begin();it!=s2.end();it++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1.count(*it)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                result.push_back(*it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
@@ -1319,7 +1488,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>136只出现一次的数字</title>
-    <url>/ck38b82dt0002p4g44mg024u8.html</url>
+    <url>/ck38rgbgv0003qsg43y826obr.html</url>
     <content><![CDATA[<h2 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h2><h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
 <p>说明：</p>
 <p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
