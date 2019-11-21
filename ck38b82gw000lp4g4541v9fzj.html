@@ -57,37 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="背景 之前见过的神经网络都有一个特点，就是没有记忆，只能单独处理每个输入，在输入与输入之间没有保存任何状态，对于这种网络，要想处理数据点的序列或时间序列，需要向网络同时展示整个序列，即将序列转换成单个数据点，然后一次性处理，这种网络叫做前馈网络。">
-<meta name="keywords" content="深度学习">
+  <meta name="description" content="题目描述： 给定一个非空的整数数组，返回其中出现频率前 k 高的元素。">
+<meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RNN循环神经网络">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken.html">
+<meta property="og:title" content="347前K个高频元素">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38b82gw000lp4g4541v9fzj.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="背景 之前见过的神经网络都有一个特点，就是没有记忆，只能单独处理每个输入，在输入与输入之间没有保存任何状态，对于这种网络，要想处理数据点的序列或时间序列，需要向网络同时展示整个序列，即将序列转换成单个数据点，然后一次性处理，这种网络叫做前馈网络。">
+<meta property="og:description" content="题目描述： 给定一个非空的整数数组，返回其中出现频率前 k 高的元素。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;3.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;4.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;5.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;6.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;7.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;8.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;9.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;10.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;11.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;12.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;13.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;14.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;15.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;18.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;16.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;17.png">
-<meta property="og:updated_time" content="2019-11-15T13:25:36.771Z">
+<meta property="og:updated_time" content="2019-11-18T12:12:17.093Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38apt9p002cl8g46652bken&#x2F;1.png">
 
-<link rel="canonical" href="https://cblog.club/ck38apt9p002cl8g46652bken.html">
+<link rel="canonical" href="https://cblog.club/ck38b82gw000lp4g4541v9fzj.html">
 
 
 <script id="page-configurations">
@@ -101,7 +82,7 @@
   };
 </script>
 
-  <title>RNN循环神经网络 | lemon</title>
+  <title>347前K个高频元素 | lemon</title>
   
 
 
@@ -243,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck38apt9p002cl8g46652bken.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck38b82gw000lp4g4541v9fzj.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -256,7 +237,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          RNN循环神经网络
+          347前K个高频元素
         </h2>
 
         <div class="post-meta">
@@ -267,7 +248,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-11-15 21:04:38 / 修改时间：21:25:36" itemprop="dateCreated datePublished" datetime="2019-11-15T21:04:38+08:00">2019-11-15</time>
+              <time title="创建时间：2019-11-18 20:06:04 / 修改时间：20:12:17" itemprop="dateCreated datePublished" datetime="2019-11-18T20:06:04+08:00">2019-11-18</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -275,14 +256,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/ck38apt9p002cl8g46652bken.html" class="post-meta-item leancloud_visitors" data-flag-title="RNN循环神经网络" title="阅读次数">
+            <span id="/ck38b82gw000lp4g4541v9fzj.html" class="post-meta-item leancloud_visitors" data-flag-title="347前K个高频元素" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -297,8 +278,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/ck38apt9p002cl8g46652bken.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/ck38apt9p002cl8g46652bken.html" itemprop="commentCount"></span>
+    <a title="valine" href="/ck38b82gw000lp4g4541v9fzj.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ck38b82gw000lp4g4541v9fzj.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -308,7 +289,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>927</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -327,83 +308,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><ul>
-<li>之前见过的神经网络都有一个特点，就是没有记忆，只能单独处理每个输入，在输入与输入之间没有保存任何状态，对于这种网络，要想处理数据点的序列或时间序列，需要向网络同时展示整个序列，即将序列转换成单个数据点，然后一次性处理，这种网络叫做前馈网络。</li>
-</ul>
+        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个非空的整数数组，返回其中出现频率前 <strong>k</strong> 高的元素。 </p>
 <a id="more"></a>
 
+<blockquote>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>], k = <span class="number">2</span></span><br><span class="line">输出: [<span class="number">1</span>,<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [<span class="number">1</span>], k = <span class="number">1</span></span><br><span class="line">输出: [<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p><strong>说明：</strong></p>
 <ul>
-<li>细想BP算法,CNN(卷积神经网络)我们会发现, 他们的输出都是只考虑前一个输入的影响而不考虑其它时刻输入的影响, 比如简单的猫,狗,手写数字等单个物体的识别具有较好的效果. 但是, 对于一些与时间先后有关的, 比如视频的下一时刻的预测,文档前后文内容的预测等, 这些算法的表现就不尽如人意了。因此, RNN就应运而生了。</li>
+<li>你可以假设给定的 <em>k</em> 总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。</li>
+<li>你的算法的时间复杂度<strong>必须</strong>优于 O(<em>n</em> log <em>n</em>) , <em>n</em> 是数组的大小。</li>
 </ul>
-<h5 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h5><ul>
-<li><p>RNN是一种特殊的神经网络结构, 它是根据”人的认知是基于过往的经验和记忆”这一观点提出的. 它与DNN,CNN不同的是: 它不仅考虑前一时刻的输入,而且赋予了网络对前面的内容的一种’记忆’功能.</p>
-</li>
-<li><p>RNN之所以称为循环神经网路，即一个序列当前的输出与前面的输出也有关。具体的表现形式为网络会对前面的信息进行记忆并应用于当前输出的计算中，即隐藏层之间的节点不再无连接而是有连接的，并且隐藏层的输入不仅包括输入层的输出还包括上一时刻隐藏层的输出。</p>
-</li>
-<li><img src="/ck38apt9p002cl8g46652bken/1.png" class="">
-
-</li>
-</ul>
-<h5 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h5><img src="/ck38apt9p002cl8g46652bken/2.png" class="">
-
-<p>我们可以看到RNN层级结构较之于CNN来说比较简单, 它主要有<strong>输入层</strong>,<strong>Hidden Layer</strong>, <strong>输出层</strong>组成。</p>
-<p>并且会发现在<strong>Hidden Layer</strong> 有一个箭头表示数据的循环更新, 这个就是实现时间记忆功能的方法。</p>
-<img src="/ck38apt9p002cl8g46652bken/3.png" class="">
-
-<p>所示为Hidden Layer的层级展开图. t-1, t, t+1表示时间序列. X表示输入的样本. St表示样本在时间t处的的记忆,<strong>St = f(W*St-1 +U*Xt)</strong>. W表示输入的权重, U表示此刻输入的样本的权重, V表示输出的样本权重。</p>
-<p> 在t =1时刻, 一般初始化输入S0=0, 随机初始化W,U,V, 进行下面的公式计算:</p>
-<img src="/ck38apt9p002cl8g46652bken/4.png" class="">
-
-<p>其中,f和g均为激活函数. 其中f可以是tanh,relu,sigmoid等激活函数，g通常是softmax也可以是其他。</p>
-<p>时间就向前推进，此时的状态s1作为时刻1的记忆状态将参与下一个时刻的预测活动，也就是:</p>
-<img src="/ck38apt9p002cl8g46652bken/5.png" class="">
-
-<p>以此类推, 可以得到最终的输出值为:</p>
-<img src="/ck38apt9p002cl8g46652bken/6.png" class="">
-
-<p><strong>注意</strong>: </p>
-<ul>
-<li><p>这里的<strong>W,U,V</strong>在每个时刻都是相等的(<strong>权重共享</strong>).</p>
-</li>
-<li><p>隐藏状态可以理解为: S=f(现有的输入+过去记忆总结) </p>
-</li>
-</ul>
-<h5 id="RNN反向传播"><a href="#RNN反向传播" class="headerlink" title="RNN反向传播"></a>RNN反向传播</h5><p>我们介绍了RNN的前向传播的方式, 那么RNN的权重参数W,U,V都是怎么更新的呢?</p>
-<p>每一次的输出值Ot都会产生一个误差值Et, 则总的误差可以表示为:<img src="/ck38apt9p002cl8g46652bken/7.png" class=""></p>
-<p>则损失函数可以使用交叉熵损失函数也可以使用平方误差损失函数。</p>
-<p>由于每一步的输出不仅仅依赖当前步的网络，并且还需要前若干步网络的状态，那么这种BP改版的算法叫做Backpropagation Through Time(BPTT) , 也就是将输出端的误差值反向传递,运用梯度下降法进行更新。</p>
-<p>也就是要求参数的梯度：</p>
-<img src="/ck38apt9p002cl8g46652bken/8.png" class="">
-
-<p>首先我们求解<strong>W的更新方法</strong>, 由前面的W的更新可以看出它是每个时刻的偏差的偏导数之和. </p>
-<p> 在这里我们以 t = 3时刻为例, 根据链式求导法则可以得到t = 3时刻的偏导数为:</p>
-<img src="/ck38apt9p002cl8g46652bken/9.png" class="">
-
-<p>此时, 根据公式<img src="/ck38apt9p002cl8g46652bken/10.png" class="">我们会发现, S3除了和W有关之外, 还和前一时刻S2有关。</p>
-<p>对于S3直接展开得到下面的式子:</p>
-<img src="/ck38apt9p002cl8g46652bken/11.png" class="">
-
-<p>对于S2直接展开得到下面的式子:</p>
-<img src="/ck38apt9p002cl8g46652bken/12.png" class="">
-
-<p>对于S1直接展开得到下面的式子:</p>
-<img src="/ck38apt9p002cl8g46652bken/13.png" class="">
-
-<p>将上述三个式子合并得到:</p>
-<img src="/ck38apt9p002cl8g46652bken/14.png" class="">
-
-<p>这样就得到了公式:</p>
-<img src="/ck38apt9p002cl8g46652bken/15.png" class="">
-
-<p>这里要说明的是:<img src="/ck38apt9p002cl8g46652bken/18.png" class="">表示的是S3对W直接求导, 不考虑S2的影响.(也就是例如y = f(x)*g(x)对x求导一样)</p>
-<p>其次是对<strong>U的更新方法</strong>. 由于参数U求解和W求解类似,这里就不在赘述了,最终得到的具体的公式如下:</p>
-<img src="/ck38apt9p002cl8g46652bken/16.png" class="">
-
-<p>最后,给出<strong>V的更新公式</strong>(V只和输出O有关):</p>
-<img src="/ck38apt9p002cl8g46652bken/17.png" class="">
-
-
-
+</blockquote>
+<h6 id="解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。"><a href="#解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。" class="headerlink" title="解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。"></a>解题思路：其实本题思路还是比较容易想到的，我们把key设计成数组中出现的元素值，value设置成其出现的次数，然后使用sort函数按照value的值进行降序排列，但是sort只能给顺序类容器排序，而map的元素是pair类型，所以我们将一个pair类型插入到数组中，然后自定义排序规则，最后在使用sort排序即可，这种自定义sort排序，还是要掌握一点，这样遇到和排序相关的题目就可以直接用即可（快排一定手撕一下）。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; topKFrequent(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k) &#123;</span><br><span class="line">        <span class="built_in">unordered_map</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;umap;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            umap[nums[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt;vec_umap(umap.begin(), umap.end());</span><br><span class="line">        sort(vec_umap.begin(), vec_umap.end(), </span><br><span class="line">        [](<span class="keyword">const</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &amp;x, <span class="keyword">const</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; &amp;y) -&gt; <span class="keyword">int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x.second &gt; y.second;</span><br><span class="line">    &#125;);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;k;i++)&#123;</span><br><span class="line">            result.push_back(vec_umap[i].first);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -448,7 +369,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cblog.club/ck38apt9p002cl8g46652bken.html" title="RNN循环神经网络">https://cblog.club/ck38apt9p002cl8g46652bken.html</a>
+    <a href="https://cblog.club/ck38b82gw000lp4g4541v9fzj.html" title="347前K个高频元素">https://cblog.club/ck38b82gw000lp4g4541v9fzj.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -459,23 +380,23 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"> <i class="fa fa-tag"></i> 深度学习</a>
+              <a href="/tags/leetcode/" rel="tag"> <i class="fa fa-tag"></i> leetcode</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck38apta9002kl8g44cpucugw.html" rel="next" title="深度学习应用于文本和序列">
-                  <i class="fa fa-chevron-left"></i> 深度学习应用于文本和序列
+                <a href="/ck38b82ig0017p4g4bnlygmrn.html" rel="next" title="454四数相加II">
+                  <i class="fa fa-chevron-left"></i> 454四数相加II
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck38apt7p001bl8g4543r16ry.html" rel="prev" title="49字母异位词分组">
-                  49字母异位词分组 <i class="fa fa-chevron-right"></i>
+                <a href="/ck38b82kj0024p4g4128ycw9x.html" rel="prev" title="PyTorch_Day1">
+                  PyTorch_Day1 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -610,7 +531,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">46 分钟</span>
+    <span title="站点阅读时长">47 分钟</span>
 </div>
 	<div class="powered-by">
 		<i class="fa fa-user-md"></i>
@@ -620,7 +541,7 @@
 	</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共24k字</span>
+  <span class="post-count">博客全站共24.2k字</span>
 </div>
         
 

@@ -57,29 +57,18 @@
   };
 </script>
 
-  <meta name="description" content="SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是">
-<meta name="keywords" content="深度学习">
+  <meta name="description" content="题目描述： 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。">
+<meta name="keywords" content="lemon">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解LSTM">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico.html">
+<meta property="og:title" content="219存在重复元素II">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38b82f7000ap4g40p6e1vus.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是">
+<meta property="og:description" content="题目描述： 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;1.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;2.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;3.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;4.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;5.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;6.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;7.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;8.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;9.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;10.png">
-<meta property="og:updated_time" content="2019-11-17T15:43:35.337Z">
+<meta property="og:updated_time" content="2019-11-15T07:02:42.555Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;cblog.club&#x2F;ck38aptae002nl8g44et30ico&#x2F;1.png">
 
-<link rel="canonical" href="https://cblog.club/ck38aptae002nl8g44et30ico.html">
+<link rel="canonical" href="https://cblog.club/ck38b82f7000ap4g40p6e1vus.html">
 
 
 <script id="page-configurations">
@@ -93,7 +82,7 @@
   };
 </script>
 
-  <title>理解LSTM | lemon</title>
+  <title>219存在重复元素II | lemon</title>
   
 
 
@@ -235,7 +224,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck38aptae002nl8g44et30ico.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck38b82f7000ap4g40p6e1vus.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -248,7 +237,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          理解LSTM
+          219存在重复元素II
         </h2>
 
         <div class="post-meta">
@@ -257,24 +246,30 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-11-17 09:38:27 / 修改时间：23:43:35" itemprop="dateCreated datePublished" datetime="2019-11-17T09:38:27+08:00">2019-11-17</time>
+              <time title="创建时间：2019-11-14 22:30:04" itemprop="dateCreated datePublished" datetime="2019-11-14T22:30:04+08:00">2019-11-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-15 15:02:42" itemprop="dateModified" datetime="2019-11-15T15:02:42+08:00">2019-11-15</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
             </span>
 
           
-            <span id="/ck38aptae002nl8g44et30ico.html" class="post-meta-item leancloud_visitors" data-flag-title="理解LSTM" title="阅读次数">
+            <span id="/ck38b82f7000ap4g40p6e1vus.html" class="post-meta-item leancloud_visitors" data-flag-title="219存在重复元素II" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -289,8 +284,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/ck38aptae002nl8g44et30ico.html#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/ck38aptae002nl8g44et30ico.html" itemprop="commentCount"></span>
+    <a title="valine" href="/ck38b82f7000ap4g40p6e1vus.html#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ck38b82f7000ap4g40p6e1vus.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -300,14 +295,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>709</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -319,49 +314,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是为了解决SimpleRNN梯度消失这个问题设计的。<a id="more"></a></p>
-<h4 id="LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。"><a href="#LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。" class="headerlink" title="LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。"></a>LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。</h4><p>所有循环神经网络都具有神经网络的重复模块链的形式。 在标准的RNN中，该重复模块将具有非常简单的结构，例如单个tanh层。标准的RNN网络如下图所示：</p>
-<img src="/ck38aptae002nl8g44et30ico/1.png" class="">
+        <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组和一个整数 <em>k</em>，判断数组中是否存在两个不同的索引 <em>i</em> 和 <em>j</em>，使得 <strong>nums [i] = nums [j]</strong>，并且 <em>i</em> 和 <em>j</em> 的差的绝对值最大为 <em>k</em>。 </p>
+<a id="more"></a>
 
-<p> LSTM也具有这种链式结构，但是它的重复单元不同于标准RNN网络里的单元只有一个网络层，它的内部有四个网络层。LSTMs的结构如下图所示：</p>
-<img src="/ck38aptae002nl8g44et30ico/2.png" class="">
+<blockquote>
+<p><strong>示例 1:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3,1], k = 3</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
 
-<p> 在解释LSTMs的详细结构时先定义一下图中各个符号的含义，符号包括下面几种 </p>
-<img src="/ck38aptae002nl8g44et30ico/3.jpg" class="">
+<p><strong>示例 2:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,0,1,1], k = 1</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure>
 
-<p>图中黄色类似于CNN里的激活函数操作，粉色圆圈表示点操作，单箭头表示数据流向，箭头合并表示向量的合并（concat）操作，箭头分叉表示向量的拷贝操作 </p>
-<h4 id="LSTM核心思想"><a href="#LSTM核心思想" class="headerlink" title="LSTM核心思想"></a>LSTM核心思想</h4><p>LSTM的关键在于细胞的状态(整个绿色的图表示的是一个cell)，和穿过细胞的那条水平线。</p>
-<p>细胞状态类似于传送带。直接在整个链上运行，只有一些少量的线性交互。信息在上面流传保持不变会很容易。</p>
-<img src="/ck38aptae002nl8g44et30ico/4.png" class="">
-
-<p>若只有上面的那条水平线是没办法实现添加或者删除信息的。而是通过一种叫做 门（gates） 的结构来实现的。</p>
-<p>门 可以实现选择性地让信息通过，主要是通过一个 sigmoid 的神经层 和一个逐点相乘的操作来实现的。</p>
-<img src="/ck38aptae002nl8g44et30ico/5.png" class="">
-
-<p>sigmoid 层输出（是一个向量）的每个元素都是一个在 0 和 1 之间的实数，表示让对应信息通过的权重（或者占比）。比如， 0 表示“不让任何信息通过”， 1 表示“让所有信息通过”。</p>
-<p>LSTM通过三个这样的结构来实现信息的保护和控制。这三个门分别输入门、遗忘门和输出门。</p>
-<h4 id="逐步理解LSTM"><a href="#逐步理解LSTM" class="headerlink" title="逐步理解LSTM"></a>逐步理解LSTM</h4><p>接下来通过三个门来逐步理解LSTM的原理</p>
-<h5 id="遗忘门"><a href="#遗忘门" class="headerlink" title="遗忘门"></a>遗忘门</h5><p>在我们 LSTM 中的第一步是决定我们会从细胞状态中丢弃什么信息。这个决定通过一个称为忘记门层完成。该门会读取 h(t-1)和x(t)， 输出一个在 0到 1之间的数值即每个在细胞状态C(t-1)中的数字， 1 表示“完全保留”，0 表示“完全舍弃” 。</p>
-<p>举个例子，在语言中我们基于已经看到的词来预测下一个词。在这个问题中，细胞状态可能包含当前主语的性别，因此正确的代词可以被选择出来。当我们看到新的主语，我们希望忘记旧的主语。 </p>
-<img src="/ck38aptae002nl8g44et30ico/6.png" class="">
-
-<p> 其中h(t-1)表示的是上一个cell的输出，x(t)表示的是当前细胞的输入。σ表示sigmod函数。 </p>
-<h5 id="输入门"><a href="#输入门" class="headerlink" title="输入门"></a>输入门</h5><p>下一步是决定给细胞状态添加哪些新的信息。这一步又分为两个步骤，首先，利用h(t-1)和x(t)通过一个称为输入门的操作来决定更新哪些信息。然后利用h(t-1)和x(t)通过一个tanh层得到新的候选细胞信息~Ct，这些信息可能会被更新到细胞信息中。这两步描述如下图所示：</p>
-<img src="/ck38aptae002nl8g44et30ico/7.png" class="">
-
-<p> 下面将更新旧的细胞信息C(t-1)，变为新的细胞信息Ct。更新的规则就是通过忘记门选择忘记旧细胞信息的一部分，通过输入门选择添加候选细胞信息~Ct的一部分得到新的细胞信息Ct。更新操作如下图所示:</p>
-<img src="/ck38aptae002nl8g44et30ico/8.png" class="">
-
-<h5 id="输出门"><a href="#输出门" class="headerlink" title="输出门"></a>输出门</h5><p>最终，我们需要确定输出什么值。这个输出将会基于我们的细胞状态，但是也是一个过滤后的版本。首先，我们运行一个 sigmoid 层来确定细胞状态的哪个部分将输出出去。接着，我们把细胞状态通过 tanh 进行处理（得到一个在 -1 到 1 之间的值）并将它和 sigmoid 门的输出相乘，最终我们仅仅会输出我们确定输出的那部分。</p>
-<p> 还是拿语言模型来举例说明，在预测动词形式的时候，我们需要通过输入的主语是单数还是复数来推断输出门输出的预测动词是单数形式还是复数形式。 </p>
-<img src="/ck38aptae002nl8g44et30ico/9.png" class="">
-
-<h4 id="LSTM变体"><a href="#LSTM变体" class="headerlink" title="LSTM变体"></a>LSTM变体</h4><p>下面主要讲一下其中比较著名的变种 GRU（Gated Recurrent Unit ），这是由 Cho, et al. (2014) 提出。在 GRU 中，如下图所示，只有两个门：重置门（reset gate）和更新门（update gate）。同时在这个结构中，把细胞状态和隐藏状态进行了合并。最后模型比标准的 LSTM 结构要简单，而且这个结构后来也非常流行。</p>
-<img src="/ck38aptae002nl8g44et30ico/10.png" class="">
-
-<p> 其中，<strong>r</strong>表示重置门，<strong>t</strong>表示更新门。重置门决定是否将之前的状态忘记。(作用相当于合并了 LSTM 中的遗忘门和传入门）当<strong>r</strong>趋于0的时候，前一个时刻的状态信息 h(t-1)会被忘掉，隐藏状态^ht 会被重置为当前输入的信息。更新门决定是否要将隐藏状态更新为新的状态 ht(作用相当于 LSTM 中的输出门)</p>
-<p>其中重置门为上图中前面那个门，决定了如何将新的输入信息与前面的记忆相结合。更新门为上图中后面那个门，定义了前面记忆保存到当前时间步的量。</p>
-
+<p><strong>示例 3:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3,1,2,3], k = 2</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h6 id="解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-gt-数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。"><a href="#解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-gt-数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。" class="headerlink" title="解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-&gt;数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。"></a>解题思路：本题思路比较清楚，就是使用哈希映射，当前元素值-&gt;数组索引，循环当前数组，如果在哈希表中找到与当前元素相同的数，那么就计算他们之间的索引距离，如果小于等于给定K即可。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">containsNearbyDuplicate</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">unordered_multimap</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;umap;</span><br><span class="line">        <span class="built_in">unordered_multimap</span>&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line">        <span class="keyword">int</span> cur_distance;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.size();i++)&#123;</span><br><span class="line">            it=umap.find(nums[i]);</span><br><span class="line">            <span class="keyword">if</span>(it!=umap.end())&#123;</span><br><span class="line">                cur_distance=i-(it-&gt;second);</span><br><span class="line">                <span class="keyword">if</span>(cur_distance&lt;=k)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            umap.insert(&#123;nums[i],i&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -406,7 +372,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://cblog.club/ck38aptae002nl8g44et30ico.html" title="理解LSTM">https://cblog.club/ck38aptae002nl8g44et30ico.html</a>
+    <a href="https://cblog.club/ck38b82f7000ap4g40p6e1vus.html" title="219存在重复元素II">https://cblog.club/ck38b82f7000ap4g40p6e1vus.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/null" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -416,24 +382,21 @@
 
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag"> <i class="fa fa-tag"></i> 深度学习</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/ck38apt7c0014l8g4a06a1r7k.html" rel="next" title="3无重复字符的最长子串">
-                  <i class="fa fa-chevron-left"></i> 3无重复字符的最长子串
+                <a href="/ck38b82he000sp4g4cp11he56.html" rel="next" title="350两个数组的交集II">
+                  <i class="fa fa-chevron-left"></i> 350两个数组的交集II
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/ck38apt8o001sl8g45fw5bxxm.html" rel="prev" title="652寻找重复的子树">
-                  652寻找重复的子树 <i class="fa fa-chevron-right"></i>
+                <a href="/ck38b82mj002kp4g45p3z94kr.html" rel="prev" title="深度学习应用于文本和序列">
+                  深度学习应用于文本和序列 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -568,7 +531,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">46 分钟</span>
+    <span title="站点阅读时长">47 分钟</span>
 </div>
 	<div class="powered-by">
 		<i class="fa fa-user-md"></i>
@@ -578,7 +541,7 @@
 	</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共24k字</span>
+  <span class="post-count">博客全站共24.2k字</span>
 </div>
         
 
