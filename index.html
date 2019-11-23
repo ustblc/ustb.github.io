@@ -223,7 +223,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbef0035twg49rl54ykz.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko45002c5og48g6r6u9z.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -237,7 +237,635 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbef0035twg49rl54ykz.html" class="post-title-link" itemprop="url">安装anaconda虚拟环境、pytorch和jupyter notebook（远程访问）</a>
+            <a href="/ck3bmko45002c5og48g6r6u9z.html" class="post-title-link" itemprop="url">PyTorch_CNN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-23 21:42:34 / 修改时间：21:43:32" itemprop="dateCreated datePublished" datetime="2019-11-23T21:42:34+08:00">2019-11-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PyTorch/" itemprop="url" rel="index">
+                    <span itemprop="name">PyTorch</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/ck3bmko45002c5og48g6r6u9z.html" class="post-meta-item leancloud_visitors" data-flag-title="PyTorch_CNN" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h3><ul>
+<li>MNIST举例</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设备的配置（这里使用GPU来跑训练）</span></span><br><span class="line">device=torch.device(<span class="string">'cuda'</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">'cpu'</span>)</span><br><span class="line">print(device)</span><br></pre></td></tr></table></figure>
+
+<pre><code>cuda</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设定超参数</span></span><br><span class="line">num_classes=<span class="number">10</span></span><br><span class="line">num_epochs=<span class="number">30</span></span><br><span class="line">batch_size=<span class="number">100</span></span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载MNIST数据集</span></span><br><span class="line">train_dataset=torchvision.datasets.MNIST(root=<span class="string">'./data'</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=transforms.ToTensor())</span><br><span class="line"></span><br><span class="line">test_dataset=torchvision.datasets.MNIST(root=<span class="string">'./data'</span>,train=<span class="literal">False</span>,transform=transforms.ToTensor())</span><br></pre></td></tr></table></figure>
+
+<pre><code>Downloading http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz to ./data/MNIST/raw/train-images-idx3-ubyte.gz
+
+
+100.1%
+
+Extracting ./data/MNIST/raw/train-images-idx3-ubyte.gz to ./data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz to ./data/MNIST/raw/train-labels-idx1-ubyte.gz
+
+
+113.5%
+
+Extracting ./data/MNIST/raw/train-labels-idx1-ubyte.gz to ./data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw/t10k-images-idx3-ubyte.gz
+
+
+100.4%
+
+Extracting ./data/MNIST/raw/t10k-images-idx3-ubyte.gz to ./data/MNIST/raw
+Downloading http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz
+
+
+180.4%
+
+Extracting ./data/MNIST/raw/t10k-labels-idx1-ubyte.gz to ./data/MNIST/raw
+Processing...
+Done!</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义数据加载器（数据输入流水线）</span></span><br><span class="line">train_dataloader=torch.utils.data.DataLoader(dataset=train_dataset,batch_size=batch_size,shuffle=<span class="literal">True</span>)</span><br><span class="line">test_dataloader=torch.utils.data.DataLoader(dataset=test_dataset,batch_size=batch_size,shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义一个卷积神经网络（两个卷积层）</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ConvNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,num_classes=<span class="number">10</span>)</span>:</span></span><br><span class="line">        super(ConvNet,self).__init__()</span><br><span class="line">        self.layer1=nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">1</span>,<span class="number">16</span>,kernel_size=<span class="number">5</span>,stride=<span class="number">1</span>,padding=<span class="number">2</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">16</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(kernel_size=<span class="number">2</span>,stride=<span class="number">2</span>))</span><br><span class="line">        self.layer2=nn.Sequential(</span><br><span class="line">            nn.Conv2d(<span class="number">16</span>,<span class="number">32</span>,kernel_size=<span class="number">5</span>,stride=<span class="number">1</span>,padding=<span class="number">2</span>),</span><br><span class="line">            nn.BatchNorm2d(<span class="number">32</span>),</span><br><span class="line">            nn.ReLU(),</span><br><span class="line">            nn.MaxPool2d(kernel_size=<span class="number">2</span>,stride=<span class="number">2</span>))</span><br><span class="line">        self.fc=nn.Linear(<span class="number">7</span>*<span class="number">7</span>*<span class="number">32</span>,num_classes)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        out=self.layer1(x)</span><br><span class="line">        out=self.layer2(out)</span><br><span class="line">        out=out.reshape(out.size(<span class="number">0</span>),<span class="number">-1</span>)</span><br><span class="line">        out=self.fc(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line">model=ConvNet(num_classes).to(device)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义损失函数和优化器</span></span><br><span class="line">criterion=nn.CrossEntropyLoss()</span><br><span class="line">optimizer=torch.optim.SGD(model.parameters(),lr=learning_rate)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#训练模型</span></span><br><span class="line">total_step=len(train_dataloader)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(num_epochs):</span><br><span class="line">    <span class="keyword">for</span> i,(images,labels) <span class="keyword">in</span> enumerate(train_dataloader):</span><br><span class="line">        images=images.to(device)</span><br><span class="line">        labels=labels.to(device)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#前向传播</span></span><br><span class="line">        outputs=model(images)</span><br><span class="line">        loss=criterion(outputs,labels)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#梯度置0+反向传播+更新权重</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span>(i+<span class="number">1</span>)%<span class="number">100</span>==<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Epoch [&#123;&#125;/&#123;&#125;], Step [&#123;&#125;/&#123;&#125;], Loss: &#123;:.4f&#125;'</span> .format(epoch+<span class="number">1</span>, num_epochs, i+<span class="number">1</span>, total_step, loss.item()))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Epoch [1/30], Step [100/600], Loss: 0.1577
+Epoch [1/30], Step [200/600], Loss: 0.1438
+Epoch [1/30], Step [300/600], Loss: 0.1884
+Epoch [1/30], Step [400/600], Loss: 0.2141
+Epoch [1/30], Step [500/600], Loss: 0.1059
+Epoch [1/30], Step [600/600], Loss: 0.2351
+Epoch [2/30], Step [100/600], Loss: 0.1536
+Epoch [2/30], Step [200/600], Loss: 0.2595
+Epoch [2/30], Step [300/600], Loss: 0.1568
+Epoch [2/30], Step [400/600], Loss: 0.1574
+Epoch [2/30], Step [500/600], Loss: 0.1640
+Epoch [2/30], Step [600/600], Loss: 0.1491
+Epoch [3/30], Step [100/600], Loss: 0.1316
+Epoch [3/30], Step [200/600], Loss: 0.1286
+Epoch [3/30], Step [300/600], Loss: 0.1090
+Epoch [3/30], Step [400/600], Loss: 0.1225
+Epoch [3/30], Step [500/600], Loss: 0.1855
+Epoch [3/30], Step [600/600], Loss: 0.2051
+Epoch [4/30], Step [100/600], Loss: 0.1919
+Epoch [4/30], Step [200/600], Loss: 0.0978
+Epoch [4/30], Step [300/600], Loss: 0.1332
+Epoch [4/30], Step [400/600], Loss: 0.0695
+Epoch [4/30], Step [500/600], Loss: 0.1611
+Epoch [4/30], Step [600/600], Loss: 0.1686
+Epoch [5/30], Step [100/600], Loss: 0.0865
+Epoch [5/30], Step [200/600], Loss: 0.0943
+Epoch [5/30], Step [300/600], Loss: 0.0437
+Epoch [5/30], Step [400/600], Loss: 0.1014
+Epoch [5/30], Step [500/600], Loss: 0.1270
+Epoch [5/30], Step [600/600], Loss: 0.0938
+Epoch [6/30], Step [100/600], Loss: 0.1868
+Epoch [6/30], Step [200/600], Loss: 0.1830
+Epoch [6/30], Step [300/600], Loss: 0.1203
+Epoch [6/30], Step [400/600], Loss: 0.1165
+Epoch [6/30], Step [500/600], Loss: 0.1225
+Epoch [6/30], Step [600/600], Loss: 0.0663
+Epoch [7/30], Step [100/600], Loss: 0.1232
+Epoch [7/30], Step [200/600], Loss: 0.0919
+Epoch [7/30], Step [300/600], Loss: 0.0830
+Epoch [7/30], Step [400/600], Loss: 0.1185
+Epoch [7/30], Step [500/600], Loss: 0.1438
+Epoch [7/30], Step [600/600], Loss: 0.1936
+Epoch [8/30], Step [100/600], Loss: 0.0454
+Epoch [8/30], Step [200/600], Loss: 0.0440
+Epoch [8/30], Step [300/600], Loss: 0.1723
+Epoch [8/30], Step [400/600], Loss: 0.1465
+Epoch [8/30], Step [500/600], Loss: 0.1301
+Epoch [8/30], Step [600/600], Loss: 0.1120
+Epoch [9/30], Step [100/600], Loss: 0.1239
+Epoch [9/30], Step [200/600], Loss: 0.0668
+Epoch [9/30], Step [300/600], Loss: 0.1200
+Epoch [9/30], Step [400/600], Loss: 0.0720
+Epoch [9/30], Step [500/600], Loss: 0.1159
+Epoch [9/30], Step [600/600], Loss: 0.0869
+Epoch [10/30], Step [100/600], Loss: 0.0502
+Epoch [10/30], Step [200/600], Loss: 0.1090
+Epoch [10/30], Step [300/600], Loss: 0.0604
+Epoch [10/30], Step [400/600], Loss: 0.0823
+Epoch [10/30], Step [500/600], Loss: 0.1274
+Epoch [10/30], Step [600/600], Loss: 0.0921
+Epoch [11/30], Step [100/600], Loss: 0.0766
+Epoch [11/30], Step [200/600], Loss: 0.0915
+Epoch [11/30], Step [300/600], Loss: 0.0680
+Epoch [11/30], Step [400/600], Loss: 0.0537
+Epoch [11/30], Step [500/600], Loss: 0.0872
+Epoch [11/30], Step [600/600], Loss: 0.0501
+Epoch [12/30], Step [100/600], Loss: 0.0640
+Epoch [12/30], Step [200/600], Loss: 0.1074
+Epoch [12/30], Step [300/600], Loss: 0.0648
+Epoch [12/30], Step [400/600], Loss: 0.1053
+Epoch [12/30], Step [500/600], Loss: 0.1114
+Epoch [12/30], Step [600/600], Loss: 0.0853
+Epoch [13/30], Step [100/600], Loss: 0.0316
+Epoch [13/30], Step [200/600], Loss: 0.0837
+Epoch [13/30], Step [300/600], Loss: 0.1915
+Epoch [13/30], Step [400/600], Loss: 0.0859
+Epoch [13/30], Step [500/600], Loss: 0.0947
+Epoch [13/30], Step [600/600], Loss: 0.0501
+Epoch [14/30], Step [100/600], Loss: 0.0765
+Epoch [14/30], Step [200/600], Loss: 0.0526
+Epoch [14/30], Step [300/600], Loss: 0.0773
+Epoch [14/30], Step [400/600], Loss: 0.0578
+Epoch [14/30], Step [500/600], Loss: 0.0845
+Epoch [14/30], Step [600/600], Loss: 0.0521
+Epoch [15/30], Step [100/600], Loss: 0.1169
+Epoch [15/30], Step [200/600], Loss: 0.0391
+Epoch [15/30], Step [300/600], Loss: 0.0686
+Epoch [15/30], Step [400/600], Loss: 0.0966
+Epoch [15/30], Step [500/600], Loss: 0.0331
+Epoch [15/30], Step [600/600], Loss: 0.0582
+Epoch [16/30], Step [100/600], Loss: 0.0694
+Epoch [16/30], Step [200/600], Loss: 0.0841
+Epoch [16/30], Step [300/600], Loss: 0.1188
+Epoch [16/30], Step [400/600], Loss: 0.0712
+Epoch [16/30], Step [500/600], Loss: 0.0655
+Epoch [16/30], Step [600/600], Loss: 0.0883
+Epoch [17/30], Step [100/600], Loss: 0.1239
+Epoch [17/30], Step [200/600], Loss: 0.0856
+Epoch [17/30], Step [300/600], Loss: 0.0598
+Epoch [17/30], Step [400/600], Loss: 0.0667
+Epoch [17/30], Step [500/600], Loss: 0.0577
+Epoch [17/30], Step [600/600], Loss: 0.0958
+Epoch [18/30], Step [100/600], Loss: 0.0657
+Epoch [18/30], Step [200/600], Loss: 0.0419
+Epoch [18/30], Step [300/600], Loss: 0.0927
+Epoch [18/30], Step [400/600], Loss: 0.1247
+Epoch [18/30], Step [500/600], Loss: 0.1200
+Epoch [18/30], Step [600/600], Loss: 0.1246
+Epoch [19/30], Step [100/600], Loss: 0.0615
+Epoch [19/30], Step [200/600], Loss: 0.0164
+Epoch [19/30], Step [300/600], Loss: 0.0816
+Epoch [19/30], Step [400/600], Loss: 0.1274
+Epoch [19/30], Step [500/600], Loss: 0.0988
+Epoch [19/30], Step [600/600], Loss: 0.0349
+Epoch [20/30], Step [100/600], Loss: 0.1025
+Epoch [20/30], Step [200/600], Loss: 0.1068
+Epoch [20/30], Step [300/600], Loss: 0.0400
+Epoch [20/30], Step [400/600], Loss: 0.0398
+Epoch [20/30], Step [500/600], Loss: 0.0671
+Epoch [20/30], Step [600/600], Loss: 0.0874
+Epoch [21/30], Step [100/600], Loss: 0.0413
+Epoch [21/30], Step [200/600], Loss: 0.1078
+Epoch [21/30], Step [300/600], Loss: 0.0597
+Epoch [21/30], Step [400/600], Loss: 0.0410
+Epoch [21/30], Step [500/600], Loss: 0.0644
+Epoch [21/30], Step [600/600], Loss: 0.1118
+Epoch [22/30], Step [100/600], Loss: 0.0907
+Epoch [22/30], Step [200/600], Loss: 0.0542
+Epoch [22/30], Step [300/600], Loss: 0.2506
+Epoch [22/30], Step [400/600], Loss: 0.0521
+Epoch [22/30], Step [500/600], Loss: 0.0435
+Epoch [22/30], Step [600/600], Loss: 0.0573
+Epoch [23/30], Step [100/600], Loss: 0.0587
+Epoch [23/30], Step [200/600], Loss: 0.0452
+Epoch [23/30], Step [300/600], Loss: 0.0409
+Epoch [23/30], Step [400/600], Loss: 0.0517
+Epoch [23/30], Step [500/600], Loss: 0.0404
+Epoch [23/30], Step [600/600], Loss: 0.0853
+Epoch [24/30], Step [100/600], Loss: 0.0939
+Epoch [24/30], Step [200/600], Loss: 0.0728
+Epoch [24/30], Step [300/600], Loss: 0.0334
+Epoch [24/30], Step [400/600], Loss: 0.0385
+Epoch [24/30], Step [500/600], Loss: 0.0339
+Epoch [24/30], Step [600/600], Loss: 0.1187
+Epoch [25/30], Step [100/600], Loss: 0.0291
+Epoch [25/30], Step [200/600], Loss: 0.0209
+Epoch [25/30], Step [300/600], Loss: 0.0638
+Epoch [25/30], Step [400/600], Loss: 0.1146
+Epoch [25/30], Step [500/600], Loss: 0.0283
+Epoch [25/30], Step [600/600], Loss: 0.0954
+Epoch [26/30], Step [100/600], Loss: 0.0835
+Epoch [26/30], Step [200/600], Loss: 0.0453
+Epoch [26/30], Step [300/600], Loss: 0.0255
+Epoch [26/30], Step [400/600], Loss: 0.0836
+Epoch [26/30], Step [500/600], Loss: 0.0456
+Epoch [26/30], Step [600/600], Loss: 0.0207
+Epoch [27/30], Step [100/600], Loss: 0.1213
+Epoch [27/30], Step [200/600], Loss: 0.0258
+Epoch [27/30], Step [300/600], Loss: 0.0545
+Epoch [27/30], Step [400/600], Loss: 0.0296
+Epoch [27/30], Step [500/600], Loss: 0.0507
+Epoch [27/30], Step [600/600], Loss: 0.0386
+Epoch [28/30], Step [100/600], Loss: 0.0545
+Epoch [28/30], Step [200/600], Loss: 0.0468
+Epoch [28/30], Step [300/600], Loss: 0.2291
+Epoch [28/30], Step [400/600], Loss: 0.1048
+Epoch [28/30], Step [500/600], Loss: 0.0407
+Epoch [28/30], Step [600/600], Loss: 0.0895
+Epoch [29/30], Step [100/600], Loss: 0.0504
+Epoch [29/30], Step [200/600], Loss: 0.0448
+Epoch [29/30], Step [300/600], Loss: 0.0254
+Epoch [29/30], Step [400/600], Loss: 0.0468
+Epoch [29/30], Step [500/600], Loss: 0.0783
+Epoch [29/30], Step [600/600], Loss: 0.0542
+Epoch [30/30], Step [100/600], Loss: 0.0531
+Epoch [30/30], Step [200/600], Loss: 0.0461
+Epoch [30/30], Step [300/600], Loss: 0.0339
+Epoch [30/30], Step [400/600], Loss: 0.0592
+Epoch [30/30], Step [500/600], Loss: 0.0287
+Epoch [30/30], Step [600/600], Loss: 0.0403</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#测试模型</span></span><br><span class="line">model.eval()</span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    correct=<span class="number">0</span></span><br><span class="line">    total=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> images,labels <span class="keyword">in</span> test_dataloader:</span><br><span class="line">        images=images.to(device)</span><br><span class="line">        labels=labels.to(device)</span><br><span class="line">        outputs=model(images)</span><br><span class="line">        _,predicted=torch.max(outputs.data,<span class="number">1</span>)</span><br><span class="line">        total+=labels.size(<span class="number">0</span>)</span><br><span class="line">        correct+=(predicted==labels).sum().item()</span><br><span class="line">        </span><br><span class="line">    print(<span class="string">'Test Accuracy of the model on the 10000 test images:&#123;&#125;%'</span>.format(<span class="number">100</span>*correct/total))</span><br><span class="line"></span><br><span class="line"><span class="comment">#保存模型的权重</span></span><br><span class="line">torch.save(model.state_dict(),<span class="string">'cnn.ckpt'</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Test Accuracy of the model on the 10000 test images:98.37%</code></pre>
+      
+    </div>
+
+    
+    
+    
+
+	<div>
+	  
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4f002q5og4h352h3ab.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="研一在读">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemon">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/ck3bmko4f002q5og4h352h3ab.html" class="post-title-link" itemprop="url">PyTorch-Day5</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2019-11-23 21:41:39 / 修改时间：21:43:04" itemprop="dateCreated datePublished" datetime="2019-11-23T21:41:39+08:00">2019-11-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/PyTorch/" itemprop="url" rel="index">
+                    <span itemprop="name">PyTorch</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span id="/ck3bmko4f002q5og4h352h3ab.html" class="post-meta-item leancloud_visitors" data-flag-title="PyTorch-Day5" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="前馈神经网络"><a href="#前馈神经网络" class="headerlink" title="前馈神经网络"></a>前馈神经网络</h3><ul>
+<li>这里仍然使用MNIST数据集</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torchvision</span><br><span class="line"><span class="keyword">import</span> torchvision.transforms <span class="keyword">as</span> transforms</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设备的配置（这里使用GPU来跑训练）</span></span><br><span class="line">device=torch.device(<span class="string">'cuda'</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">'cpu'</span>)</span><br><span class="line">print(device)</span><br></pre></td></tr></table></figure>
+
+<pre><code>cuda</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设定超参数</span></span><br><span class="line">input_size=<span class="number">784</span></span><br><span class="line">hidden_size=<span class="number">500</span></span><br><span class="line">num_classes=<span class="number">10</span></span><br><span class="line">num_epochs=<span class="number">30</span></span><br><span class="line">batch_size=<span class="number">100</span></span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载MNIST数据集</span></span><br><span class="line">train_dataset=torchvision.datasets.MNIST(root=<span class="string">'./data'</span>,train=<span class="literal">True</span>,download=<span class="literal">True</span>,transform=transforms.ToTensor())</span><br><span class="line"></span><br><span class="line">test_dataset=torchvision.datasets.MNIST(root=<span class="string">'./data'</span>,train=<span class="literal">False</span>,transform=transforms.ToTensor())</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义数据加载器（数据输入流水线）</span></span><br><span class="line">train_dataloader=torch.utils.data.DataLoader(dataset=train_dataset,batch_size=batch_size,shuffle=<span class="literal">True</span>)</span><br><span class="line">test_dataloader=torch.utils.data.DataLoader(dataset=test_dataset,batch_size=batch_size,shuffle=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#一个隐含层的全连接神经网络</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NeuralNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,input_size,hidden_size,num_classes)</span>:</span></span><br><span class="line">        super(NeuralNet,self).__init__()</span><br><span class="line">        self.fc1=nn.Linear(input_size,hidden_size)</span><br><span class="line">        self.relu=nn.ReLU()</span><br><span class="line">        self.fc2=nn.Linear(hidden_size,num_classes)</span><br><span class="line">            </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        out=self.fc1(x)</span><br><span class="line">        out=self.relu(out)</span><br><span class="line">        out=self.fc2(out)</span><br><span class="line">        <span class="keyword">return</span> out</span><br><span class="line"></span><br><span class="line">model=NeuralNet(input_size,hidden_size,num_classes).to(device)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义损失函数和优化器</span></span><br><span class="line">criterion=nn.CrossEntropyLoss()</span><br><span class="line">optimizer=torch.optim.SGD(model.parameters(),lr=learning_rate)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#训练模型</span></span><br><span class="line">total_step=len(train_dataloader)</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(num_epochs):</span><br><span class="line">    <span class="keyword">for</span> i,(images,labels) <span class="keyword">in</span> enumerate(train_dataloader):</span><br><span class="line">        <span class="comment">#将tensor张量移动到GPU上</span></span><br><span class="line">        images=images.reshape(<span class="number">-1</span>,<span class="number">28</span>*<span class="number">28</span>).to(device)</span><br><span class="line">        labels=labels.to(device)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#前向传播</span></span><br><span class="line">        outputs=model(images)</span><br><span class="line">        loss=criterion(outputs,labels)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#梯度置0+反向传播+更新权重</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        loss.backward()</span><br><span class="line">        optimizer.step()</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (i+<span class="number">1</span>)%<span class="number">100</span>==<span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Epoch [&#123;&#125;/&#123;&#125;], Step [&#123;&#125;/&#123;&#125;], Loss: &#123;:.4f&#125;'</span> .format(epoch+<span class="number">1</span>, num_epochs, i+<span class="number">1</span>, total_step, loss.item()))</span><br></pre></td></tr></table></figure>
+
+<pre><code>Epoch [1/30], Step [100/600], Loss: 2.2577
+Epoch [1/30], Step [200/600], Loss: 2.2602
+Epoch [1/30], Step [300/600], Loss: 2.2123
+Epoch [1/30], Step [400/600], Loss: 2.2026
+Epoch [1/30], Step [500/600], Loss: 2.1547
+Epoch [1/30], Step [600/600], Loss: 2.1598
+Epoch [2/30], Step [100/600], Loss: 2.0920
+Epoch [2/30], Step [200/600], Loss: 2.0759
+Epoch [2/30], Step [300/600], Loss: 2.0557
+Epoch [2/30], Step [400/600], Loss: 2.0411
+Epoch [2/30], Step [500/600], Loss: 1.9963
+Epoch [2/30], Step [600/600], Loss: 1.9562
+Epoch [3/30], Step [100/600], Loss: 1.8933
+Epoch [3/30], Step [200/600], Loss: 1.8954
+Epoch [3/30], Step [300/600], Loss: 1.8854
+Epoch [3/30], Step [400/600], Loss: 1.9073
+Epoch [3/30], Step [500/600], Loss: 1.8073
+Epoch [3/30], Step [600/600], Loss: 1.7214
+Epoch [4/30], Step [100/600], Loss: 1.7209
+Epoch [4/30], Step [200/600], Loss: 1.6359
+Epoch [4/30], Step [300/600], Loss: 1.6842
+Epoch [4/30], Step [400/600], Loss: 1.6216
+Epoch [4/30], Step [500/600], Loss: 1.6705
+Epoch [4/30], Step [600/600], Loss: 1.5234
+Epoch [5/30], Step [100/600], Loss: 1.4869
+Epoch [5/30], Step [200/600], Loss: 1.4968
+Epoch [5/30], Step [300/600], Loss: 1.4577
+Epoch [5/30], Step [400/600], Loss: 1.5792
+Epoch [5/30], Step [500/600], Loss: 1.4062
+Epoch [5/30], Step [600/600], Loss: 1.3446
+Epoch [6/30], Step [100/600], Loss: 1.3835
+Epoch [6/30], Step [200/600], Loss: 1.2209
+Epoch [6/30], Step [300/600], Loss: 1.3533
+Epoch [6/30], Step [400/600], Loss: 1.2524
+Epoch [6/30], Step [500/600], Loss: 1.1529
+Epoch [6/30], Step [600/600], Loss: 1.1282
+Epoch [7/30], Step [100/600], Loss: 1.1611
+Epoch [7/30], Step [200/600], Loss: 1.1645
+Epoch [7/30], Step [300/600], Loss: 1.0757
+Epoch [7/30], Step [400/600], Loss: 1.1130
+Epoch [7/30], Step [500/600], Loss: 1.1147
+Epoch [7/30], Step [600/600], Loss: 0.9933
+Epoch [8/30], Step [100/600], Loss: 0.9965
+Epoch [8/30], Step [200/600], Loss: 1.0421
+Epoch [8/30], Step [300/600], Loss: 0.9947
+Epoch [8/30], Step [400/600], Loss: 0.9643
+Epoch [8/30], Step [500/600], Loss: 0.8699
+Epoch [8/30], Step [600/600], Loss: 0.9051
+Epoch [9/30], Step [100/600], Loss: 0.9915
+Epoch [9/30], Step [200/600], Loss: 0.8200
+Epoch [9/30], Step [300/600], Loss: 0.8870
+Epoch [9/30], Step [400/600], Loss: 0.7617
+Epoch [9/30], Step [500/600], Loss: 0.8657
+Epoch [9/30], Step [600/600], Loss: 0.8298
+Epoch [10/30], Step [100/600], Loss: 0.8165
+Epoch [10/30], Step [200/600], Loss: 0.8207
+Epoch [10/30], Step [300/600], Loss: 0.8202
+Epoch [10/30], Step [400/600], Loss: 0.8262
+Epoch [10/30], Step [500/600], Loss: 0.8131
+Epoch [10/30], Step [600/600], Loss: 0.8367
+Epoch [11/30], Step [100/600], Loss: 0.8376
+Epoch [11/30], Step [200/600], Loss: 0.8952
+Epoch [11/30], Step [300/600], Loss: 0.8049
+Epoch [11/30], Step [400/600], Loss: 0.8018
+Epoch [11/30], Step [500/600], Loss: 0.6761
+Epoch [11/30], Step [600/600], Loss: 0.7581
+Epoch [12/30], Step [100/600], Loss: 0.6733
+Epoch [12/30], Step [200/600], Loss: 0.7217
+Epoch [12/30], Step [300/600], Loss: 0.7343
+Epoch [12/30], Step [400/600], Loss: 0.6188
+Epoch [12/30], Step [500/600], Loss: 0.6395
+Epoch [12/30], Step [600/600], Loss: 0.6714
+Epoch [13/30], Step [100/600], Loss: 0.7165
+Epoch [13/30], Step [200/600], Loss: 0.6684
+Epoch [13/30], Step [300/600], Loss: 0.6127
+Epoch [13/30], Step [400/600], Loss: 0.6626
+Epoch [13/30], Step [500/600], Loss: 0.6130
+Epoch [13/30], Step [600/600], Loss: 0.6483
+Epoch [14/30], Step [100/600], Loss: 0.5773
+Epoch [14/30], Step [200/600], Loss: 0.6234
+Epoch [14/30], Step [300/600], Loss: 0.5617
+Epoch [14/30], Step [400/600], Loss: 0.6304
+Epoch [14/30], Step [500/600], Loss: 0.5647
+Epoch [14/30], Step [600/600], Loss: 0.6992
+Epoch [15/30], Step [100/600], Loss: 0.7693
+Epoch [15/30], Step [200/600], Loss: 0.5023
+Epoch [15/30], Step [300/600], Loss: 0.6256
+Epoch [15/30], Step [400/600], Loss: 0.5553
+Epoch [15/30], Step [500/600], Loss: 0.5332
+Epoch [15/30], Step [600/600], Loss: 0.6705
+Epoch [16/30], Step [100/600], Loss: 0.5651
+Epoch [16/30], Step [200/600], Loss: 0.6031
+Epoch [16/30], Step [300/600], Loss: 0.6298
+Epoch [16/30], Step [400/600], Loss: 0.6218
+Epoch [16/30], Step [500/600], Loss: 0.5065
+Epoch [16/30], Step [600/600], Loss: 0.5554
+Epoch [17/30], Step [100/600], Loss: 0.5246
+Epoch [17/30], Step [200/600], Loss: 0.6190
+Epoch [17/30], Step [300/600], Loss: 0.5547
+Epoch [17/30], Step [400/600], Loss: 0.5002
+Epoch [17/30], Step [500/600], Loss: 0.6297
+Epoch [17/30], Step [600/600], Loss: 0.6091
+Epoch [18/30], Step [100/600], Loss: 0.5265
+Epoch [18/30], Step [200/600], Loss: 0.4593
+Epoch [18/30], Step [300/600], Loss: 0.5204
+Epoch [18/30], Step [400/600], Loss: 0.5156
+Epoch [18/30], Step [500/600], Loss: 0.5276
+Epoch [18/30], Step [600/600], Loss: 0.5380
+Epoch [19/30], Step [100/600], Loss: 0.4246
+Epoch [19/30], Step [200/600], Loss: 0.4761
+Epoch [19/30], Step [300/600], Loss: 0.5177
+Epoch [19/30], Step [400/600], Loss: 0.5698
+Epoch [19/30], Step [500/600], Loss: 0.5143
+Epoch [19/30], Step [600/600], Loss: 0.4552
+Epoch [20/30], Step [100/600], Loss: 0.4989
+Epoch [20/30], Step [200/600], Loss: 0.4384
+Epoch [20/30], Step [300/600], Loss: 0.5648
+Epoch [20/30], Step [400/600], Loss: 0.4323
+Epoch [20/30], Step [500/600], Loss: 0.4153
+Epoch [20/30], Step [600/600], Loss: 0.5401
+Epoch [21/30], Step [100/600], Loss: 0.4298
+Epoch [21/30], Step [200/600], Loss: 0.4795
+Epoch [21/30], Step [300/600], Loss: 0.4865
+Epoch [21/30], Step [400/600], Loss: 0.6770
+Epoch [21/30], Step [500/600], Loss: 0.4689
+Epoch [21/30], Step [600/600], Loss: 0.5034
+Epoch [22/30], Step [100/600], Loss: 0.4461
+Epoch [22/30], Step [200/600], Loss: 0.3873
+Epoch [22/30], Step [300/600], Loss: 0.4634
+Epoch [22/30], Step [400/600], Loss: 0.4536
+Epoch [22/30], Step [500/600], Loss: 0.5801
+Epoch [22/30], Step [600/600], Loss: 0.3840
+Epoch [23/30], Step [100/600], Loss: 0.4354
+Epoch [23/30], Step [200/600], Loss: 0.3644
+Epoch [23/30], Step [300/600], Loss: 0.5900
+Epoch [23/30], Step [400/600], Loss: 0.5235
+Epoch [23/30], Step [500/600], Loss: 0.4935
+Epoch [23/30], Step [600/600], Loss: 0.4815
+Epoch [24/30], Step [100/600], Loss: 0.3946
+Epoch [24/30], Step [200/600], Loss: 0.5413
+Epoch [24/30], Step [300/600], Loss: 0.4906
+Epoch [24/30], Step [400/600], Loss: 0.4895
+Epoch [24/30], Step [500/600], Loss: 0.5062
+Epoch [24/30], Step [600/600], Loss: 0.4927
+Epoch [25/30], Step [100/600], Loss: 0.5096
+Epoch [25/30], Step [200/600], Loss: 0.5281
+Epoch [25/30], Step [300/600], Loss: 0.5560
+Epoch [25/30], Step [400/600], Loss: 0.3325
+Epoch [25/30], Step [500/600], Loss: 0.5069
+Epoch [25/30], Step [600/600], Loss: 0.4295
+Epoch [26/30], Step [100/600], Loss: 0.3942
+Epoch [26/30], Step [200/600], Loss: 0.5095
+Epoch [26/30], Step [300/600], Loss: 0.4046
+Epoch [26/30], Step [400/600], Loss: 0.4315
+Epoch [26/30], Step [500/600], Loss: 0.4742
+Epoch [26/30], Step [600/600], Loss: 0.4902
+Epoch [27/30], Step [100/600], Loss: 0.5214
+Epoch [27/30], Step [200/600], Loss: 0.5570
+Epoch [27/30], Step [300/600], Loss: 0.4271
+Epoch [27/30], Step [400/600], Loss: 0.4110
+Epoch [27/30], Step [500/600], Loss: 0.3797
+Epoch [27/30], Step [600/600], Loss: 0.4555
+Epoch [28/30], Step [100/600], Loss: 0.4667
+Epoch [28/30], Step [200/600], Loss: 0.4648
+Epoch [28/30], Step [300/600], Loss: 0.4887
+Epoch [28/30], Step [400/600], Loss: 0.3500
+Epoch [28/30], Step [500/600], Loss: 0.4439
+Epoch [28/30], Step [600/600], Loss: 0.4054
+Epoch [29/30], Step [100/600], Loss: 0.5129
+Epoch [29/30], Step [200/600], Loss: 0.4508
+Epoch [29/30], Step [300/600], Loss: 0.4131
+Epoch [29/30], Step [400/600], Loss: 0.4463
+Epoch [29/30], Step [500/600], Loss: 0.5682
+Epoch [29/30], Step [600/600], Loss: 0.3458
+Epoch [30/30], Step [100/600], Loss: 0.3850
+Epoch [30/30], Step [200/600], Loss: 0.4949
+Epoch [30/30], Step [300/600], Loss: 0.3873
+Epoch [30/30], Step [400/600], Loss: 0.4957
+Epoch [30/30], Step [500/600], Loss: 0.3352
+Epoch [30/30], Step [600/600], Loss: 0.4667</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#测试模型（在测试阶段不需要再计算梯度）</span></span><br><span class="line"><span class="keyword">with</span> torch.no_grad():</span><br><span class="line">    correct=<span class="number">0</span></span><br><span class="line">    total=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> images,labels <span class="keyword">in</span> test_dataloader:</span><br><span class="line">        images=images.reshape(<span class="number">-1</span>,<span class="number">28</span>*<span class="number">28</span>).to(device)</span><br><span class="line">        labels=labels.to(device)</span><br><span class="line">        outputs=model(images)</span><br><span class="line">        _,predicted=torch.max(outputs.data,<span class="number">1</span>)</span><br><span class="line">        total+=labels.size(<span class="number">0</span>)</span><br><span class="line">        correct+=(predicted==labels).sum().item()</span><br><span class="line">print(<span class="string">'Accuracy of the network on the 10000 test images:&#123;&#125;%'</span>.format(<span class="number">100</span>*correct/total))</span><br><span class="line"></span><br><span class="line"><span class="comment">#保存模型</span></span><br><span class="line">torch.save(model.state_dict(),<span class="string">'NeuralNet.ckpt'</span>)</span><br></pre></td></tr></table></figure>
+
+<pre><code>Accuracy of the network on the 10000 test images:89.47%</code></pre>
+      
+    </div>
+
+    
+    
+    
+
+	<div>
+	  
+	</div>
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4z003e5og44h0ochqg.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="lemon">
+      <meta itemprop="description" content="研一在读">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lemon">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/ck3bmko4z003e5og44h0ochqg.html" class="post-title-link" itemprop="url">安装anaconda虚拟环境、pytorch和jupyter notebook（远程访问）</a>
         </h2>
 
         <div class="post-meta">
@@ -263,7 +891,7 @@
             </span>
 
           
-            <span id="/ck3bmdbef0035twg49rl54ykz.html" class="post-meta-item leancloud_visitors" data-flag-title="安装anaconda虚拟环境、pytorch和jupyter notebook（远程访问）" title="阅读次数">
+            <span id="/ck3bmko4z003e5og44h0ochqg.html" class="post-meta-item leancloud_visitors" data-flag-title="安装anaconda虚拟环境、pytorch和jupyter notebook（远程访问）" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -299,7 +927,7 @@
           <p>最近在学习Pytorch，然后实验室有一台双卡的服务器，显卡是特斯拉（貌似很nb），所以就想在服务器上跑代码，炼丹。今天花了点时间配置了一下环境，主要安装了anaconda和pytorch(gpu版本)，为此记录一下= =。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ck3bmdbef0035twg49rl54ykz.html#more" rel="contents">
+              <a class="btn" href="/ck3bmko4z003e5og44h0ochqg.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -327,7 +955,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbbd0005twg48wabhr1x.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko1w00065og46t4k57ua.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -341,7 +969,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbbd0005twg48wabhr1x.html" class="post-title-link" itemprop="url">139单词拆分</a>
+            <a href="/ck3bmko1w00065og46t4k57ua.html" class="post-title-link" itemprop="url">139单词拆分</a>
         </h2>
 
         <div class="post-meta">
@@ -373,7 +1001,7 @@
             </span>
 
           
-            <span id="/ck3bmdbbd0005twg48wabhr1x.html" class="post-meta-item leancloud_visitors" data-flag-title="139单词拆分" title="阅读次数">
+            <span id="/ck3bmko1w00065og46t4k57ua.html" class="post-meta-item leancloud_visitors" data-flag-title="139单词拆分" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -414,7 +1042,7 @@
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ck3bmdbbd0005twg48wabhr1x.html#more" rel="contents">
+              <a class="btn" href="/ck3bmko1w00065og46t4k57ua.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -442,7 +1070,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbdg001ytwg403o38d9h.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4000245og4flon64pl.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -456,7 +1084,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbdg001ytwg403o38d9h.html" class="post-title-link" itemprop="url">DFS深优先度搜索</a>
+            <a href="/ck3bmko4000245og4flon64pl.html" class="post-title-link" itemprop="url">DFS深优先度搜索</a>
         </h2>
 
         <div class="post-meta">
@@ -482,7 +1110,7 @@
             </span>
 
           
-            <span id="/ck3bmdbdg001ytwg403o38d9h.html" class="post-meta-item leancloud_visitors" data-flag-title="DFS深优先度搜索" title="阅读次数">
+            <span id="/ck3bmko4000245og4flon64pl.html" class="post-meta-item leancloud_visitors" data-flag-title="DFS深优先度搜索" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -542,7 +1170,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbdz002htwg485ii7x7d.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4e002n5og4ad1w7s7q.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -556,7 +1184,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbdz002htwg485ii7x7d.html" class="post-title-link" itemprop="url">PyTorch-Day4</a>
+            <a href="/ck3bmko4e002n5og4ad1w7s7q.html" class="post-title-link" itemprop="url">PyTorch-Day4</a>
         </h2>
 
         <div class="post-meta">
@@ -582,7 +1210,7 @@
             </span>
 
           
-            <span id="/ck3bmdbdz002htwg485ii7x7d.html" class="post-meta-item leancloud_visitors" data-flag-title="PyTorch-Day4" title="阅读次数">
+            <span id="/ck3bmko4e002n5og4ad1w7s7q.html" class="post-meta-item leancloud_visitors" data-flag-title="PyTorch-Day4" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -622,7 +1250,7 @@
 </ul>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ck3bmdbdz002htwg485ii7x7d.html#more" rel="contents">
+              <a class="btn" href="/ck3bmko4e002n5og4ad1w7s7q.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -650,7 +1278,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbe4002ptwg464teaj6u.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4n002y5og47qqrh4c7.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -664,7 +1292,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbe4002ptwg464teaj6u.html" class="post-title-link" itemprop="url">Python之进程和线程_2</a>
+            <a href="/ck3bmko4n002y5og47qqrh4c7.html" class="post-title-link" itemprop="url">Python之进程和线程_2</a>
         </h2>
 
         <div class="post-meta">
@@ -696,7 +1324,7 @@
             </span>
 
           
-            <span id="/ck3bmdbe4002ptwg464teaj6u.html" class="post-meta-item leancloud_visitors" data-flag-title="Python之进程和线程_2" title="阅读次数">
+            <span id="/ck3bmko4n002y5og47qqrh4c7.html" class="post-meta-item leancloud_visitors" data-flag-title="Python之进程和线程_2" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -734,7 +1362,7 @@
 <p>由于线程是操作系统直接支持的执行单元，因此，高级语言通常都内置多线程的支持，Python也不例外，并且，Python的线程是真正的Posix Thread，而不是模拟出来的线程。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ck3bmdbe4002ptwg464teaj6u.html#more" rel="contents">
+              <a class="btn" href="/ck3bmko4n002y5og47qqrh4c7.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -762,7 +1390,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbdp002ctwg4cx2ocaxc.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4a002i5og44eyxagqs.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -776,7 +1404,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbdp002ctwg4cx2ocaxc.html" class="post-title-link" itemprop="url">PyTorch_Day3</a>
+            <a href="/ck3bmko4a002i5og44eyxagqs.html" class="post-title-link" itemprop="url">PyTorch_Day3</a>
         </h2>
 
         <div class="post-meta">
@@ -802,7 +1430,7 @@
             </span>
 
           
-            <span id="/ck3bmdbdp002ctwg4cx2ocaxc.html" class="post-meta-item leancloud_visitors" data-flag-title="PyTorch_Day3" title="阅读次数">
+            <span id="/ck3bmko4a002i5og44eyxagqs.html" class="post-meta-item leancloud_visitors" data-flag-title="PyTorch_Day3" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -839,7 +1467,7 @@
 <p>关于数据<br>通常，当你处理图像，文本，音频和视频数据时，你可以使用标准的Python包来加载数据到一个numpy数组中.然后把这个数组转换成torch.Tensor。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ck3bmdbdp002ctwg4cx2ocaxc.html#more" rel="contents">
+              <a class="btn" href="/ck3bmko4a002i5og44eyxagqs.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -867,7 +1495,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbe6002stwg42k6nd0ok.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4s00335og44m1vd55j.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -881,7 +1509,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbe6002stwg42k6nd0ok.html" class="post-title-link" itemprop="url">Python之进程和线程</a>
+            <a href="/ck3bmko4s00335og44m1vd55j.html" class="post-title-link" itemprop="url">Python之进程和线程</a>
         </h2>
 
         <div class="post-meta">
@@ -913,7 +1541,7 @@
             </span>
 
           
-            <span id="/ck3bmdbe6002stwg42k6nd0ok.html" class="post-meta-item leancloud_visitors" data-flag-title="Python之进程和线程" title="阅读次数">
+            <span id="/ck3bmko4s00335og44m1vd55j.html" class="post-meta-item leancloud_visitors" data-flag-title="Python之进程和线程" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -949,7 +1577,7 @@
           <p>刚开始学习Python的时候，只是简单的学习了基础的语法和面向对象相关的资料，但是对于进程和线程并没有花时间来看，并且到这一章，和底层实现就密切相关了，和OS更是密不可分，面试非常喜欢问这类的问题，所以还是花点时间来看看，不妨多看看，多找找相关资料，很有帮助，本人是看的廖雪峰的教程，感觉还可以，就是这一章，最好还是在ubuntu环境下跑，因为linux和windows在进程和线程实现细节上有些不同！</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ck3bmdbe6002stwg42k6nd0ok.html#more" rel="contents">
+              <a class="btn" href="/ck3bmko4s00335og44m1vd55j.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -977,7 +1605,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbdj0021twg476ez1tqw.html">
+    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmko4200275og404vi5ddb.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -991,7 +1619,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/ck3bmdbdj0021twg476ez1tqw.html" class="post-title-link" itemprop="url">Django项目的自动化测试</a>
+            <a href="/ck3bmko4200275og404vi5ddb.html" class="post-title-link" itemprop="url">Django项目的自动化测试</a>
         </h2>
 
         <div class="post-meta">
@@ -1023,7 +1651,7 @@
             </span>
 
           
-            <span id="/ck3bmdbdj0021twg476ez1tqw.html" class="post-meta-item leancloud_visitors" data-flag-title="Django项目的自动化测试" title="阅读次数">
+            <span id="/ck3bmko4200275og404vi5ddb.html" class="post-meta-item leancloud_visitors" data-flag-title="Django项目的自动化测试" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -1059,227 +1687,7 @@
           <p>最近，实验室有个小项目，关于企业上云，然后我们这边要做一个Django的web(已经做了很多功能，需要添加和修改一些功能)，所以要给项目添加一些测试，以备后期更改，自动化测试看的是Django 的官方文档。网址是： <a href="https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial05/" target="_blank" rel="noopener">https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial05/</a> 。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/ck3bmdbdj0021twg476ez1tqw.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-	<div>
-	  
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbbu000btwg4dxa5g5j0.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="lemon">
-      <meta itemprop="description" content="研一在读">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lemon">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/ck3bmdbbu000btwg4dxa5g5j0.html" class="post-title-link" itemprop="url">279完全平方数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-21 11:36:38 / 修改时间：13:48:41" itemprop="dateCreated datePublished" datetime="2019-11-21T11:36:38+08:00">2019-11-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index">
-                    <span itemprop="name">动态规划</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/ck3bmdbbu000btwg4dxa5g5j0.html" class="post-meta-item leancloud_visitors" data-flag-title="279完全平方数" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>549</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定正整数 <em>n</em>，找到若干个完全平方数（比如 <code>1, 4, 9, 16, ...</code>）使得它们的和等于 <em>n</em>。你需要让组成和的完全平方数的个数最少。 </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/ck3bmdbbu000btwg4dxa5g5j0.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-	<div>
-	  
-	</div>
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cblog.club/ck3bmdbbg0006twg4e0p0dqps.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/head.jpg">
-      <meta itemprop="name" content="lemon">
-      <meta itemprop="description" content="研一在读">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lemon">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/ck3bmdbbg0006twg4e0p0dqps.html" class="post-title-link" itemprop="url">152乘积最大子序列</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2019-11-21 11:30:32 / 修改时间：11:35:40" itemprop="dateCreated datePublished" datetime="2019-11-21T11:30:32+08:00">2019-11-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">leetcode</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index">
-                    <span itemprop="name">动态规划</span>
-                  </a>
-                </span>
-            </span>
-
-          
-            <span id="/ck3bmdbbg0006twg4e0p0dqps.html" class="post-meta-item leancloud_visitors" data-flag-title="152乘积最大子序列" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>860</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组 <code>nums</code> ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。 </p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/ck3bmdbbg0006twg4e0p0dqps.html#more" rel="contents">
+              <a class="btn" href="/ck3bmko4200275og404vi5ddb.html#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1353,7 +1761,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1403,7 +1811,7 @@
 		<div class="widget-wrap">
 			<div id="myCanvasContainer" class="widget tagcloud">
 				<canvas width="250" height="150" id="resCanvas" style="width=100%">
-					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" rel="tag">自动化测试</a><span class="tag-list-count">1</span></li></ul>
+					<ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PyTorch/" rel="tag">PyTorch</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/" rel="tag">leetcode</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="tag">深度学习</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">环境配置</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" rel="tag">自动化测试</a><span class="tag-list-count">1</span></li></ul>
 				</canvas>
 			</div>
 		</div>
@@ -1432,7 +1840,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:30</span>
+    <span title="站点阅读时长">1:47</span>
 </div>
 	<div class="powered-by">
 		<i class="fa fa-user-md"></i>
@@ -1442,7 +1850,7 @@
 	</div>
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共45k字</span>
+  <span class="post-count">博客全站共49.2k字</span>
 </div>
         
 
