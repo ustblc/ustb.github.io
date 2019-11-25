@@ -61,13 +61,13 @@
 <meta name="keywords" content="lemon">
 <meta property="og:type" content="website">
 <meta property="og:title" content="lemon">
-<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;tags&#x2F;Python&#x2F;index.html">
+<meta property="og:url" content="https:&#x2F;&#x2F;cblog.club&#x2F;tags&#x2F;python&#x2F;index.html">
 <meta property="og:site_name" content="lemon">
 <meta property="og:description" content="研一在读">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://cblog.club/tags/Python/">
+<link rel="canonical" href="https://cblog.club/tags/python/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>标签: Python | lemon</title>
+  <title>标签: python | lemon</title>
   
 
 
@@ -224,7 +224,7 @@
   <div class="post-block">
     <div class="posts-collapse">
       <div class="collection-title">
-        <h2 class="collection-header">Python
+        <h2 class="collection-header">python
           <small>标签</small>
         </h2>
       </div>
@@ -239,35 +239,15 @@
 
       <div class="post-meta">
         <time itemprop="dateCreated"
-              datetime="2019-11-22T14:31:14+08:00"
-              content="2019-11-22">
-          11-22
+              datetime="2019-11-21T21:24:49+08:00"
+              content="2019-11-21">
+          11-21
         </time>
       </div>
 
       <h3 class="post-title">
-          <a class="post-title-link" href="/ck3e5yzc5003c5sg4b0wfdaeg.html" itemprop="url">
-            <span itemprop="name">Python之进程和线程_2</span>
-          </a>
-      </h3>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2019-11-20T22:27:36+08:00"
-              content="2019-11-20">
-          11-20
-        </time>
-      </div>
-
-      <h3 class="post-title">
-          <a class="post-title-link" href="/ck3e5yzca003h5sg4hfgycere.html" itemprop="url">
-            <span itemprop="name">Python回顾之OOP</span>
+          <a class="post-title-link" href="/ck3e658yg003dj4g4hqe7gxp4.html" itemprop="url">
+            <span itemprop="name">Python之进程和线程</span>
           </a>
       </h3>
 
@@ -488,6 +468,31 @@
 NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
   var GUEST = ['nick', 'mail', 'link'];
   var guest = 'nick,mail,link';
+  guest = guest.split(',').filter(item => {
+    return GUEST.includes(item);
+  });
+  new Valine({
+    el: '#comments',
+    verify: false,
+    notify: false,
+    appId: '2gTMxod3jhz1PoDX6d4NKqQx-gzGzoHsz',
+    appKey: '0aoGT3GaT7ei6OAop6VlIrYV',
+    placeholder: "快来评论吧^ ^!",
+    avatar: 'mm',
+    meta: guest,
+    pageSize: '10' || 10,
+    visitor: true,
+    lang: 'zh-cn' || 'zh-cn',
+    path: location.pathname,
+    recordIP: true,
+    serverURLs: ''
+  });
+}, window.Valine);
+</script>
+
+</body>
+</html>
+,mail,link';
   guest = guest.split(',').filter(item => {
     return GUEST.includes(item);
   });
