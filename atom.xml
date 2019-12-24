@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cblog.club/"/>
-  <updated>2019-12-23T14:29:16.743Z</updated>
+  <updated>2019-12-24T07:51:02.440Z</updated>
   <id>https://cblog.club/</id>
   
   <author>
@@ -17,9 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>将exe和dll文件打包成单一的安装文件</title>
+    <link href="https://cblog.club/ck4jklxi3007ackg48vx2bqq7.html"/>
+    <id>https://cblog.club/ck4jklxi3007ackg48vx2bqq7.html</id>
+    <published>2019-12-24T07:41:30.000Z</published>
+    <updated>2019-12-24T07:51:02.440Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近，从GitHub上下载了一个VPN项目的源码（SoftEtherVPN），编译成功后，想将编译后的程序打包成一个安装程序，特此学习一下，主要使用的是WinRAR的自动解压缩格式。</p><a id="more"></a><p>当我们用 VS 或其它编程工具生成了可执行exe要运行它必须要保证其目录下有一大堆dll库文件，看起来很不爽，用专业的安装程序生成软件又显得繁琐，下面这个方法教你如何快速把exe文件和dll文件打包成一个可执行文件，就像我们平时看到的单一绿色软件一样，只要双击它，就能运行你的程序，简单，方便，而且只需用最常见的winrarr即可完成。</p><ol><li>电脑上安装winrar，这个工具是最普及的压缩软件</li><li>把的exe文件和其所依赖的dll文件以及你的ico图标放到一个文件夹内</li><li>将所有的文件，包括可执行exe文件和dll库文件以及其它的全选中，鼠标右键单击，选择“添加到压缩文件”</li><li>在“压缩文件名”中填入自己要打包的名称，并勾选“创建自解压格式压缩文件”框</li><li>选择“高级”选项卡，单击“自解压选项按钮”</li><li>在“设置”选项卡中，“解压后运行”一栏填上解压后运行的文件，即自己的exe可执行文件名。当单击你制作的打包程序之后，将自动执行这个文件。</li><li>在“模式”选项卡中，选中临时模式和全部隐藏单选按钮。当单击你制作的打包程序之后，你的exe和库文件将被安静地拷贝到一个临时文件夹，并且不会显示进度对话框。</li><li>在“更新”选项卡中，选中“覆盖所有文件”，当你多次运行你制作的打包程序时候，系统重复解压你的文件到临时文件夹，并且不会询问你是否覆盖。</li><li>在“文本和图标”选项卡中，在“加载自解压文件图标”处，单击“浏览”按钮，选择你的打包程序的图标。.自解压微标使用BMP格式文件，自解压文件图标使用ICO格式文件。</li><li>当完成这些简单的设置后，双击“确定”,生成你的打包程序</li></ol><p>你可以移动这个程序，到其它地方执行了！只需双击，就能运行你的exe文件了</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;最近，从GitHub上下载了一个VPN项目的源码（SoftEtherVPN），编译成功后，想将编译后的程序打包成一个安装程序，特此学习一下，主要使用的是WinRAR的自动解压缩格式。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="程序打包" scheme="https://cblog.club/categories/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/"/>
+    
+    
+      <category term="程序打包" scheme="https://cblog.club/tags/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/"/>
+    
+  </entry>
+  
+  <entry>
     <title>让同一个git管理gitee和github</title>
-    <link href="https://cblog.club/ck4ijeo4s007jgwg4b9c234gc.html"/>
-    <id>https://cblog.club/ck4ijeo4s007jgwg4b9c234gc.html</id>
+    <link href="https://cblog.club/ck4jklxif007qckg4a5jp1yo3.html"/>
+    <id>https://cblog.club/ck4jklxif007qckg4a5jp1yo3.html</id>
     <published>2019-12-23T14:04:30.000Z</published>
     <updated>2019-12-23T14:29:16.743Z</updated>
     
@@ -45,8 +68,8 @@
   
   <entry>
     <title>329矩阵中的最长递增路径</title>
-    <link href="https://cblog.club/ck4ijenrg001xgwg4di625sze.html"/>
-    <id>https://cblog.club/ck4ijenrg001xgwg4di625sze.html</id>
+    <link href="https://cblog.club/ck4jklxe1001zckg4bu1zdx2a.html"/>
+    <id>https://cblog.club/ck4jklxe1001zckg4bu1zdx2a.html</id>
     <published>2019-12-08T05:19:15.000Z</published>
     <updated>2019-12-08T05:24:02.281Z</updated>
     
@@ -73,8 +96,8 @@
   
   <entry>
     <title>230二叉搜索树中第K小的元素</title>
-    <link href="https://cblog.club/ck4ijenpz001egwg4dv9b6joq.html"/>
-    <id>https://cblog.club/ck4ijenpz001egwg4dv9b6joq.html</id>
+    <link href="https://cblog.club/ck4jklxcm001gckg4fb9cg2uc.html"/>
+    <id>https://cblog.club/ck4jklxcm001gckg4fb9cg2uc.html</id>
     <published>2019-12-08T05:08:16.000Z</published>
     <updated>2019-12-08T05:18:38.454Z</updated>
     
@@ -101,8 +124,8 @@
   
   <entry>
     <title>297二叉树的序列化和反序列化</title>
-    <link href="https://cblog.club/ck4ijenqm001mgwg40zkud32t.html"/>
-    <id>https://cblog.club/ck4ijenqm001mgwg40zkud32t.html</id>
+    <link href="https://cblog.club/ck4jklxd8001ockg45tv87qvf.html"/>
+    <id>https://cblog.club/ck4jklxd8001ockg45tv87qvf.html</id>
     <published>2019-12-08T04:57:40.000Z</published>
     <updated>2019-12-08T05:06:37.352Z</updated>
     
@@ -129,8 +152,8 @@
   
   <entry>
     <title>59螺旋矩阵II</title>
-    <link href="https://cblog.club/ck4ijenw10040gwg47fbvgfnv.html"/>
-    <id>https://cblog.club/ck4ijenw10040gwg47fbvgfnv.html</id>
+    <link href="https://cblog.club/ck4jklxfu0042ckg4c31ref4n.html"/>
+    <id>https://cblog.club/ck4jklxfu0042ckg4c31ref4n.html</id>
     <published>2019-12-05T14:46:19.000Z</published>
     <updated>2019-12-05T14:49:54.840Z</updated>
     
@@ -152,8 +175,8 @@
   
   <entry>
     <title>394字符串解码</title>
-    <link href="https://cblog.club/ck4ijenso002lgwg46x2kby0t.html"/>
-    <id>https://cblog.club/ck4ijenso002lgwg46x2kby0t.html</id>
+    <link href="https://cblog.club/ck4jklxf1002nckg4hhb1g4c5.html"/>
+    <id>https://cblog.club/ck4jklxf1002nckg4hhb1g4c5.html</id>
     <published>2019-12-05T14:36:18.000Z</published>
     <updated>2019-12-05T14:45:47.608Z</updated>
     
@@ -182,8 +205,8 @@
   
   <entry>
     <title>733图像渲染</title>
-    <link href="https://cblog.club/ck4ijeo04004hgwg476ca4rov.html"/>
-    <id>https://cblog.club/ck4ijeo04004hgwg476ca4rov.html</id>
+    <link href="https://cblog.club/ck4jklxg5004jckg4ax76djej.html"/>
+    <id>https://cblog.club/ck4jklxg5004jckg4ax76djej.html</id>
     <published>2019-12-05T14:30:43.000Z</published>
     <updated>2019-12-05T14:57:57.874Z</updated>
     
@@ -216,8 +239,8 @@
   
   <entry>
     <title>124二叉树中的最大路径和</title>
-    <link href="https://cblog.club/ck4ijenip0007gwg4ezma6amx.html"/>
-    <id>https://cblog.club/ck4ijenip0007gwg4ezma6amx.html</id>
+    <link href="https://cblog.club/ck4jklx9l0008ckg48gb1bdk8.html"/>
+    <id>https://cblog.club/ck4jklx9l0008ckg48gb1bdk8.html</id>
     <published>2019-12-04T13:51:42.000Z</published>
     <updated>2019-12-04T13:59:43.935Z</updated>
     
@@ -244,8 +267,8 @@
   
   <entry>
     <title>89格雷编码</title>
-    <link href="https://cblog.club/ck4ijeo0w004ygwg4f9vh47r2.html"/>
-    <id>https://cblog.club/ck4ijeo0w004ygwg4f9vh47r2.html</id>
+    <link href="https://cblog.club/ck4jklxgg004xckg4hpwn292k.html"/>
+    <id>https://cblog.club/ck4jklxgg004xckg4hpwn292k.html</id>
     <published>2019-12-04T13:39:34.000Z</published>
     <updated>2019-12-04T13:50:59.932Z</updated>
     
@@ -272,8 +295,8 @@
   
   <entry>
     <title>210课程表II</title>
-    <link href="https://cblog.club/ck4ijeno8000ygwg4ewt6ajdd.html"/>
-    <id>https://cblog.club/ck4ijeno8000ygwg4ewt6ajdd.html</id>
+    <link href="https://cblog.club/ck4jklxax0010ckg4g1xq0ig2.html"/>
+    <id>https://cblog.club/ck4jklxax0010ckg4g1xq0ig2.html</id>
     <published>2019-12-03T14:34:16.000Z</published>
     <updated>2019-12-03T14:37:21.991Z</updated>
     
@@ -302,8 +325,8 @@
   
   <entry>
     <title>207课程表</title>
-    <link href="https://cblog.club/ck4ijennm000tgwg49iyb4g75.html"/>
-    <id>https://cblog.club/ck4ijennm000tgwg49iyb4g75.html</id>
+    <link href="https://cblog.club/ck4jklxaq000vckg41f821d5j.html"/>
+    <id>https://cblog.club/ck4jklxaq000vckg41f821d5j.html</id>
     <published>2019-12-03T14:27:50.000Z</published>
     <updated>2019-12-03T14:33:48.116Z</updated>
     
@@ -331,8 +354,8 @@
   
   <entry>
     <title>54螺旋矩阵</title>
-    <link href="https://cblog.club/ck4ijenvd003pgwg4f4oxcnyi.html"/>
-    <id>https://cblog.club/ck4ijenvd003pgwg4f4oxcnyi.html</id>
+    <link href="https://cblog.club/ck4jklxfk003mckg426t6e85c.html"/>
+    <id>https://cblog.club/ck4jklxfk003mckg426t6e85c.html</id>
     <published>2019-12-02T15:11:45.000Z</published>
     <updated>2019-12-02T15:13:21.946Z</updated>
     
@@ -354,8 +377,8 @@
   
   <entry>
     <title>127单词接龙</title>
-    <link href="https://cblog.club/ck4ijeni80005gwg41kd93k7n.html"/>
-    <id>https://cblog.club/ck4ijeni80005gwg41kd93k7n.html</id>
+    <link href="https://cblog.club/ck4jklx9o0009ckg4aj1nf34s.html"/>
+    <id>https://cblog.club/ck4jklx9o0009ckg4aj1nf34s.html</id>
     <published>2019-12-02T15:08:31.000Z</published>
     <updated>2019-12-02T15:10:58.383Z</updated>
     
@@ -385,8 +408,8 @@
   
   <entry>
     <title>120三角形最小路径和</title>
-    <link href="https://cblog.club/ck4ijenhp0002gwg4cut2e7ss.html"/>
-    <id>https://cblog.club/ck4ijenhp0002gwg4cut2e7ss.html</id>
+    <link href="https://cblog.club/ck4jklx960003ckg449u72d47.html"/>
+    <id>https://cblog.club/ck4jklx960003ckg449u72d47.html</id>
     <published>2019-12-01T14:25:48.000Z</published>
     <updated>2019-12-01T14:29:43.802Z</updated>
     
@@ -412,8 +435,8 @@
   
   <entry>
     <title>221最大正方形</title>
-    <link href="https://cblog.club/ck4ijenp10016gwg4at9q7ksv.html"/>
-    <id>https://cblog.club/ck4ijenp10016gwg4at9q7ksv.html</id>
+    <link href="https://cblog.club/ck4jklxbd0013ckg40johc8cj.html"/>
+    <id>https://cblog.club/ck4jklxbd0013ckg40johc8cj.html</id>
     <published>2019-12-01T14:19:38.000Z</published>
     <updated>2019-12-01T14:25:01.584Z</updated>
     
@@ -439,8 +462,8 @@
   
   <entry>
     <title>752打开转盘锁</title>
-    <link href="https://cblog.club/ck4ijeo0a004kgwg4167s8b5b.html"/>
-    <id>https://cblog.club/ck4ijeo0a004kgwg4167s8b5b.html</id>
+    <link href="https://cblog.club/ck4jklxg7004mckg4dfka2hl0.html"/>
+    <id>https://cblog.club/ck4jklxg7004mckg4dfka2hl0.html</id>
     <published>2019-11-30T09:38:47.000Z</published>
     <updated>2019-11-30T09:45:19.642Z</updated>
     
@@ -469,8 +492,8 @@
   
   <entry>
     <title>133克隆图</title>
-    <link href="https://cblog.club/ck4ijenjo000agwg4e0dvg08e.html"/>
-    <id>https://cblog.club/ck4ijenjo000agwg4e0dvg08e.html</id>
+    <link href="https://cblog.club/ck4jklxa1000dckg476y01slg.html"/>
+    <id>https://cblog.club/ck4jklxa1000dckg476y01slg.html</id>
     <published>2019-11-30T09:31:47.000Z</published>
     <updated>2019-11-30T09:38:26.855Z</updated>
     
@@ -496,8 +519,8 @@
   
   <entry>
     <title>494目标和</title>
-    <link href="https://cblog.club/ck4ijentp0034gwg4915x9sxj.html"/>
-    <id>https://cblog.club/ck4ijentp0034gwg4915x9sxj.html</id>
+    <link href="https://cblog.club/ck4jklxfa0036ckg4c7maco4v.html"/>
+    <id>https://cblog.club/ck4jklxfa0036ckg4c7maco4v.html</id>
     <published>2019-11-30T09:26:47.000Z</published>
     <updated>2019-11-30T09:31:20.593Z</updated>
     
@@ -524,8 +547,8 @@
   
   <entry>
     <title>200岛屿数量</title>
-    <link href="https://cblog.club/ck4ijenn2000rgwg4512ude0g.html"/>
-    <id>https://cblog.club/ck4ijenn2000rgwg4512ude0g.html</id>
+    <link href="https://cblog.club/ck4jklxap000tckg4a2wy3ayk.html"/>
+    <id>https://cblog.club/ck4jklxap000tckg4a2wy3ayk.html</id>
     <published>2019-11-30T01:58:53.000Z</published>
     <updated>2019-11-30T02:01:50.837Z</updated>
     
@@ -550,37 +573,6 @@
       <category term="广度搜索" scheme="https://cblog.club/tags/%E5%B9%BF%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
     
       <category term="深度搜索" scheme="https://cblog.club/tags/%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>542之01矩阵</title>
-    <link href="https://cblog.club/ck4ijenux003kgwg4eryo6cmr.html"/>
-    <id>https://cblog.club/ck4ijenux003kgwg4eryo6cmr.html</id>
-    <published>2019-11-30T01:50:31.000Z</published>
-    <updated>2019-11-30T01:58:28.972Z</updated>
-    
-    <content type="html"><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个由 0 和 1 组成的矩阵，找出每个元素到最近的 0 的距离。两个相邻元素间的距离为 1 。</p><a id="more"></a><blockquote><p>示例 1:<br>输入:</p><p>0 0 0<br>0 1 0<br>0 0 0<br>输出:</p><p>0 0 0<br>0 1 0<br>0 0 0<br>示例 2:<br>输入:</p><p>0 0 0<br>0 1 0<br>1 1 1<br>输出:</p><p>0 0 0<br>0 1 0<br>1 2 1<br>注意:</p><p>给定矩阵的元素个数不超过 10000。<br>给定矩阵中至少有一个元素是 0。<br>矩阵中的元素只在四个方向上相邻: 上、下、左、右。</p></blockquote><h6 id="解题思路：本题算是比较好的题目了，刚开始使用深度搜索-DFS-，发现超时了-（还没想出优化的方法），然后借鉴了一些想法，发现其实还有DP这一条路走，但是这题的DP还是比较特别的，要循环两次，因为dp-i-j-需要上下左右四个方向的值，但是一次循环只能获取两个方向，比如先从上到下，再从左到右，这样就可以用左边元素和上边元素（因为这两个已经有值了），然后后再从下到上，从右到左，这样右边和下边也有值（这样四个方向都兼顾到了），左后遍历完，输出数组即可。考虑完DP，又看到有BFS可以用，但是需要优化，他是先将所有的0元素入队列，然后从这些0元素向外扩展（很棒，不需要对于所有的元素都使用BFS），然后再将相邻位置-1和当前位置值比较，选择小的即可。"><a href="#解题思路：本题算是比较好的题目了，刚开始使用深度搜索-DFS-，发现超时了-（还没想出优化的方法），然后借鉴了一些想法，发现其实还有DP这一条路走，但是这题的DP还是比较特别的，要循环两次，因为dp-i-j-需要上下左右四个方向的值，但是一次循环只能获取两个方向，比如先从上到下，再从左到右，这样就可以用左边元素和上边元素（因为这两个已经有值了），然后后再从下到上，从右到左，这样右边和下边也有值（这样四个方向都兼顾到了），左后遍历完，输出数组即可。考虑完DP，又看到有BFS可以用，但是需要优化，他是先将所有的0元素入队列，然后从这些0元素向外扩展（很棒，不需要对于所有的元素都使用BFS），然后再将相邻位置-1和当前位置值比较，选择小的即可。" class="headerlink" title="解题思路：本题算是比较好的题目了，刚开始使用深度搜索(DFS)，发现超时了= =（还没想出优化的方法），然后借鉴了一些想法，发现其实还有DP这一条路走，但是这题的DP还是比较特别的，要循环两次，因为dp[i] [j]需要上下左右四个方向的值，但是一次循环只能获取两个方向，比如先从上到下，再从左到右，这样就可以用左边元素和上边元素（因为这两个已经有值了），然后后再从下到上，从右到左，这样右边和下边也有值（这样四个方向都兼顾到了），左后遍历完，输出数组即可。考虑完DP，又看到有BFS可以用，但是需要优化，他是先将所有的0元素入队列，然后从这些0元素向外扩展（很棒，不需要对于所有的元素都使用BFS），然后再将相邻位置+1和当前位置值比较，选择小的即可。"></a>解题思路：本题算是比较好的题目了，刚开始使用深度搜索(DFS)，发现超时了= =（还没想出优化的方法），然后借鉴了一些想法，发现其实还有DP这一条路走，但是这题的DP还是比较特别的，要循环两次，因为dp[i] [j]需要上下左右四个方向的值，但是一次循环只能获取两个方向，比如先从上到下，再从左到右，这样就可以用左边元素和上边元素（因为这两个已经有值了），然后后再从下到上，从右到左，这样右边和下边也有值（这样四个方向都兼顾到了），左后遍历完，输出数组即可。考虑完DP，又看到有BFS可以用，但是需要优化，他是先将所有的0元素入队列，然后从这些0元素向外扩展（很棒，不需要对于所有的元素都使用BFS），然后再将相邻位置+1和当前位置值比较，选择小的即可。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">DFS超时~~~~~~= =！</span></span><br><span class="line"><span class="comment">#define MAX 100000;</span></span><br><span class="line"><span class="comment">class Solution &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    vector&lt;vector&lt;int&gt;&gt; updateMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) &#123;</span></span><br><span class="line"><span class="comment">        vector&lt;vector&lt;int&gt;&gt;result(matrix.size(),vector&lt;int&gt;(matrix[0].size()));</span></span><br><span class="line"><span class="comment">        if(matrix.size()==0||matrix[0].size()==0)return result;</span></span><br><span class="line"><span class="comment">        for(int i=0;i&lt;matrix.size();i++)&#123;</span></span><br><span class="line"><span class="comment">            for(int j=0;j&lt;matrix[0].size();j++)&#123;</span></span><br><span class="line"><span class="comment">                result[i][j]=getMin(matrix,result,i,j,0);</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return result;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    int getMin(vector&lt;vector&lt;int&gt;&gt;&amp; matrix,vector&lt;vector&lt;int&gt;&gt;&amp;result,int i,int j,int count)&#123;</span></span><br><span class="line"><span class="comment">        int row,col;</span></span><br><span class="line"><span class="comment">        row=matrix.size();</span></span><br><span class="line"><span class="comment">        col=matrix[0].size();</span></span><br><span class="line"><span class="comment">        //当前位置越界</span></span><br><span class="line"><span class="comment">        if(i&lt;0||i&gt;=row||j&lt;0||j&gt;=col||matrix[i][j]==99999)return MAX;</span></span><br><span class="line"><span class="comment">        if(matrix[i][j]==0)return count;</span></span><br><span class="line"><span class="comment">        matrix[i][j]=99999;</span></span><br><span class="line"><span class="comment">        int up=getMin(matrix,result,i-1,j,count+1);</span></span><br><span class="line"><span class="comment">        int down=getMin(matrix,result,i+1,j,count+1);</span></span><br><span class="line"><span class="comment">        int left=getMin(matrix,result,i,j-1,count+1);</span></span><br><span class="line"><span class="comment">        int right=getMin(matrix,result,i,j+1,count+1);</span></span><br><span class="line"><span class="comment">        matrix[i][j]=1;</span></span><br><span class="line"><span class="comment">        int min_value=min(up,down);</span></span><br><span class="line"><span class="comment">        min_value=min(min_value,left);</span></span><br><span class="line"><span class="comment">        min_value=min(min_value,right);</span></span><br><span class="line"><span class="comment">        return min_value;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">class Solution &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    vector&lt;vector&lt;int&gt;&gt; updateMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix) &#123;</span></span><br><span class="line"><span class="comment">        vector&lt;vector&lt;int&gt;&gt;dp(matrix.size(),vector&lt;int&gt;(matrix[0].size(),999999));</span></span><br><span class="line"><span class="comment">        int row=matrix.size();</span></span><br><span class="line"><span class="comment">        int col=matrix[0].size();</span></span><br><span class="line"><span class="comment">        if(row==0||col==0)return dp;</span></span><br><span class="line"><span class="comment">        //从上到下 从左到右遍历，这样就可以根据左边和上边 更新值</span></span><br><span class="line"><span class="comment">        for(int i=0;i&lt;row;i++)&#123;</span></span><br><span class="line"><span class="comment">            for(int j=0;j&lt;col;j++)&#123;</span></span><br><span class="line"><span class="comment">                if(matrix[i][j]==0)dp[i][j]=0;</span></span><br><span class="line"><span class="comment">                else&#123;</span></span><br><span class="line"><span class="comment">                    if(i&gt;0)dp[i][j]=min(dp[i][j],dp[i-1][j]+1);</span></span><br><span class="line"><span class="comment">                    if(j&gt;0)dp[i][j]=min(dp[i][j],dp[i][j-1]+1);</span></span><br><span class="line"><span class="comment">                &#125;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        //从下到上 从右到左遍历，这样就可以根据右边和下边 更新值，这样就满足了四个方向</span></span><br><span class="line"><span class="comment">        for(int i=row-1;i&gt;=0;i--)&#123;</span></span><br><span class="line"><span class="comment">            for(int j=col-1;j&gt;=0;j--)&#123;</span></span><br><span class="line"><span class="comment">                if(i&lt;row-1)dp[i][j]=min(dp[i][j],dp[i+1][j]+1);</span></span><br><span class="line"><span class="comment">                if(j&lt;col-1)dp[i][j]=min(dp[i][j],dp[i][j+1]+1);</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return dp;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//其实感觉这一题还是用动态规划做比较好，并不是很经典的广度和深度搜索题目</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt; updateMatrix(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;&amp; matrix) &#123;</span><br><span class="line">        <span class="keyword">if</span>(matrix.size()==<span class="number">0</span>)<span class="keyword">return</span> matrix;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&gt;result(matrix.size(),<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(matrix[<span class="number">0</span>].size(),INT_MAX));</span><br><span class="line">        <span class="built_in">queue</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt;q;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;matrix.size();i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;matrix[<span class="number">0</span>].size();j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(matrix[i][j]==<span class="number">0</span>)&#123;</span><br><span class="line">                    result[i][j]=<span class="number">0</span>;</span><br><span class="line">                    q.push(&#123;i,j&#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> nexti,nextj;</span><br><span class="line">        <span class="keyword">int</span> direct[<span class="number">2</span>][<span class="number">4</span>]=&#123;&#123;<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>&#125;&#125;;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;cur;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">            cur=q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="comment">//定义四个方向</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">4</span>;k++)&#123;</span><br><span class="line">                nexti=cur.first+direct[<span class="number">0</span>][k];</span><br><span class="line">                nextj=cur.second+direct[<span class="number">1</span>][k];</span><br><span class="line">                <span class="keyword">if</span>(nexti&gt;=<span class="number">0</span>&amp;&amp;nexti&lt;matrix.size()&amp;&amp;nextj&gt;=<span class="number">0</span>&amp;&amp;nextj&lt;matrix[<span class="number">0</span>].size())&#123;</span><br><span class="line">                    <span class="keyword">if</span>(result[nexti][nextj]&gt;result[cur.first][cur.second]+<span class="number">1</span>)&#123;</span><br><span class="line">                        result[nexti][nextj]=result[cur.first][cur.second]+<span class="number">1</span>;</span><br><span class="line">                        q.push(&#123;nexti,nextj&#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h6 id=&quot;题目描述：&quot;&gt;&lt;a href=&quot;#题目描述：&quot; class=&quot;headerlink&quot; title=&quot;题目描述：&quot;&gt;&lt;/a&gt;题目描述：&lt;/h6&gt;&lt;p&gt;给定一个由 0 和 1 组成的矩阵，找出每个元素到最近的 0 的距离。两个相邻元素间的距离为 1 。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
-    
-      <category term="动态规划" scheme="https://cblog.club/categories/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-      <category term="广度搜索" scheme="https://cblog.club/categories/leetcode/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%B9%BF%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
-    
-    
-      <category term="leetcode" scheme="https://cblog.club/tags/leetcode/"/>
-    
-      <category term="动态规划" scheme="https://cblog.club/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"/>
-    
-      <category term="广度搜索" scheme="https://cblog.club/tags/%E5%B9%BF%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
     
   </entry>
   
