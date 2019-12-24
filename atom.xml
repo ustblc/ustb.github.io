@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cblog.club/"/>
-  <updated>2019-12-24T07:51:02.440Z</updated>
+  <updated>2019-12-24T15:15:43.901Z</updated>
   <id>https://cblog.club/</id>
   
   <author>
@@ -17,9 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>42接雨水</title>
+    <link href="https://cblog.club/ck4k0hnrs002ts0g4fpgrazc5.html"/>
+    <id>https://cblog.club/ck4k0hnrs002ts0g4fpgrazc5.html</id>
+    <published>2019-12-24T15:01:03.000Z</published>
+    <updated>2019-12-24T15:15:43.901Z</updated>
+    
+    <content type="html"><![CDATA[<p>接雨水这道题目挺有意思，在面试题中出现频率还挺高的，本文就来步步优化，讲解一下这道题。</p><p>这道题目实际上出自 LeetCode：（本次解题来源于labuladong（公众号），答主解释的很清晰）</p><a id="more"></a><img src="/ck4k0hnrs002ts0g4fpgrazc5/1.png" class=""><p>就是用一个数组表示一个条形图，问你这个条形图最多能接多少水。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span></span>;</span><br></pre></td></tr></table></figure><p>下面就来由浅入深介绍暴力解法 -&gt; 备忘录解法 -&gt; 双指针解法，在 O(N) 时间 O(1) 空间内解决这个问题。</p><h3 id="一、核心思路"><a href="#一、核心思路" class="headerlink" title="一、核心思路"></a>一、核心思路</h3><p>我第一次看到这个问题，无计可施，完全没有思路，相信很多朋友跟我一样。所以对于这种问题，我们不要想整体，而应该去想局部；就像之前的文章处理字符串问题，不要考虑如何处理整个字符串，而是去思考应该如何处理每一个字符。</p><p>这么一想，可以发现这道题的思路其实很简单。具体来说，仅仅对于位置 i，能装下多少水呢？</p><img src="/ck4k0hnrs002ts0g4fpgrazc5/2.png" class=""><p>能装 2 格水。为什么恰好是两格水呢？因为 height[i] 的高度为 0，而这里最多能盛 2 格水，2-0=2。</p><p>为什么位置 i 最多能盛 2 格水呢？因为，位置 i 能达到的水柱高度和其左边的最高柱子、右边的最高柱子有关，我们分别称这两个柱子高度为<code>l_max</code>和<code>r_max</code>；<strong>位置 i 最大的水柱高度就是<code>min(l_max, r_max)</code>。</strong></p><p>更进一步，对于位置 i，能够装的水为：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">water[i] = Math.min(</span><br><span class="line">               # 左边最高的柱子</span><br><span class="line">               Math.max(height[<span class="number">0</span>..i]),  </span><br><span class="line">               # 右边最高的柱子</span><br><span class="line">               Math.max(height[i..end]) </span><br><span class="line">            ) - height[i]</span><br></pre></td></tr></table></figure><img src="/ck4k0hnrs002ts0g4fpgrazc5/3.png" class=""><img src="/ck4k0hnrs002ts0g4fpgrazc5/4.png" class=""><p>这就是本问题的核心思路，我们可以简单写一个暴力算法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rainwaterCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> leftMax;</span><br><span class="line">        <span class="keyword">int</span> rightMax;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; height.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            leftMax = rightMax = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">//计算左边最大</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= i; k++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (height[k] &gt; leftMax) &#123;</span><br><span class="line">                    leftMax = height[k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//计算右边最大</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = height.length-<span class="number">1</span>; k &gt;= i; k--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (height[k] &gt; rightMax) &#123;</span><br><span class="line">                    rightMax = height[k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            rainwaterCount += Math.min(leftMax, rightMax) - height[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rainwaterCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>有之前的思路，这个解法应该是很直接粗暴的，时间复杂度 O(N^2)，空间复杂度 O(1)。但是很明显这种计算<code>r_max</code>和<code>l_max</code>的方式非常笨拙，一般的优化方法就是备忘录。</p><h3 id="二、备忘录优化"><a href="#二、备忘录优化" class="headerlink" title="二、备忘录优化"></a>二、备忘录优化</h3><p>之前的暴力解法，不是在每个位置 i 都要计算<code>r_max</code>和<code>l_max</code>吗？我们直接把结果都缓存下来，别傻不拉几的每次都遍历，这时间复杂度不就降下来了嘛。</p><p>我们开两个数组<code>r_max</code>和<code>l_max</code>充当备忘录，<strong><code>l_max[i]</code>表示位置 i 左边最高的柱子高度，<code>r_max[i]</code>表示位置 i 右边最高的柱子高度。</strong>预先把这两个数组计算好，避免重复计算：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size = height.length;</span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> rainwaterCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] leftMaxHeight = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        <span class="keyword">int</span>[] rightMaxHeight = <span class="keyword">new</span> <span class="keyword">int</span>[size];</span><br><span class="line">        leftMaxHeight[<span class="number">0</span>] = height[<span class="number">0</span>];</span><br><span class="line">        rightMaxHeight[size - <span class="number">1</span>] = height[size - <span class="number">1</span>];</span><br><span class="line">        <span class="comment">//从左往右初始化leftMaxHeight数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size ; i++) &#123;</span><br><span class="line">            leftMaxHeight[i] = Math.max(height[i], leftMaxHeight[i - <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//从右往左初始化rightMaxHeight数组</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = size - <span class="number">2</span>; i &gt;= <span class="number">0</span> ; i--) &#123;</span><br><span class="line">            rightMaxHeight[i] = Math.max(height[i], rightMaxHeight[i + <span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; size - <span class="number">1</span>; i++) &#123;</span><br><span class="line">           rainwaterCount += Math.min(leftMaxHeight[i], rightMaxHeight[i]) - height[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rainwaterCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这个优化其实和暴力解法差不多，就是避免了重复计算，把时间复杂度降低为 O(N)，已经是最优了，但是空间复杂度是 O(N)。下面来看一个精妙一些的解法，能够把空间复杂度降低到 O(1)。</p><h3 id="三、双指针解法"><a href="#三、双指针解法" class="headerlink" title="三、双指针解法"></a>三、双指针解法</h3><p>这种解法的思路是完全相同的，但在实现手法上非常巧妙，我们这次也不要用备忘录提前计算了，而是用双指针<strong>边走边算</strong>，节省下空间复杂度。(暂时用C++语法解释)</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; <span class="built_in">height</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="built_in">height</span>.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> l_max = <span class="built_in">height</span>[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">int</span> r_max = <span class="built_in">height</span>[n - <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">        l_max = <span class="built_in">max</span>(l_max, <span class="built_in">height</span>[left]);</span><br><span class="line">        r_max = <span class="built_in">max</span>(r_max, <span class="built_in">height</span>[right]);</span><br><span class="line">        left++; right--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>对于这部分代码，请问<code>l_max</code>和<code>r_max</code>分别表示什么意义呢？</p><p>很容易理解，<strong><code>l_max</code>是<code>height[0..left]</code>中最高柱子的高度，<code>r_max</code>是<code>height[right..end]</code>的最高柱子的高度</strong>。</p><p>明白了这一点，直接看解法：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> size = height.length;</span><br><span class="line">        <span class="keyword">if</span> (size == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> rainwaterCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = size -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> leftMaxHeight = height[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> rightMaxHeight = height[size - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">while</span> (left &lt;= right) &#123;</span><br><span class="line">            leftMaxHeight = Math.max(leftMaxHeight, height[left]);</span><br><span class="line">            rightMaxHeight = Math.max(rightMaxHeight, height[right]);</span><br><span class="line">            <span class="keyword">if</span> (leftMaxHeight &lt; rightMaxHeight) &#123;</span><br><span class="line">                rainwaterCount += leftMaxHeight - height[left];</span><br><span class="line">                left ++ ;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                rainwaterCount += rightMaxHeight - height[right];</span><br><span class="line">                right -- ;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rainwaterCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>你看，其中的核心思想和之前一模一样，换汤不换药。但是细心的读者可能会发现次解法还是有点细节差异：</p><p>之前的备忘录解法，<code>l_max[i]</code>和<code>r_max[i]</code>代表的是<code>height[0..i]</code>和<code>height[i..end]</code>的最高柱子高度。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rainwaterCount += Math.min(leftMaxHeight[i], rightMaxHeight[i]) - height[i];</span><br></pre></td></tr></table></figure><img src="/ck4k0hnrs002ts0g4fpgrazc5/5.png" class=""><p>但是双指针解法中，<code>l_max</code>和<code>r_max</code>代表的是<code>height[0..left]</code>和<code>height[right..end]</code>的最高柱子高度。比如这段代码：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (l_max &lt; r_max) &#123;    ans += l_max - height[left];    left++; &#125;</span><br></pre></td></tr></table></figure><img src="/ck4k0hnrs002ts0g4fpgrazc5/6.png" class=""><p>此时的<code>l_max</code>是<code>left</code>指针左边的最高柱子，但是<code>r_max</code>并不一定是<code>left</code>指针右边最高的柱子，这真的可以得到正确答案吗？</p><p>其实这个问题要这么思考，我们只在乎<code>min(l_max, r_max)</code>。对于上图的情况，我们已经知道<code>l_max &lt; r_max</code>了，至于这个<code>r_max</code>是不是右边最大的，不重要，<strong>重要的是<code>height[i]</code>能够装的水只和<code>l_max</code>有关。</strong></p><img src="/ck4k0hnrs002ts0g4fpgrazc5/7.png" class=""><p>对于 l_max &gt; r_max 的情况也是类似的。</p><p>这就是接雨水问题的全部内容。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;接雨水这道题目挺有意思，在面试题中出现频率还挺高的，本文就来步步优化，讲解一下这道题。&lt;/p&gt;
+&lt;p&gt;这道题目实际上出自 LeetCode：（本次解题来源于labuladong（公众号），答主解释的很清晰）&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
+    
+      <category term="双指针" scheme="https://cblog.club/categories/leetcode/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+    
+      <category term="leetcode" scheme="https://cblog.club/tags/leetcode/"/>
+    
+      <category term="双指针" scheme="https://cblog.club/tags/%E5%8F%8C%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>将exe和dll文件打包成单一的安装文件</title>
-    <link href="https://cblog.club/ck4jklxi3007ackg48vx2bqq7.html"/>
-    <id>https://cblog.club/ck4jklxi3007ackg48vx2bqq7.html</id>
+    <link href="https://cblog.club/ck4k0hnx5007gs0g41pmccq8w.html"/>
+    <id>https://cblog.club/ck4k0hnx5007gs0g41pmccq8w.html</id>
     <published>2019-12-24T07:41:30.000Z</published>
     <updated>2019-12-24T07:51:02.440Z</updated>
     
@@ -41,8 +69,8 @@
   
   <entry>
     <title>让同一个git管理gitee和github</title>
-    <link href="https://cblog.club/ck4jklxif007qckg4a5jp1yo3.html"/>
-    <id>https://cblog.club/ck4jklxif007qckg4a5jp1yo3.html</id>
+    <link href="https://cblog.club/ck4k0hnxj007ts0g4e0tp822i.html"/>
+    <id>https://cblog.club/ck4k0hnxj007ts0g4e0tp822i.html</id>
     <published>2019-12-23T14:04:30.000Z</published>
     <updated>2019-12-23T14:29:16.743Z</updated>
     
@@ -68,8 +96,8 @@
   
   <entry>
     <title>329矩阵中的最长递增路径</title>
-    <link href="https://cblog.club/ck4jklxe1001zckg4bu1zdx2a.html"/>
-    <id>https://cblog.club/ck4jklxe1001zckg4bu1zdx2a.html</id>
+    <link href="https://cblog.club/ck4k0hnqz001xs0g401gsaftv.html"/>
+    <id>https://cblog.club/ck4k0hnqz001xs0g401gsaftv.html</id>
     <published>2019-12-08T05:19:15.000Z</published>
     <updated>2019-12-08T05:24:02.281Z</updated>
     
@@ -96,8 +124,8 @@
   
   <entry>
     <title>230二叉搜索树中第K小的元素</title>
-    <link href="https://cblog.club/ck4jklxcm001gckg4fb9cg2uc.html"/>
-    <id>https://cblog.club/ck4jklxcm001gckg4fb9cg2uc.html</id>
+    <link href="https://cblog.club/ck4k0hnqd001es0g408de8bso.html"/>
+    <id>https://cblog.club/ck4k0hnqd001es0g408de8bso.html</id>
     <published>2019-12-08T05:08:16.000Z</published>
     <updated>2019-12-08T05:18:38.454Z</updated>
     
@@ -124,8 +152,8 @@
   
   <entry>
     <title>297二叉树的序列化和反序列化</title>
-    <link href="https://cblog.club/ck4jklxd8001ockg45tv87qvf.html"/>
-    <id>https://cblog.club/ck4jklxd8001ockg45tv87qvf.html</id>
+    <link href="https://cblog.club/ck4k0hnqm001ms0g48iu9azr9.html"/>
+    <id>https://cblog.club/ck4k0hnqm001ms0g48iu9azr9.html</id>
     <published>2019-12-08T04:57:40.000Z</published>
     <updated>2019-12-08T05:06:37.352Z</updated>
     
@@ -152,8 +180,8 @@
   
   <entry>
     <title>59螺旋矩阵II</title>
-    <link href="https://cblog.club/ck4jklxfu0042ckg4c31ref4n.html"/>
-    <id>https://cblog.club/ck4jklxfu0042ckg4c31ref4n.html</id>
+    <link href="https://cblog.club/ck4k0hnt40043s0g420k87uj8.html"/>
+    <id>https://cblog.club/ck4k0hnt40043s0g420k87uj8.html</id>
     <published>2019-12-05T14:46:19.000Z</published>
     <updated>2019-12-05T14:49:54.840Z</updated>
     
@@ -175,8 +203,8 @@
   
   <entry>
     <title>394字符串解码</title>
-    <link href="https://cblog.club/ck4jklxf1002nckg4hhb1g4c5.html"/>
-    <id>https://cblog.club/ck4jklxf1002nckg4hhb1g4c5.html</id>
+    <link href="https://cblog.club/ck4k0hnrn002ls0g4hxb398ac.html"/>
+    <id>https://cblog.club/ck4k0hnrn002ls0g4hxb398ac.html</id>
     <published>2019-12-05T14:36:18.000Z</published>
     <updated>2019-12-05T14:45:47.608Z</updated>
     
@@ -205,8 +233,8 @@
   
   <entry>
     <title>733图像渲染</title>
-    <link href="https://cblog.club/ck4jklxg5004jckg4ax76djej.html"/>
-    <id>https://cblog.club/ck4jklxg5004jckg4ax76djej.html</id>
+    <link href="https://cblog.club/ck4k0hntp004ms0g42n90gbnz.html"/>
+    <id>https://cblog.club/ck4k0hntp004ms0g42n90gbnz.html</id>
     <published>2019-12-05T14:30:43.000Z</published>
     <updated>2019-12-05T14:57:57.874Z</updated>
     
@@ -239,8 +267,8 @@
   
   <entry>
     <title>124二叉树中的最大路径和</title>
-    <link href="https://cblog.club/ck4jklx9l0008ckg48gb1bdk8.html"/>
-    <id>https://cblog.club/ck4jklx9l0008ckg48gb1bdk8.html</id>
+    <link href="https://cblog.club/ck4k0hnmf0006s0g401ulbk3i.html"/>
+    <id>https://cblog.club/ck4k0hnmf0006s0g401ulbk3i.html</id>
     <published>2019-12-04T13:51:42.000Z</published>
     <updated>2019-12-04T13:59:43.935Z</updated>
     
@@ -267,8 +295,8 @@
   
   <entry>
     <title>89格雷编码</title>
-    <link href="https://cblog.club/ck4jklxgg004xckg4hpwn292k.html"/>
-    <id>https://cblog.club/ck4jklxgg004xckg4hpwn292k.html</id>
+    <link href="https://cblog.club/ck4k0hnu70053s0g41drl5ao4.html"/>
+    <id>https://cblog.club/ck4k0hnu70053s0g41drl5ao4.html</id>
     <published>2019-12-04T13:39:34.000Z</published>
     <updated>2019-12-04T13:50:59.932Z</updated>
     
@@ -295,8 +323,8 @@
   
   <entry>
     <title>210课程表II</title>
-    <link href="https://cblog.club/ck4jklxax0010ckg4g1xq0ig2.html"/>
-    <id>https://cblog.club/ck4jklxax0010ckg4g1xq0ig2.html</id>
+    <link href="https://cblog.club/ck4k0hnph000ys0g45kj15q1i.html"/>
+    <id>https://cblog.club/ck4k0hnph000ys0g45kj15q1i.html</id>
     <published>2019-12-03T14:34:16.000Z</published>
     <updated>2019-12-03T14:37:21.991Z</updated>
     
@@ -325,8 +353,8 @@
   
   <entry>
     <title>207课程表</title>
-    <link href="https://cblog.club/ck4jklxaq000vckg41f821d5j.html"/>
-    <id>https://cblog.club/ck4jklxaq000vckg41f821d5j.html</id>
+    <link href="https://cblog.club/ck4k0hnp6000ts0g48zmi165d.html"/>
+    <id>https://cblog.club/ck4k0hnp6000ts0g48zmi165d.html</id>
     <published>2019-12-03T14:27:50.000Z</published>
     <updated>2019-12-03T14:33:48.116Z</updated>
     
@@ -354,8 +382,8 @@
   
   <entry>
     <title>54螺旋矩阵</title>
-    <link href="https://cblog.club/ck4jklxfk003mckg426t6e85c.html"/>
-    <id>https://cblog.club/ck4jklxfk003mckg426t6e85c.html</id>
+    <link href="https://cblog.club/ck4k0hnsf003ss0g471ypcyjm.html"/>
+    <id>https://cblog.club/ck4k0hnsf003ss0g471ypcyjm.html</id>
     <published>2019-12-02T15:11:45.000Z</published>
     <updated>2019-12-02T15:13:21.946Z</updated>
     
@@ -377,8 +405,8 @@
   
   <entry>
     <title>127单词接龙</title>
-    <link href="https://cblog.club/ck4jklx9o0009ckg4aj1nf34s.html"/>
-    <id>https://cblog.club/ck4jklx9o0009ckg4aj1nf34s.html</id>
+    <link href="https://cblog.club/ck4k0hnmi0007s0g43hzzc5oc.html"/>
+    <id>https://cblog.club/ck4k0hnmi0007s0g43hzzc5oc.html</id>
     <published>2019-12-02T15:08:31.000Z</published>
     <updated>2019-12-02T15:10:58.383Z</updated>
     
@@ -408,8 +436,8 @@
   
   <entry>
     <title>120三角形最小路径和</title>
-    <link href="https://cblog.club/ck4jklx960003ckg449u72d47.html"/>
-    <id>https://cblog.club/ck4jklx960003ckg449u72d47.html</id>
+    <link href="https://cblog.club/ck4k0hnmd0005s0g4996of6fm.html"/>
+    <id>https://cblog.club/ck4k0hnmd0005s0g4996of6fm.html</id>
     <published>2019-12-01T14:25:48.000Z</published>
     <updated>2019-12-01T14:29:43.802Z</updated>
     
@@ -435,8 +463,8 @@
   
   <entry>
     <title>221最大正方形</title>
-    <link href="https://cblog.club/ck4jklxbd0013ckg40johc8cj.html"/>
-    <id>https://cblog.club/ck4jklxbd0013ckg40johc8cj.html</id>
+    <link href="https://cblog.club/ck4k0hnq40016s0g4cj4ifbug.html"/>
+    <id>https://cblog.club/ck4k0hnq40016s0g4cj4ifbug.html</id>
     <published>2019-12-01T14:19:38.000Z</published>
     <updated>2019-12-01T14:25:01.584Z</updated>
     
@@ -462,8 +490,8 @@
   
   <entry>
     <title>752打开转盘锁</title>
-    <link href="https://cblog.club/ck4jklxg7004mckg4dfka2hl0.html"/>
-    <id>https://cblog.club/ck4jklxg7004mckg4dfka2hl0.html</id>
+    <link href="https://cblog.club/ck4k0hnts004ps0g48z8d7fc0.html"/>
+    <id>https://cblog.club/ck4k0hnts004ps0g48z8d7fc0.html</id>
     <published>2019-11-30T09:38:47.000Z</published>
     <updated>2019-11-30T09:45:19.642Z</updated>
     
@@ -492,8 +520,8 @@
   
   <entry>
     <title>133克隆图</title>
-    <link href="https://cblog.club/ck4jklxa1000dckg476y01slg.html"/>
-    <id>https://cblog.club/ck4jklxa1000dckg476y01slg.html</id>
+    <link href="https://cblog.club/ck4k0hnmx000as0g48b1n2z51.html"/>
+    <id>https://cblog.club/ck4k0hnmx000as0g48b1n2z51.html</id>
     <published>2019-11-30T09:31:47.000Z</published>
     <updated>2019-11-30T09:38:26.855Z</updated>
     
@@ -519,8 +547,8 @@
   
   <entry>
     <title>494目标和</title>
-    <link href="https://cblog.club/ck4jklxfa0036ckg4c7maco4v.html"/>
-    <id>https://cblog.club/ck4jklxfa0036ckg4c7maco4v.html</id>
+    <link href="https://cblog.club/ck4k0hns10039s0g42iltcjxv.html"/>
+    <id>https://cblog.club/ck4k0hns10039s0g42iltcjxv.html</id>
     <published>2019-11-30T09:26:47.000Z</published>
     <updated>2019-11-30T09:31:20.593Z</updated>
     
@@ -540,37 +568,6 @@
     
     
       <category term="leetcode" scheme="https://cblog.club/tags/leetcode/"/>
-    
-      <category term="深度搜索" scheme="https://cblog.club/tags/%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>200岛屿数量</title>
-    <link href="https://cblog.club/ck4jklxap000tckg4a2wy3ayk.html"/>
-    <id>https://cblog.club/ck4jklxap000tckg4a2wy3ayk.html</id>
-    <published>2019-11-30T01:58:53.000Z</published>
-    <updated>2019-11-30T02:01:50.837Z</updated>
-    
-    <content type="html"><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。</p><a id="more"></a><blockquote><p>示例 1:</p><p>输入:<br>11110<br>11010<br>11000<br>00000</p><p>输出: 1<br>示例 2:</p><p>输入:<br>11000<br>11000<br>00100<br>00011</p><p>输出: 3</p></blockquote><h6 id="解题思路：本题主要思路就是两个，一个是DFS一个是BFS，两个都可以。但是一定要记录下走过的位置，这里可以不用再声明一个数组用于记录走过的位置，可以将走过的置为’2’，然后遍历，统计1的个就行。"><a href="#解题思路：本题主要思路就是两个，一个是DFS一个是BFS，两个都可以。但是一定要记录下走过的位置，这里可以不用再声明一个数组用于记录走过的位置，可以将走过的置为’2’，然后遍历，统计1的个就行。" class="headerlink" title="解题思路：本题主要思路就是两个，一个是DFS一个是BFS，两个都可以。但是一定要记录下走过的位置，这里可以不用再声明一个数组用于记录走过的位置，可以将走过的置为’2’，然后遍历，统计1的个就行。"></a>解题思路：本题主要思路就是两个，一个是DFS一个是BFS，两个都可以。但是一定要记录下走过的位置，这里可以不用再声明一个数组用于记录走过的位置，可以将走过的置为’2’，然后遍历，统计1的个就行。</h6><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">class Solution &#123;</span></span><br><span class="line"><span class="comment">public:</span></span><br><span class="line"><span class="comment">    int numIslands(vector&lt;vector&lt;char&gt;&gt;&amp; grid) &#123;</span></span><br><span class="line"><span class="comment">        int result=0;</span></span><br><span class="line"><span class="comment">        int row=grid.size();</span></span><br><span class="line"><span class="comment">        if(row==0)return result;</span></span><br><span class="line"><span class="comment">        int col=grid[0].size();</span></span><br><span class="line"><span class="comment">        for(int i=0;i&lt;row;i++)&#123;</span></span><br><span class="line"><span class="comment">            for(int j=0;j&lt;col;j++)&#123;</span></span><br><span class="line"><span class="comment">                if(grid[i][j]=='1')&#123;</span></span><br><span class="line"><span class="comment">                    dfs(grid,i,j);</span></span><br><span class="line"><span class="comment">                    result++;</span></span><br><span class="line"><span class="comment">                &#125;</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        return result;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    void dfs(vector&lt;vector&lt;char&gt;&gt;&amp; grid,int i,int j)&#123;</span></span><br><span class="line"><span class="comment">        //越界</span></span><br><span class="line"><span class="comment">        if(i&lt;0||i&gt;=grid.size()||j&lt;0||j&gt;=grid[0].size())return;</span></span><br><span class="line"><span class="comment">        //走到水或者是走过的</span></span><br><span class="line"><span class="comment">        if(grid[i][j]=='0'||grid[i][j]=='2')return;</span></span><br><span class="line"><span class="comment">        //代表走过了</span></span><br><span class="line"><span class="comment">        grid[i][j]='2';</span></span><br><span class="line"><span class="comment">        //定义四个方向</span></span><br><span class="line"><span class="comment">        int nexti,nextj;</span></span><br><span class="line"><span class="comment">        int direct[2][4]=&#123;&#123;-1,0,1,0&#125;,&#123;0,1,0,-1&#125;&#125;;</span></span><br><span class="line"><span class="comment">        for(int k=0;k&lt;4;k++)&#123;</span></span><br><span class="line"><span class="comment">            nexti=i+direct[0][k];</span></span><br><span class="line"><span class="comment">            nextj=j+direct[1][k];</span></span><br><span class="line"><span class="comment">            dfs(grid,nexti,nextj);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">numIslands</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> row=grid.size();</span><br><span class="line">        <span class="keyword">if</span>(row==<span class="number">0</span>)<span class="keyword">return</span> result;</span><br><span class="line">        <span class="keyword">int</span> col=grid[<span class="number">0</span>].size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;row;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;col;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(grid[i][j]==<span class="string">'1'</span>)&#123;</span><br><span class="line">                    bfs(grid,i,j);</span><br><span class="line">                    result++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">char</span>&gt;&gt;&amp; grid,<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;&gt;q;</span><br><span class="line">        q.push(&#123;i,j&#125;);</span><br><span class="line">        grid[i][j]=<span class="string">'2'</span>;</span><br><span class="line">        pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;pos;</span><br><span class="line">        <span class="keyword">int</span> nexti,nextj;</span><br><span class="line">        <span class="keyword">int</span> direct[<span class="number">2</span>][<span class="number">4</span>]=&#123;&#123;<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>&#125;&#125;;</span><br><span class="line">        <span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">            pos=q.front();</span><br><span class="line">            q.pop();</span><br><span class="line">            <span class="comment">//定义四个方向</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;<span class="number">4</span>;k++)&#123;</span><br><span class="line">                nexti=pos.first+direct[<span class="number">0</span>][k];</span><br><span class="line">                nextj=pos.second+direct[<span class="number">1</span>][k];</span><br><span class="line">                <span class="keyword">if</span>(nexti&gt;=<span class="number">0</span>&amp;&amp;nexti&lt;grid.size()&amp;&amp;nextj&gt;=<span class="number">0</span>&amp;&amp;nextj&lt;grid[<span class="number">0</span>].size()&amp;&amp;grid[nexti][nextj]!=<span class="string">'2'</span>&amp;&amp;grid[nexti][nextj]!=<span class="string">'0'</span>)&#123;</span><br><span class="line">                    q.push(&#123;nexti,nextj&#125;);</span><br><span class="line">                    grid[nexti][nextj]=<span class="string">'2'</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h6 id=&quot;题目描述：&quot;&gt;&lt;a href=&quot;#题目描述：&quot; class=&quot;headerlink&quot; title=&quot;题目描述：&quot;&gt;&lt;/a&gt;题目描述：&lt;/h6&gt;&lt;p&gt;给定一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。&lt;/p&gt;
-    
-    </summary>
-    
-    
-      <category term="leetcode" scheme="https://cblog.club/categories/leetcode/"/>
-    
-      <category term="深度搜索" scheme="https://cblog.club/categories/leetcode/%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
-    
-      <category term="广度搜索" scheme="https://cblog.club/categories/leetcode/%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/%E5%B9%BF%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
-    
-    
-      <category term="leetcode" scheme="https://cblog.club/tags/leetcode/"/>
-    
-      <category term="广度搜索" scheme="https://cblog.club/tags/%E5%B9%BF%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
     
       <category term="深度搜索" scheme="https://cblog.club/tags/%E6%B7%B1%E5%BA%A6%E6%90%9C%E7%B4%A2/"/>
     
