@@ -1,13 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>滑动窗口算法解决子串问题</title>
+    <url>/ck4o7l9yn007r40g48ojpfymy.html</url>
+    <content><![CDATA[<p>最近接触到了一个之前没怎么用过的一个算法（或者叫技巧），真的是非常巧妙。特此来记录一下，这一篇是看了labuladong 的解答，此人解答非常清晰，推荐。</p>
+<p>本文详解「滑动窗口」这种高级双指针技巧的算法框架，带你秒杀几道高难度的子字符串匹配问题。</p>
+<a id="more"></a>
+
+<p>LeetCode 上至少有 9 道题目可以用此方法高效解决。但是有几道是 VIP 题目，有几道题目虽不难但太复杂，所以本文只选择点赞最高，较为经典的，最能够讲明白的三道题来讲解。第一题为了让读者掌握算法模板，篇幅相对长，后两题就基本秒杀了。文章最后抽象出一个简单的算法框架。</p>
+<p>本文代码为 C++ 实现，不会用到什么编程方面的奇技淫巧，但是还是简单介绍一下一些用到的数据结构，以免有的读者因为语言的细节问题阻碍对算法思想的理解：</p>
+<p><code>unordered_map</code> 就是哈希表（字典），它的一个方法 <code>count(key)</code> 相当于 <code>containsKey(key)</code> 可以判断键 key 是否存在。</p>
+<p>可以使用方括号访问键对应的值 <code>map[key]</code>。需要注意的是，如果该 key 不存在，C++ 会自动创建这个 key，并把 <code>map[key]</code> 赋值为 0。</p>
+<p>所以代码中多次出现的 <code>map[key]++</code> 相当于 Java 的 <code>map.put(key, map.getOrDefault(key, 0)+1)</code>。</p>
+<h3 id="一、最小覆盖子串"><a href="#一、最小覆盖子串" class="headerlink" title="一、最小覆盖子串"></a>一、最小覆盖子串</h3><img src="/ck4o7l9yn007r40g48ojpfymy/1.jpg" class="">
+
+<p>题目不难理解，要求在串 S(source) 中找到包含串 T(target) 中全部字母的一个子串，顺序无所谓，但这个子串得是所有可能子串中最短的。</p>
+<p>此题难度 Hard，但是因为很有代表性，所以放到第一道。</p>
+<p>如果我们使用暴力解法，代码大概是这样的：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">size</span>(); i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; s.<span class="built_in">size</span>(); j++)</span><br><span class="line">        <span class="keyword">if</span> s[i:j] 包含 t 的所有字母:</span><br><span class="line">            更新答案</span><br></pre></td></tr></table></figure>
+
+<p>思路很直接吧，但是显然，这个算法的复杂度肯定大于 O(N^2) 了，不好。</p>
+<p><strong>滑动窗口算法的思路是这样：</strong></p>
+<p><em>1</em>、我们在字符串 S 中使用双指针中的左右指针技巧，初始化 left = right = 0，把索引闭区间 [left, right] 称为一个「窗口」。</p>
+<p><em>2</em>、我们先不断地增加 right 指针扩大窗口 [left, right]，直到窗口中的字符串符合要求（包含了 T 中的所有字符）。</p>
+<p><em>3</em>、此时，我们停止增加 right，转而不断增加 left 指针缩小窗口 [left, right]，直到窗口中的字符串不再符合要求（不包含 T 中的所有字符了）。同时，每次增加 left，我们都要更新一轮结果。</p>
+<p><em>4</em>、重复第 2 和第 3 步，直到 right 到达字符串 S 的尽头。</p>
+<p>这个思路其实也不难，<strong>第 2 步相当于在寻找一个「可行解」，然后第 3 步在优化这个「可行解」，最终找到最优解。</strong>左右指针轮流前进，窗口大小增增减减，窗口不断向右滑动。</p>
+<p>下面画图理解一下，needs 和 window 相当于计数器，分别记录 T 中字符出现次数和窗口中的相应字符的出现次数。</p>
+<p>初始状态：</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/2.png" class="">
+
+<p>增加 right，直到窗口 [left, right] 包含了 T 中所有字符：</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/3.png" class="">
+
+<p>现在开始增加 left，缩小窗口 [left, right]（此时窗口里的字符串是最优解）：</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/4.png" class="">
+
+<p>直到窗口中的字符串不再符合要求，left 不再继续移动：</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/5.png" class="">
+
+<p>之后重复上述过程，再移动 right 试图使窗口中的字符再次符合要求，之后移动 left 缩小窗口… 直到 right 指针到达字符串 S 的末端，算法结束。</p>
+<p>在算法执行过程中，就可以找到长度最短符合条件的子串（窗口）。</p>
+<p>如果你能够理解上述过程，恭喜，你已经完全掌握了滑动窗口算法思想。至于如何具体到问题，如何得出此题的答案，都是编程问题，很容易解决。</p>
+<p>上述过程可以简单地写出如下伪码框架：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">string</span> s, t;</span><br><span class="line"><span class="comment">// 在 s 中寻找 t 的「最小覆盖子串」</span></span><br><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">string</span> res = s;</span><br><span class="line"><span class="comment">// 先移动 right 寻找可行解</span></span><br><span class="line"><span class="keyword">while</span>(right &lt; s.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    window.add(s[right]);</span><br><span class="line">    right++;</span><br><span class="line">    <span class="comment">// 找到可行解后，开始移动 left 缩小窗口</span></span><br><span class="line">    <span class="keyword">while</span> (window 符合要求) &#123;</span><br><span class="line">        <span class="comment">// 如果这个窗口的子串更短，则更新结果</span></span><br><span class="line">        res = minLen(res, window);</span><br><span class="line">        window.<span class="built_in">remove</span>(s[left]);</span><br><span class="line">        left++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> res;</span><br></pre></td></tr></table></figure>
+
+<p>如果上述代码你也能够理解，那么你离解题更近了一步。现在就剩下一个比较棘手的问题：</p>
+<p>如何判断 window 即子串 s[left…right] 是否符合要求，即是否包含 t 的所有字符呢？</p>
+<p>可以用两个哈希表当作计数器解决。用一个哈希表 needs 记录字符串 t 中包含的字符及出现次数，用另一个哈希表 window 记录当前「窗口」中包含的字符及出现的次数。如果 window 包含所有 needs 中的键，且这些键对应的值都大于等于 needs 中的值，那么就可以知道当前「窗口」符合要求了，可以开始移动 left 指针了。</p>
+<p>现在将上面的框架继续细化：</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/6.jpg" class="">
+
+<p>上述代码已经具备完整的逻辑了，只有一处伪码，即更新最短子串结果 res 的地方，不过这个问题太好解决了，直接看完整解法吧！</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/7.jpg" class="">
+
+<p>如果直接甩给你这么一大段代码，我想你的心态是爆炸的。但是通过之前的步步跟进，你应该能够理解这个算法的内在逻辑，能清晰看出该算法的结构了。</p>
+<p>这个算法的时间复杂度是 O(M + N)，M 和 N 分别是字符串 S 和 T 的长度。因为我们先用 for 循环遍历了字符串 T 来初始化 needs，时间 O(N)，之后的两个 while 循环最多执行 2M 次，时间 O(M)。</p>
+<p>读者也许认为嵌套的 while 循环复杂度应该是平方级，但是你这样想，while 执行的次数就是双指针 left 和 right 走的总路程，最多是 2M 嘛。</p>
+<h3 id="二、找到字符串中所有字母异位词"><a href="#二、找到字符串中所有字母异位词" class="headerlink" title="二、找到字符串中所有字母异位词"></a>二、找到字符串中所有字母异位词</h3><img src="/ck4o7l9yn007r40g48ojpfymy/8.jpg" class="">
+
+<p>这道题的难度是 Easy，但是评论区点赞最多的一条是这样：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">How can <span class="keyword">this</span> problem be marked as easy?  <span class="number">233333</span>~</span><br></pre></td></tr></table></figure>
+
+<p>实际上，这个 Easy 是属于了解双指针技巧的人的，只要把上一道题的代码改中更新结果的代码稍加修改就成了这道题的解：</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/9.jpg" class="">
+
+<p>因为这道题和上一道的场景类似，也需要 window 中包含串 t 的所有字符，但上一道题要找长度最短的子串，这道题要找长度相同的子串，也就是「字母异位词」嘛。</p>
+<h3 id="三、无重复字符的最长子串"><a href="#三、无重复字符的最长子串" class="headerlink" title="三、无重复字符的最长子串"></a>三、无重复字符的最长子串</h3><img src="/ck4o7l9yn007r40g48ojpfymy/10.png" class="">
+
+<p>此题难度 Medium，遇到子串问题，首先想到的就是滑动窗口技巧。</p>
+<p>类似之前的思路，使用 window 作为计数器记录窗口中的字符出现次数，然后先向右移动 right，当 window 中出现重复字符时，开始移动 left 缩小窗口，如此往复：</p>
+<img src="/ck4o7l9yn007r40g48ojpfymy/11.jpg" class="">
+
+<p>需要注意的是，因为我们要求的是最长子串，所以需要在每次移动 right 增大窗口时更新 res，而不是像之前的题目在移动 left 缩小窗口时更新。</p>
+<h3 id="四、模板总结"><a href="#四、模板总结" class="headerlink" title="四、模板总结"></a>四、模板总结</h3><p>通过上面三道题，我们可以总结出滑动窗口算法的抽象思想：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (right &lt; s.<span class="built_in">size</span>()) &#123;</span><br><span class="line">    window.add(s[right]);</span><br><span class="line">    right++;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (valid) &#123;</span><br><span class="line">        window.<span class="built_in">remove</span>(s[left]);</span><br><span class="line">        left++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 window 的数据类型可以视具体情况而定，比如上述题目都使用哈希表充当计数器，当然你也可以用一个数组实现同样效果，因为我们只处理英文字母。</p>
+<p>另外，滑动窗口技巧也可以运用在数组中，比如给一个数组，求其中 sum 最大的子数组，或者求平均数最大的子数组，都可以用滑动窗口技巧解决。</p>
+<p>稍微麻烦的地方就是这个 valid 条件，为了实现这个条件的实时更新，我们可能会写很多代码。比如前两道题，看起来解法篇幅那么长，实际上思想还是很简单，只是大多数代码都在处理这个问题而已。</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>42接雨水</title>
-    <url>/ck4k0hnrs002ts0g4fpgrazc5.html</url>
+    <url>/ck4o7l8tm002w40g4b0x28mi4.html</url>
     <content><![CDATA[<p>接雨水这道题目挺有意思，在面试题中出现频率还挺高的，本文就来步步优化，讲解一下这道题。</p>
 <p>这道题目实际上出自 LeetCode：（本次解题来源于labuladong（公众号），答主解释的很清晰）</p>
 <a id="more"></a>
 
-<img src="/ck4k0hnrs002ts0g4fpgrazc5/1.png" class="">
+<img src="/ck4o7l8tm002w40g4b0x28mi4/1.png" class="">
 
 <p>就是用一个数组表示一个条形图，问你这个条形图最多能接多少水。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span></span>;</span><br></pre></td></tr></table></figure>
@@ -15,16 +102,16 @@
 <p>下面就来由浅入深介绍暴力解法 -&gt; 备忘录解法 -&gt; 双指针解法，在 O(N) 时间 O(1) 空间内解决这个问题。</p>
 <h3 id="一、核心思路"><a href="#一、核心思路" class="headerlink" title="一、核心思路"></a>一、核心思路</h3><p>我第一次看到这个问题，无计可施，完全没有思路，相信很多朋友跟我一样。所以对于这种问题，我们不要想整体，而应该去想局部；就像之前的文章处理字符串问题，不要考虑如何处理整个字符串，而是去思考应该如何处理每一个字符。</p>
 <p>这么一想，可以发现这道题的思路其实很简单。具体来说，仅仅对于位置 i，能装下多少水呢？</p>
-<img src="/ck4k0hnrs002ts0g4fpgrazc5/2.png" class="">
+<img src="/ck4o7l8tm002w40g4b0x28mi4/2.png" class="">
 
 <p>能装 2 格水。为什么恰好是两格水呢？因为 height[i] 的高度为 0，而这里最多能盛 2 格水，2-0=2。</p>
 <p>为什么位置 i 最多能盛 2 格水呢？因为，位置 i 能达到的水柱高度和其左边的最高柱子、右边的最高柱子有关，我们分别称这两个柱子高度为<code>l_max</code>和<code>r_max</code>；<strong>位置 i 最大的水柱高度就是<code>min(l_max, r_max)</code>。</strong></p>
 <p>更进一步，对于位置 i，能够装的水为：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">water[i] = Math.min(</span><br><span class="line">               # 左边最高的柱子</span><br><span class="line">               Math.max(height[<span class="number">0</span>..i]),  </span><br><span class="line">               # 右边最高的柱子</span><br><span class="line">               Math.max(height[i..end]) </span><br><span class="line">            ) - height[i]</span><br></pre></td></tr></table></figure>
 
-<img src="/ck4k0hnrs002ts0g4fpgrazc5/3.png" class="">
+<img src="/ck4o7l8tm002w40g4b0x28mi4/3.png" class="">
 
-<img src="/ck4k0hnrs002ts0g4fpgrazc5/4.png" class="">
+<img src="/ck4o7l8tm002w40g4b0x28mi4/4.png" class="">
 
 <p>这就是本问题的核心思路，我们可以简单写一个暴力算法：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rainwaterCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> leftMax;</span><br><span class="line">        <span class="keyword">int</span> rightMax;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; height.length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">            leftMax = rightMax = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">//计算左边最大</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= i; k++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (height[k] &gt; leftMax) &#123;</span><br><span class="line">                    leftMax = height[k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//计算右边最大</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = height.length-<span class="number">1</span>; k &gt;= i; k--) &#123;</span><br><span class="line">                <span class="keyword">if</span> (height[k] &gt; rightMax) &#123;</span><br><span class="line">                    rightMax = height[k];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            rainwaterCount += Math.min(leftMax, rightMax) - height[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> rainwaterCount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -47,16 +134,16 @@
 <p>之前的备忘录解法，<code>l_max[i]</code>和<code>r_max[i]</code>代表的是<code>height[0..i]</code>和<code>height[i..end]</code>的最高柱子高度。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line">rainwaterCount += Math.min(leftMaxHeight[i], rightMaxHeight[i]) - height[i];</span><br></pre></td></tr></table></figure>
 
-<img src="/ck4k0hnrs002ts0g4fpgrazc5/5.png" class="">
+<img src="/ck4o7l8tm002w40g4b0x28mi4/5.png" class="">
 
 <p>但是双指针解法中，<code>l_max</code>和<code>r_max</code>代表的是<code>height[0..left]</code>和<code>height[right..end]</code>的最高柱子高度。比如这段代码：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (l_max &lt; r_max) &#123;    ans += l_max - height[left];    left++; &#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/ck4k0hnrs002ts0g4fpgrazc5/6.png" class="">
+<img src="/ck4o7l8tm002w40g4b0x28mi4/6.png" class="">
 
 <p>此时的<code>l_max</code>是<code>left</code>指针左边的最高柱子，但是<code>r_max</code>并不一定是<code>left</code>指针右边最高的柱子，这真的可以得到正确答案吗？</p>
 <p>其实这个问题要这么思考，我们只在乎<code>min(l_max, r_max)</code>。对于上图的情况，我们已经知道<code>l_max &lt; r_max</code>了，至于这个<code>r_max</code>是不是右边最大的，不重要，<strong>重要的是<code>height[i]</code>能够装的水只和<code>l_max</code>有关。</strong></p>
-<img src="/ck4k0hnrs002ts0g4fpgrazc5/7.png" class="">
+<img src="/ck4o7l8tm002w40g4b0x28mi4/7.png" class="">
 
 <p>对于 l_max &gt; r_max 的情况也是类似的。</p>
 <p>这就是接雨水问题的全部内容。</p>
@@ -72,7 +159,7 @@
   </entry>
   <entry>
     <title>将exe和dll文件打包成单一的安装文件</title>
-    <url>/ck4k0hnx5007gs0g41pmccq8w.html</url>
+    <url>/ck4o7l9x1007j40g4h4oz24ku.html</url>
     <content><![CDATA[<p>最近，从GitHub上下载了一个VPN项目的源码（SoftEtherVPN），编译成功后，想将编译后的程序打包成一个安装程序，特此学习一下，主要使用的是WinRAR的自动解压缩格式。</p>
 <a id="more"></a>
 
@@ -100,7 +187,7 @@
   </entry>
   <entry>
     <title>让同一个git管理gitee和github</title>
-    <url>/ck4k0hnxj007ts0g4e0tp822i.html</url>
+    <url>/ck4o7l9yt007z40g4e0yn2uxn.html</url>
     <content><![CDATA[<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景:"></a>使用场景:</h3><p> 同一个git需要管理gitee和给github,但是gitee和github需要不同的公钥进行连接</p>
 <h3 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH Key"></a>生成SSH Key</h3><p>首先生成gitee的SSH Key</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"你的邮箱"</span></span><br></pre></td></tr></table></figure>
@@ -135,7 +222,7 @@
   </entry>
   <entry>
     <title>329矩阵中的最长递增路径</title>
-    <url>/ck4k0hnqz001xs0g401gsaftv.html</url>
+    <url>/ck4o7l8p7002040g4fpe4gb2t.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个整数矩阵，找出最长递增路径的长度。</p>
 <p>对于每个单元格，你可以往上，下，左，右四个方向移动。 你不能在对角线方向上移动或移动到边界外（即不允许环绕）。</p>
 <a id="more"></a>
@@ -157,7 +244,7 @@
   </entry>
   <entry>
     <title>230二叉搜索树中第K小的元素</title>
-    <url>/ck4k0hnqd001es0g408de8bso.html</url>
+    <url>/ck4o7l8lc001h40g41mkracov.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个二叉搜索树，编写一个函数 <code>kthSmallest</code> 来查找其中第 <strong>k</strong> 个最小的元素。</p>
 <p><strong>说明：</strong><br>你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。</p>
 <a id="more"></a>
@@ -179,7 +266,7 @@
   </entry>
   <entry>
     <title>297二叉树的序列化和反序列化</title>
-    <url>/ck4k0hnqm001ms0g48iu9azr9.html</url>
+    <url>/ck4o7l8ls001k40g43zdw5dve.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文件或者内存中，同时也可以通过网络传输到另一个计算机环境，采取相反方式重构得到原数据。</p>
 <p>请设计一个算法来实现二叉树的序列化与反序列化。这里不限定你的序列 / 反序列化算法执行逻辑，你只需要保证一个二叉树可以被序列化为一个字符串并且将这个字符串反序列化为原始的树结构。</p>
 <a id="more"></a>
@@ -204,7 +291,7 @@
   </entry>
   <entry>
     <title>59螺旋矩阵II</title>
-    <url>/ck4k0hnt40043s0g420k87uj8.html</url>
+    <url>/ck4o7l90d004340g4081r641n.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个正整数 <em>n</em>，生成一个包含 1 到 <em>n</em>2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。</p>
 <a id="more"></a>
 
@@ -222,7 +309,7 @@
   </entry>
   <entry>
     <title>394字符串解码</title>
-    <url>/ck4k0hnrn002ls0g4hxb398ac.html</url>
+    <url>/ck4o7l8sy002o40g4hy2va5vd.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个经过编码的字符串，返回它解码后的字符串。</p>
 <p>编码规则为: <code>k[encoded_string]</code>，表示其中方括号内部的 <em>encoded_string</em> 正好重复 <em>k</em> 次。注意 <em>k</em> 保证为正整数。</p>
 <p>你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。</p>
@@ -251,7 +338,7 @@
   </entry>
   <entry>
     <title>733图像渲染</title>
-    <url>/ck4k0hntp004ms0g42n90gbnz.html</url>
+    <url>/ck4o7l93e004l40g4ei93an6q.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>有一幅以二维整数数组表示的图画，每一个整数表示该图画的像素值大小，数值在 0 到 65535 之间。</p>
 <p>给你一个坐标 <code>(sr, sc)</code> 表示图像渲染开始的像素值（行 ，列）和一个新的颜色值 <code>newColor</code>，让你重新上色这幅图像。</p>
 <p>为了完成上色工作，从初始坐标开始，记录初始坐标的上下左右四个方向上像素值与初始坐标相同的相连像素点，接着再记录这四个方向上符合条件的像素点与他们对应四个方向上像素值与初始坐标相同的相连像素点，……，重复该过程。将所有有记录的像素点的颜色值改为新的颜色值。</p>
@@ -283,7 +370,7 @@
   </entry>
   <entry>
     <title>124二叉树中的最大路径和</title>
-    <url>/ck4k0hnmf0006s0g401ulbk3i.html</url>
+    <url>/ck4o7l84v000840g4fd3hf2ah.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个<strong>非空</strong>二叉树，返回其最大路径和。</p>
 <p>本题中，路径被定义为一条从树中任意节点出发，达到任意节点的序列。该路径<strong>至少包含一个</strong>节点，且不一定经过根节点。</p>
 <a id="more"></a>
@@ -310,7 +397,7 @@
   </entry>
   <entry>
     <title>89格雷编码</title>
-    <url>/ck4k0hnu70053s0g41drl5ao4.html</url>
+    <url>/ck4o7l964005340g4dmw47jig.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>格雷编码是一个二进制数字系统，在该系统中，两个连续的数值仅有一个位数的差异。</p>
 <p>给定一个代表编码总位数的非负整数 <em>n</em>，打印其格雷编码序列。格雷编码序列必须以 0 开头。</p>
 <a id="more"></a>
@@ -334,7 +421,7 @@
   </entry>
   <entry>
     <title>210课程表II</title>
-    <url>/ck4k0hnph000ys0g45kj15q1i.html</url>
+    <url>/ck4o7l8g9001140g44n2674t2.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>现在你总共有 <em>n</em> 门课需要选，记为 <code>0</code> 到 <code>n-1</code>。</p>
 <p>在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: <code>[0,1]</code></p>
 <p>给定课程总量以及它们的先决条件，返回你为了学完所有课程所安排的学习顺序。</p>
@@ -372,7 +459,7 @@
   </entry>
   <entry>
     <title>207课程表</title>
-    <url>/ck4k0hnp6000ts0g48zmi165d.html</url>
+    <url>/ck4o7l8ew000w40g473gj9e4j.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>现在你总共有 <em>n</em> 门课需要选，记为 <code>0</code> 到 <code>n-1</code>。</p>
 <p>在选修某些课程之前需要一些先修课程。 例如，想要学习课程 0 ，你需要先完成课程 1 ，我们用一个匹配来表示他们: <code>[0,1]</code></p>
 <p>给定课程总量以及它们的先决条件，判断是否可能完成所有课程的学习？</p>
@@ -415,7 +502,7 @@
   </entry>
   <entry>
     <title>54螺旋矩阵</title>
-    <url>/ck4k0hnsf003ss0g471ypcyjm.html</url>
+    <url>/ck4o7l8zh004040g4ed1w5b6d.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个包含 <em>m</em> x <em>n</em> 个元素的矩阵（<em>m</em> 行, <em>n</em> 列），请按照顺时针螺旋顺序，返回矩阵中的所有元素。</p>
 <a id="more"></a>
 
@@ -436,7 +523,7 @@
   </entry>
   <entry>
     <title>127单词接龙</title>
-    <url>/ck4k0hnmi0007s0g43hzzc5oc.html</url>
+    <url>/ck4o7l85s000a40g40e572tnv.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定两个单词（<em>beginWord</em> 和 <em>endWord*）和一个字典，找到从 *beginWord</em> 到 <em>endWord</em> 的最短转换序列的长度。转换需遵循如下规则：</p>
 <ol>
 <li>每次转换只能改变一个字母。</li>
@@ -471,7 +558,7 @@
   </entry>
   <entry>
     <title>120三角形最小路径和</title>
-    <url>/ck4k0hnmd0005s0g4996of6fm.html</url>
+    <url>/ck4o7l82a000240g4bs2y509k.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个三角形，找出自顶向下的最小路径和。每一步只能移动到下一行中相邻的结点上。</p>
 <a id="more"></a>
 
@@ -495,7 +582,7 @@
   </entry>
   <entry>
     <title>221最大正方形</title>
-    <url>/ck4k0hnq40016s0g4cj4ifbug.html</url>
+    <url>/ck4o7l8kk001c40g4a0z64tak.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>在一个由 0 和 1 组成的二维矩阵内，找到只包含 1 的最大正方形，并返回其面积。</p>
 <a id="more"></a>
 
@@ -515,7 +602,7 @@
   </entry>
   <entry>
     <title>752打开转盘锁</title>
-    <url>/ck4k0hnts004ps0g48z8d7fc0.html</url>
+    <url>/ck4o7l94a004p40g4f1h37pbv.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>你有一个带有四个圆形拨轮的转盘锁。每个拨轮都有10个数字： <code>&#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;</code> 。每个拨轮可以自由旋转：例如把 <code>&#39;9&#39;</code> 变为 <code>&#39;0&#39;</code>，<code>&#39;0&#39;</code> 变为 <code>&#39;9&#39;</code> 。每次旋转都只能旋转一个拨轮的一位数字。</p>
 <p>锁的初始数字为 <code>&#39;0000&#39;</code> ，一个代表四个拨轮的数字的字符串。</p>
 <p>列表 <code>deadends</code> 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。</p>
@@ -554,7 +641,7 @@
   </entry>
   <entry>
     <title>133克隆图</title>
-    <url>/ck4k0hnmx000as0g48b1n2z51.html</url>
+    <url>/ck4o7l87u000d40g44dzh80lv.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定无向<a href="https://baike.baidu.com/item/连通图/6460995?fr=aladdin" target="_blank" rel="noopener"><strong>连通</strong></a>图中一个节点的引用，返回该图的<a href="https://baike.baidu.com/item/深拷贝/22785317?fr=aladdin" target="_blank" rel="noopener"><strong>深拷贝</strong></a>（克隆）。图中的每个节点都包含它的值 <code>val</code>（<code>Int</code>） 和其邻居的列表（<code>list[Node]</code>）。</p>
 <a id="more"></a>
 
@@ -573,7 +660,7 @@
   </entry>
   <entry>
     <title>494目标和</title>
-    <url>/ck4k0hns10039s0g42iltcjxv.html</url>
+    <url>/ck4o7l8v2003c40g46loq5qx4.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非负整数数组，a1, a2, …, an, 和一个目标数，S。现在你有两个符号 <code>+</code> 和 <code>-</code>。对于数组中的任意一个整数，你都可以从 <code>+</code> 或 <code>-</code>中选择一个符号添加在前面。</p>
 <p>返回可以使最终数组和为目标数 S 的所有添加符号的方法数。</p>
 <a id="more"></a>
@@ -601,7 +688,7 @@
   </entry>
   <entry>
     <title>200岛屿数量</title>
-    <url>/ck4k0hnow000rs0g4a3ksgc4x.html</url>
+    <url>/ck4o7l8dz000u40g46yqvd7br.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，计算岛屿的数量。一个岛被水包围，并且它是通过水平方向或垂直方向上相邻的陆地连接而成的。你可以假设网格的四个边均被水包围。</p>
 <a id="more"></a>
 
@@ -626,7 +713,7 @@
   </entry>
   <entry>
     <title>542之01矩阵</title>
-    <url>/ck4k0hnsd003ps0g4hurnbfyx.html</url>
+    <url>/ck4o7l8xd003n40g40eqf3zi9.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个由 0 和 1 组成的矩阵，找出每个元素到最近的 0 的距离。两个相邻元素间的距离为 1 。</p>
 <a id="more"></a>
 
@@ -652,7 +739,7 @@
   </entry>
   <entry>
     <title>动态规划之团灭股票买卖</title>
-    <url>/ck4k0hnwu0075s0g482ycfg2y.html</url>
+    <url>/ck4o7l9sd007840g4b6t307wa.html</url>
     <content><![CDATA[<p>今天看了一篇讲解动态规划关于leetcode上的所有股票买卖相关的文章，感觉受益挺多，其实做这种题目真的是需要套路，最好能总结出适应这类题目的套路，省时省力。</p>
 <a id="more"></a>
 
@@ -662,96 +749,96 @@
 <p>为什么别人能写出这么诡异却又高效的解法呢？因为这类问题是有框架的，但是人家不会告诉你的，因为一旦告诉你，你十分钟就学会了，该算法题就不再神秘，变得不堪一击了。</p>
 <p>本文就来告诉你处理这类问题的框架，拒绝奇技淫巧，稳扎稳打，以不变应万变。</p>
 <p>这 6 道题目是有共性的，本文通过对第四道题的分析，逐步解决所有问题。因为第四题是一个最泛化的形式，其他的问题都是这个形式的简化。看下题目：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128143819251.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128143819251.png" class="">
 
 <p>第一题是只进行一次交易，相当于 k = 1；第二题是不限交易次数，相当于 k = +infinity（正无穷）；第三题是只进行 2 次交易，相当于 k = 2；剩下两道也是不限交易次数，但是加了交易「冷冻期」和「手续费」的额外条件，其实就是第二题的变种，都很容易处理。</p>
 <h4 id="穷举框架"><a href="#穷举框架" class="headerlink" title="穷举框架"></a>穷举框架</h4><p>看看总共有几种「状态」，再找出每个「状态」对应的「选择」。我们要穷举所有「状态」，穷举的目的是根据对应的「选择」更新状态。看图，就是这个意思。</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128144537139.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128144537139.png" class="">
 
 <p>具体到当前问题，每天都有三种「选择」：买入、卖出、无操作，我们用 buy, sell, rest 表示这三种选择。</p>
 <p>但问题是，并不是每天都可以任意选择这三种选择的，因为 sell 必须在 buy 之后，buy 必须在 sell 之后（第一次除外）。那么 rest 操作还应该分两种状态，一种是 buy 之后的 rest（持有了股票），一种是 sell 之后的 rest（没有持有股票）。而且别忘了，我们还有交易次数 k 的限制，就是说你 buy 还只能在 k &gt; 0 的前提下操作。</p>
 <p>很复杂对吧，不要怕，我们现在的目的只是穷举，你有再多的状态，老夫要做的就是一把梭全部列举出来。这个问题的「状态」有三个，第一个是天数，第二个是当天允许交易的最大次数，第三个是当前的持有状态（即之前说的 rest 的状态，我们不妨用 1 表示持有，0 表示没有持有）。</p>
 <p>我们用一个三维数组 dp 就可以装下这几种状态的全部组合，用 for 循环就能完成穷举：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128144806036.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128144806036.png" class="">
 
 <p>而且我们可以用自然语言描述出每一个状态的含义，比如说 dp[3] [2] [1] 的含义就是：今天是第三天，我现在手上持有着股票，至今最多进行 2 次交易。再比如 dp[2] [3] [0] 的含义：今天是第二天，我现在手上没有持有股票，至今最多进行 3 次交易。很容易理解，对吧？</p>
 <p>我们想求的最终答案是 dp[n - 1] [K] [0]，即最后一天，最多允许 K 次交易，所能获取的最大利润。读者可能问为什么不是 dp[n - 1] [K] [1]？因为 [1] 代表手上还持有股票，[0] 表示手上的股票已经卖出去了，很显然后者得到的利润一定大于前者。</p>
 <p>记住如何解释「状态」，一旦你觉得哪里不好理解，把它翻译成自然语言就容易理解了。</p>
 <h4 id="状态转转移框架"><a href="#状态转转移框架" class="headerlink" title="状态转转移框架"></a>状态转转移框架</h4><p>现在，我们完成了「状态」的穷举，我们开始思考每种「状态」有哪些「选择」，应该如何更新「状态」。</p>
 <p>因为我们的选择是 buy, sell, rest，而这些选择是和「持有状态」相关的，所以只看「持有状态」，可以画个状态转移图。</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128145559395.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128145559395.png" class="">
 
 <p>通过这个图可以很清楚地看到，每种状态（0 和 1）是如何转移而来的。根据这个图，我们来写一下状态转移方程：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128150207736.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128150207736.png" class="">
 
 <p>这个解释应该很清楚了，如果 buy，就要从利润中减去 prices[i]，如果 sell，就要给利润增加 prices[i]。今天的最大利润就是这两种可能选择中较大的那个。而且注意 k 的限制，我们在选择 buy 的时候，把最大交易数 k 减小了 1，很好理解吧，当然你也可以在 sell 的时候减 1，一样的。</p>
 <p>现在，我们已经完成了动态规划中最困难的一步：状态转移方程。如果之前的内容你都可以理解，那么你已经可以秒杀所有问题了，只要套这个框架就行了。不过还差最后一点点，就是定义 base case，即最简单的情况。</p>
 <ul>
 <li>这四种基础的状态一定要书记</li>
 </ul>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128150439641.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128150439641.png" class="">
 
 <p>把上面的状态转移方程总结一下：</p>
 <ul>
 <li>尤其注意这里的K-1，理解的话，可以这么理解，我前一天的最多允许买卖次数一定比今天的要少一，不然不允许买了。（你得允许买啊，卖是肯定允许卖的，因为你买了，才算一次交易，买了就算是这次交易的结束）</li>
-<li><img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128150453711.png" class="">
+<li><img src="/ck4o7l9sd007840g4b6t307wa/image-20191128150453711.png" class="">
 
 </li>
 </ul>
 <p>读者可能会问，这个数组索引是 -1 怎么编程表示出来呢，负无穷怎么表示呢？这都是细节问题，有很多方法实现。现在整体框架已经完成，下面开始具体化。</p>
 <h4 id="秒杀题目"><a href="#秒杀题目" class="headerlink" title="秒杀题目"></a>秒杀题目</h4><h6 id="第一题（也是最简单的问题）K-1（只允许买卖一次）"><a href="#第一题（也是最简单的问题）K-1（只允许买卖一次）" class="headerlink" title="第一题（也是最简单的问题）K=1（只允许买卖一次）"></a>第一题（也是最简单的问题）K=1（只允许买卖一次）</h6><p>直接套状态转移方程，根据 base case，可以做一些化简：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128151020149.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128151020149.png" class="">
 
 <p> 直接翻译成代码： 注意，这里的dp[i-1] [0] [0]始终都是0，所以对base case条件一定要熟悉</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128151034429.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128151034429.png" class="">
 
 <p>显然 i = 0 时 dp[i-1] 是不合法的。这是因为我们没有对 i 的 base case 进行处理。那就简单粗暴地处理一下：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128151049279.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128151049279.png" class="">
 
 <p>第一题就解决了，但是这样处理 base case 很麻烦，而且注意一下状态转移方程，新状态只和相邻的一个状态有关，其实不用整个 dp 数组，只需要两个变量储存所需的状态就足够了，这样可以把空间复杂度降到 O(1):</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128155307100.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128155307100.png" class="">
 
 <p>两种方式都是一样的，不过这种编程方法简洁很多。但是如果没有前面状态转移方程的引导，是肯定看不懂的。后续的题目，我主要写这种空间复杂度 O(1) 的解法。</p>
 <h6 id="第二题，k-infinity"><a href="#第二题，k-infinity" class="headerlink" title="第二题，k+infinity"></a>第二题，k+infinity</h6><p>如果 k 为正无穷，那么就可以认为 k 和 k - 1 是一样的。可以这样改写框架：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128155423626.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128155423626.png" class="">
 
 <p>直接改写代码即可</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128155439697.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128155439697.png" class="">
 
 <h6 id="第三题-，K-2"><a href="#第三题-，K-2" class="headerlink" title="第三题 ，K=2"></a>第三题 ，K=2</h6><p>k = 2 和前面题目的情况稍微不同，因为上面的情况都和 k 的关系不太大。要么 k 是正无穷，状态转移和 k 没关系了；要么 k = 1，跟 k = 0 这个 base case 挨得近，最后也被消掉了。</p>
 <p>这道题 k = 2 和后面要讲的 k 是任意正整数的情况中，对 k 的处理就凸显出来了。我们直接写代码，边写边分析原因。</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128161938577.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128161938577.png" class="">
 
 <p>为什么错误？我这不是照着状态转移方程写的吗？</p>
 <p>还记得前面总结的「穷举框架」吗？就在强调必须穷举所有状态。其实我们之前的解法，都在穷举所有状态，只是之前的题目中 k 都被化简掉了，所以没有对 k 的穷举。比如说第一题，k = 1：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128162117417.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128162117417.png" class="">
 
 <p>这道题由于没有消掉 k 的影响，所以必须要用 for 循环对 k 进行穷举才是正确的：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128162145459.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128162145459.png" class="">
 
 <p>如果你不理解，可以返回第一点「穷举框架」重新阅读体会一下。</p>
 <p>第二种解法：因为这里 k 取值范围比较小，所以也可以不用 for 循环，直接把 k = 1 和 2 的情况手动列举出来也是一样的：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128162159691.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128162159691.png" class="">
 
 <h6 id="第四题，K-any-integer-（这一题刚开始觉得很简单，但是不然！-）"><a href="#第四题，K-any-integer-（这一题刚开始觉得很简单，但是不然！-）" class="headerlink" title="第四题，K=any integer （这一题刚开始觉得很简单，但是不然！= =）"></a>第四题，K=any integer （这一题刚开始觉得很简单，但是不然！= =）</h6><p>这题和 k = 2 没啥区别，可以直接套上一题的第一个解法。但是提交之后会出现一个超内存的错误，原来是传入的 k 值可以任意大，导致 dp 数组太大了。现在想想，交易次数 k 最多能有多大呢？</p>
 <p>一次交易由买入和卖出构成，至少需要两天。所以说有效的限制次数 k 应该不超过 n/2，如果超过，就没有约束作用了，相当于 k = +infinity（巧妙之处啊）。这种情况是之前解决过的。</p>
 <p>直接把之前的代码重用：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128143819251.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128143819251.png" class="">
 
 <h6 id="第五题-k-infinity-cooldown-冷冻期"><a href="#第五题-k-infinity-cooldown-冷冻期" class="headerlink" title="第五题 k=infinity+cooldown(冷冻期)"></a>第五题 k=infinity+cooldown(冷冻期)</h6><p>每次 sell 之后要等一天才能继续交易。只要把这个特点融入上一题的状态转移方程即可：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128172040462.png" class=""> 
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128172040462.png" class=""> 
 
 <p>直接翻译成代码即可：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128172102201.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128172102201.png" class="">
 
 <p>但是我还是不习惯用这种形式，用常规DP数组，会比较清晰一点，要注意，碰到边界，我就带进去比较就行了</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128172151101.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128172151101.png" class="">
 
 <h6 id="第六题-k-infinity-and-with-feee"><a href="#第六题-k-infinity-and-with-feee" class="headerlink" title="第六题 k=infinity and with feee"></a>第六题 k=infinity and with feee</h6><p>每次交易要支付手续费，只要把手续费从利润中减去即可：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128172829422.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128172829422.png" class="">
 
 <p>直接翻译成代码即可：</p>
-<img src="/ck4k0hnwu0075s0g482ycfg2y/image-20191128172847687.png" class="">
+<img src="/ck4o7l9sd007840g4b6t307wa/image-20191128172847687.png" class="">
 
 <h4 id="哇咔咔，至此，所有股票买卖问题都解决了，虽然说这是针对这一类问题，但是还是可以引发一些思考，就是状态是怎么转移的，也可以在其他题目上进行套用，试试看。"><a href="#哇咔咔，至此，所有股票买卖问题都解决了，虽然说这是针对这一类问题，但是还是可以引发一些思考，就是状态是怎么转移的，也可以在其他题目上进行套用，试试看。" class="headerlink" title="哇咔咔，至此，所有股票买卖问题都解决了，虽然说这是针对这一类问题，但是还是可以引发一些思考，就是状态是怎么转移的，也可以在其他题目上进行套用，试试看。"></a>哇咔咔，至此，所有股票买卖问题都解决了，虽然说这是针对这一类问题，但是还是可以引发一些思考，就是状态是怎么转移的，也可以在其他题目上进行套用，试试看。</h4>]]></content>
       <categories>
@@ -765,7 +852,7 @@
   </entry>
   <entry>
     <title>103二叉树的锯齿形层次遍历</title>
-    <url>/ck4k0hnlx0000s0g4g0y53gxo.html</url>
+    <url>/ck4o7l801000040g4825j8c9a.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个二叉树，返回其节点值的锯齿形层次遍历。（即先从左往右，再从右往左进行下一层遍历，以此类推，层与层之间交替进行）。 </p>
 <a id="more"></a>
 
@@ -788,7 +875,7 @@
   </entry>
   <entry>
     <title>79单词搜索</title>
-    <url>/ck4k0hnu30050s0g4ghr582ct.html</url>
+    <url>/ck4o7l988005640g49mdb0hty.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个二维网格和一个单词，找出该单词是否存在于网格中。</p>
 <p>单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。</p>
 <a id="more"></a>
@@ -809,7 +896,7 @@
   </entry>
   <entry>
     <title>22括号生成</title>
-    <url>/ck4k0hnq70019s0g4d9oi9lek.html</url>
+    <url>/ck4o7l8jy001940g4clqbaphj.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给出 <em>n</em> 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且<strong>有效的</strong>括号组合。</p>
 <a id="more"></a>
 
@@ -829,12 +916,12 @@
   </entry>
   <entry>
     <title>17电话号码的字母组合</title>
-    <url>/ck4k0hnoc000ks0g467uy14s9.html</url>
+    <url>/ck4o7l8c8000n40g4hxkk4qn8.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个仅包含数字 <code>2-9</code> 的字符串，返回所有它能表示的字母组合。</p>
 <p>给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。</p>
 <a id="more"></a>
 
-<img src="/ck4k0hnoc000ks0g467uy14s9/1.jpg" class="">
+<img src="/ck4o7l8c8000n40g4hxkk4qn8/1.jpg" class="">
 
 <blockquote>
 <p><strong>示例:</strong></p>
@@ -854,7 +941,7 @@
   </entry>
   <entry>
     <title>78子集</title>
-    <url>/ck4k0hnu0004xs0g471xi7gwu.html</url>
+    <url>/ck4o7l95i004x40g4b6uwdbm8.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一组<strong>不含重复元素</strong>的整数数组 <em>nums</em>，返回该数组所有可能的子集（幂集）。</p>
 <p><strong>说明：</strong>解集不能包含重复的子集。</p>
 <a id="more"></a>
@@ -875,7 +962,7 @@
   </entry>
   <entry>
     <title>51N皇后</title>
-    <url>/ck4k0hns6003hs0g4cv5hcxv3.html</url>
+    <url>/ck4o7l8ww003k40g4bzhp5bmt.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> <em>n</em> 皇后问题研究的是如何将 <em>n</em> 个皇后放置在 <em>n</em>×<em>n</em> 的棋盘上，并且使皇后彼此之间不能相互攻击。 </p>
 <a id="more"></a>
 
@@ -897,7 +984,7 @@
   </entry>
   <entry>
     <title>回溯算法</title>
-    <url>/ck4k0hnwy0079s0g46zaq6ug7.html</url>
+    <url>/ck4o7l9t6007c40g4hq9qd0ub.html</url>
     <content><![CDATA[<p>这两天在研究回溯算法，所以特此记录一下，这一片文章是看的一个知乎上的人的总结，感觉非常不错，很容易理解。</p>
 <h4 id="解决一个回溯问题，实际上就是一个决策树的遍历过程。"><a href="#解决一个回溯问题，实际上就是一个决策树的遍历过程。" class="headerlink" title="解决一个回溯问题，实际上就是一个决策树的遍历过程。"></a>解决一个回溯问题，实际上就是一个决策树的遍历过程。</h4><p>你只需要思考 3 个问题：</p>
 <a id="more"></a>
@@ -920,25 +1007,25 @@
 <p>那么我们当时是怎么穷举全排列的呢？比方说给三个数<code>[1,2,3]</code>，你肯定不会无规律地乱穷举，一般是这样：</p>
 <p>先固定第一位为 1，然后第二位可以是 2，那么第三位只能是 3；然后可以把第二位变成 3，第三位就只能是 2 了；然后就只能变化第一位，变成 2，然后再穷举后两位……</p>
 <p>其实这就是回溯算法，我们高中无师自通就会用，或者有的同学直接画出如下这棵回溯树：</p>
-<img src="/ck4k0hnwy0079s0g46zaq6ug7/image-20191125213617585.png" class="">
+<img src="/ck4o7l9t6007c40g4hq9qd0ub/image-20191125213617585.png" class="">
 
 <p>只要从根遍历这棵树，记录路径上的数字，其实就是所有的全排列。<strong>我们不妨把这棵树称为回溯算法的「决策树」</strong>。</p>
 <p><strong>为啥说这是决策树呢，因为你在每个节点上其实都在做决策</strong>。比如说你站在下图的红色节点上：</p>
-<img src="/ck4k0hnwy0079s0g46zaq6ug7/image-20191125213806909.png" class="">
+<img src="/ck4o7l9t6007c40g4hq9qd0ub/image-20191125213806909.png" class="">
 
 <p>你现在就在做决策，可以选择 1 那条树枝，也可以选择 3 那条树枝。为啥只能在 1 和 3 之中选择呢？因为 2 这个树枝在你身后，这个选择你之前做过了，而全排列是不允许重复使用数字的。 </p>
 <p><strong>现在可以解答开头的几个名词：<code>[2]</code>就是「路径」，记录你已经做过的选择；<code>[1,3]</code>就是「选择列表」，表示你当前可以做出的选择；「结束条件」就是遍历到树的底层，在这里就是选择列表为空的时候</strong>。</p>
 <p>如果明白了这几个名词，<strong>可以把「路径」和「选择列表」作为决策树上每个节点的属性</strong>，比如下图列出了几个节点的属性：</p>
-<img src="/ck4k0hnwy0079s0g46zaq6ug7/image-20191125213946062.png" class="">
+<img src="/ck4o7l9t6007c40g4hq9qd0ub/image-20191125213946062.png" class="">
 
 <p><strong>我们定义的<code>backtrack</code>函数其实就像一个指针，在这棵树上游走，同时要正确维护每个节点的属性，每当走到树的底层，其「路径」就是一个全排列</strong>。</p>
 <p>再进一步，如何遍历一棵树？这个应该不难吧。回忆一下之前 <a href="http://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484520&idx=1&sn=2c6507c7f25c0fd29fd1d146ee3b067c&chksm=9bd7fa60aca073763785418d15ed03c9debdd93ca36f4828fa809990116b1e7536c3f68a7b71&scene=21#wechat_redirect" target="_blank" rel="noopener">学习数据结构的框架思维</a> 写过，各种搜索问题其实都是树的遍历问题，而多叉树的遍历框架就是这样：</p>
 <p> 而所谓的前序遍历和后序遍历，他们只是两个很有用的时间点，我给你画张图你就明白了： </p>
-<img src="/ck4k0hnwy0079s0g46zaq6ug7/image-20191125214040894.png" class="">
+<img src="/ck4o7l9t6007c40g4hq9qd0ub/image-20191125214040894.png" class="">
 
 <p><strong>前序遍历的代码在进入某一个节点之前的那个时间点执行，后序遍历代码在离开某个节点之后的那个时间点执行</strong>。</p>
 <p>回想我们刚才说的，「路径」和「选择」是每个节点的属性，函数在树上游走要正确维护节点的属性，那么就要在这两个特殊时间点搞点动作：</p>
-<img src="/ck4k0hnwy0079s0g46zaq6ug7/image-20191125214111739.png" class="">
+<img src="/ck4o7l9t6007c40g4hq9qd0ub/image-20191125214111739.png" class="">
 
 <p> 现在，你是否理解了回溯算法的这段核心框架？ </p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> 选择 in 选择列表:</span><br><span class="line">    # 做选择</span><br><span class="line">    将该选择从选择列表移除</span><br><span class="line">    路径.add(选择)</span><br><span class="line">    backtrack(路径, 选择列表)</span><br><span class="line">    # 撤销选择</span><br><span class="line">    路径.remove(选择)</span><br><span class="line">    将该选择再加入选择列表</span><br></pre></td></tr></table></figure>
@@ -948,7 +1035,7 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 主函数，输入一组不重复的数字，返回它们的全排列 */</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; permute(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">    <span class="comment">// 记录「路径」</span></span><br><span class="line">    LinkedList&lt;Integer&gt; track = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">    backtrack(nums, track);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路径：记录在 track 中</span></span><br><span class="line"><span class="comment">// 选择列表：nums 中不存在于 track 的那些元素</span></span><br><span class="line"><span class="comment">// 结束条件：nums 中的元素全都在 track 中出现</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="keyword">int</span>[] nums, LinkedList&lt;Integer&gt; track)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 触发结束条件</span></span><br><span class="line">    <span class="keyword">if</span> (track.size() == nums.length) &#123;</span><br><span class="line">        res.add(<span class="keyword">new</span> LinkedList(track));</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="comment">// 排除不合法的选择</span></span><br><span class="line">        <span class="keyword">if</span> (track.contains(nums[i]))</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        track.add(nums[i]);</span><br><span class="line">        <span class="comment">// 进入下一层决策树</span></span><br><span class="line">        backtrack(nums, track);</span><br><span class="line">        <span class="comment">// 取消选择</span></span><br><span class="line">        track.removeLast();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 我们这里稍微做了些变通，没有显式记录「选择列表」，而是通过<code>nums</code>和<code>track</code>推导出当前的选择列表： </p>
-<img src="/ck4k0hnwy0079s0g46zaq6ug7/image-20191125214229597.png" class="">
+<img src="/ck4o7l9t6007c40g4hq9qd0ub/image-20191125214229597.png" class="">
 
 <p>至此，我们就通过全排列问题详解了回溯算法的底层原理。当然，这个算法解决全排列不是很高效，因为对链表使用<code>contains</code>方法需要 O(N) 的时间复杂度。有更好的方法通过交换元素达到目的，但是难理解一些，这里就不写了，有兴趣可以自行搜索一下。</p>
 <p>但是必须说明的是，不管怎么优化，都符合回溯框架，而且时间复杂度都不可能低于 O(N!)，因为穷举整棵决策树是无法避免的。<strong>这也是回溯算法的一个特点，不像动态规划存在重叠子问题可以优化，回溯算法就是纯暴力穷举，复杂度一般都很高</strong>。</p>
@@ -956,7 +1043,7 @@
 <h4 id="N皇后问题"><a href="#N皇后问题" class="headerlink" title="N皇后问题"></a>N皇后问题</h4><p>这个问题很经典了，简单解释一下：给你一个 N×N 的棋盘，让你放置 N 个皇后，使得它们不能互相攻击。</p>
 <p>PS：皇后可以攻击同一行、同一列、左上左下右上右下四个方向的任意单位。</p>
 <p>这是 N = 8 的一种放置方法：</p>
-<img src="/ck4k0hnwy0079s0g46zaq6ug7/image-20191125214412332.png" class="">
+<img src="/ck4o7l9t6007c40g4hq9qd0ub/image-20191125214412332.png" class="">
 
 <p> 这个问题本质上跟全排列问题差不多，决策树的每一层表示棋盘上的每一行；每个节点可以做出的选择是，在该行的任意一列放置一个皇后。 </p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; res;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 输入棋盘边长 n，返回所有合法的放置 */</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&gt; solveNQueens(<span class="keyword">int</span> n) &#123;</span><br><span class="line">    <span class="comment">// '.' 表示空，'Q' 表示皇后，初始化空棋盘。</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; board(n, <span class="built_in">string</span>(n, <span class="string">'.'</span>));</span><br><span class="line">    backtrack(board, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路径：board 中小于 row 的那些行都已经成功放置了皇后</span></span><br><span class="line"><span class="comment">// 选择列表：第 row 行的所有列都是放置皇后的选择</span></span><br><span class="line"><span class="comment">// 结束条件：row 超过 board 的最后一行</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;&amp; board, <span class="keyword">int</span> row)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 触发结束条件</span></span><br><span class="line">    <span class="keyword">if</span> (row == board.size()) &#123;</span><br><span class="line">        res.push_back(board);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n = board[row].size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> col = <span class="number">0</span>; col &lt; n; col++) &#123;</span><br><span class="line">        <span class="comment">// 排除不合法选择</span></span><br><span class="line">        <span class="keyword">if</span> (!isValid(board, row, col)) </span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        board[row][col] = <span class="string">'Q'</span>;</span><br><span class="line">        <span class="comment">// 进入下一行决策</span></span><br><span class="line">        backtrack(board, row + <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        board[row][col] = <span class="string">'.'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -994,7 +1081,7 @@
   </entry>
   <entry>
     <title>47全排列II</title>
-    <url>/ck4k0hnry0034s0g4ga1u888b.html</url>
+    <url>/ck4o7l8uf003740g40upjdelp.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个可包含重复数字的序列，返回所有不重复的全排列。 </p>
 <a id="more"></a>
 
@@ -1014,7 +1101,7 @@
   </entry>
   <entry>
     <title>attetion机制简单了解</title>
-    <url>/ck4k0hnwe006ps0g41vll7t56.html</url>
+    <url>/ck4o7l9mn006s40g46pw10sy2.html</url>
     <content><![CDATA[<p>读了一篇关于水表数字识别的论文，里面有个名词attention mechanism(注意力机制)，没有接触过，所以找了一些资料来看，特此记录一下，主要是记录下它的作用，具体的算法及其推导就不看了，不是NLP方向，就做个简单的了解 = =！（其实是太难了…）</p>
 <a id="more"></a>
 
@@ -1022,11 +1109,11 @@
 <p>attention机制：又称为注意力机制，顾名思义，是<strong>一种能让模型对重要信息重点关注并充分学习吸收的技术</strong>，它不算是一个完整的模型，应当是一种技术，能够作用于任何序列模型中。</p>
 <p>注意力机制是一种基于RNN（LSTM或GRU）的编码器+解码器模型（我们之前在seq2seq模型中简单介绍过）的效果的机制（机制），一般称为注意机制。注意机制目前非常流行，广泛应用于机器翻译，语音识别，图像标注（Image Caption）等很多领域，之所以它这么受欢迎，是因为Attention给模型赋予了区分辨别的能力，例如，在机器翻译，语音识别应用中，为句子中的每个词赋予不同的权重，使神经网络模型的学习变得更加灵活（软），同时注意力本身可以做为一种对齐关系，解释输入/输出句子之间的对齐关系，解释模型到底学到了什么知识，为我们打开深度学习的黑箱，提供了一个窗口。</p>
 <h4 id="Why-attention？"><a href="#Why-attention？" class="headerlink" title="Why attention？"></a>Why attention？</h4><p>讲一下为什么要引入attention机制。在之前总结过的seq2seq模型以及之前做NLP的比赛中，对于一段文本序列，我们通常要使用某种机制对该序列进行编码，通过降维等方式将其encode成一个固定长度的向量，用于输入到后面的全连接层。 </p>
-<img src="/ck4k0hnwe006ps0g41vll7t56/image-20191125200235039.png" class="">
+<img src="/ck4o7l9mn006s40g46pw10sy2/image-20191125200235039.png" class="">
 
 <p>一般我们会使用CNN或者RNN（包括GRU或者LSTM）等模型来对序列数据进行编码，然后采用各种pooling或者对RNN直接取最后一个t时刻的hidden state作为句子的向量输出。这里会有一个问题：</p>
 <p>常规的编码方法，无法体现对一个句子序列中不同语素的关注程度，在自然语言中，一个句子中的不同部分是有不同含义和重要性的，比如上面的例子中：I hate this movie.如果做情感分析，明显对hate这个词语应当关注更多。当然是用CNN和RNN能够编码这种信息。但是如果序列长度很长的情况下，这种方法会有一定的瓶颈。拿CNN举例，具体如下图：图来自  <a href="https://link.zhihu.com/?target=https%3A//cloud.tencent.com/developer/article/1153079">“变形金刚”为何强大：从模型到代码全面解析Google Tensor2Tensor系统</a></p>
-<img src="/ck4k0hnwe006ps0g41vll7t56/image-20191125200402273.png" class="">
+<img src="/ck4o7l9mn006s40g46pw10sy2/image-20191125200402273.png" class="">
 
 <p>CNN的核心就是卷积核能够变相学习n-gram的信息，如果是用hierarchical的卷积核，那么越上层的卷积核越能编码原始距离较远的词组的信息。但是这种编码能力也是有上限的，对于较长的文本，模型效果不会再提升太多。RNN也是同理。</p>
 <p>基于参加达观文本分类的经历，对于这种长文本处理，使用RNN+attention的效果比使用单纯的RNN+pooling的效果要好不少。</p>
@@ -1040,22 +1127,22 @@
   </entry>
   <entry>
     <title>seq2seq模型简单了解</title>
-    <url>/ck4k0hnwj006us0g4breagnjn.html</url>
+    <url>/ck4o7l9o8006x40g487jpgcbv.html</url>
     <content><![CDATA[<p>读了一篇关于水表数字识别的论文，里面有个名词seq2seq，没有接触过，所以找了一些资料来看，特此记录一下，主要是记录下它的作用，具体的算法及其推导还没看，因为不是NLP方向，就想简单了解一下。</p>
 <a id="more"></a>
 
 <h4 id="Seq2Seq模型简介"><a href="#Seq2Seq模型简介" class="headerlink" title="Seq2Seq模型简介"></a>Seq2Seq模型简介</h4><p>Seq2Seq模型是输出的长度不确定时采用的模型，这种情况一般是在机器翻译的任务中出现，将一句中文翻译成英文，那么这句英文的长度有可能会比中文短，也有可能会比中文长，所以输出的长度就不确定了。如下图所，输入的中文长度为4，输出的英文长度为2。</p>
-<img src="/ck4k0hnwj006us0g4breagnjn/image-20191125194417521.png" class="">
+<img src="/ck4o7l9o8006x40g487jpgcbv/image-20191125194417521.png" class="">
 
 <p>在网络结构中，输入一个中文序列，然后输出它对应的中文翻译，输出的部分的结果预测后面，根据上面的例子，也就是先输出“machine”，将”machine”作为下一次的输入，接着输出”learning”,这样就能输出任意长的序列。<br>机器翻译、人机对话、聊天机器人等等，这些都是应用在当今社会都或多或少的运用到了我们这里所说的Seq2Seq。</p>
 <h4 id="Seq2Seq结构"><a href="#Seq2Seq结构" class="headerlink" title="Seq2Seq结构"></a>Seq2Seq结构</h4><p>seq2seq属于encoder-decoder结构的一种，这里看看常见的encoder-decoder结构，基本思想就是利用两个RNN，一个RNN作为encoder，另一个RNN作为decoder。<strong>encoder负责将输入序列压缩成指定长度的向量</strong>，这个向量就可以看成是这个序列的语义，这个过程称为编码，如下图，<strong>获取语义向量最简单的方式就是直接将最后一个输入的隐状态作为语义向量C</strong>。也可以对最后一个隐含状态做一个变换得到语义向量，还可以将输入序列的所有隐含状态做一个变换得到语义变量。</p>
-<img src="/ck4k0hnwj006us0g4breagnjn/image-20191125194651707.png" class="">
+<img src="/ck4o7l9o8006x40g487jpgcbv/image-20191125194651707.png" class="">
 
 <p>而<strong>decoder则负责根据语义向量生成指定的序列</strong>，这个过程也称为解码，如下图，最简单的方式是将encoder得到的语义变量作为初始状态输入到decoder的RNN中，得到输出序列。可以看到上一时刻的输出会作为当前时刻的输入，而且其中语义向量C只作为初始状态参与运算，后面的运算都与语义向量C无关。</p>
-<img src="/ck4k0hnwj006us0g4breagnjn/image-20191125194809371.png" class="">
+<img src="/ck4o7l9o8006x40g487jpgcbv/image-20191125194809371.png" class="">
 
 <p>decoder处理方式还有另外一种，就是语义向量C参与了序列所有时刻的运算，如下图，上一时刻的输出仍然作为当前时刻的输入，但语义向量C会参与所有时刻的运算。 </p>
-<img src="/ck4k0hnwj006us0g4breagnjn/image-20191125194907893.png" class="">]]></content>
+<img src="/ck4o7l9o8006x40g487jpgcbv/image-20191125194907893.png" class="">]]></content>
       <categories>
         <category>深度学习</category>
       </categories>
@@ -1065,18 +1152,18 @@
   </entry>
   <entry>
     <title>CTC简单了解</title>
-    <url>/ck4k0hnuc0057s0g41yqe0w02.html</url>
+    <url>/ck4o7l9a2005d40g4etekh14d.html</url>
     <content><![CDATA[<p>CTC（ Connectionist Temporal Classification ）算法</p>
 <p>读了一篇关于水表数字识别的论文，里面有个名词CTC，没有接触过，所以找了一些资料来看，特此记录一下，主要是记录下它的作用，具体的算法及其推导，暂时还没看 = =！（太难了）</p>
 <a id="more"></a>
 
 <p>现实应用中许多问题可以抽象为序列学习（sequence learning）问题，比如词性标注（POS Tagging）、语音识别（Speech Recognition）、手写字识别（Handwriting Recognition）、机器翻译（Machine Translation）等应用，其核心问题都是训练模型把一个领域的（输入）序列转成另一个领域的（输出）序列。近年来基于RNN的序列到序列模型（sequence-to-sequence models）在序列学习任务中取得了显著的效果提升，本文介绍一种RNN（Recurrent Neural Networks）的端到端训练方法——CTC（Connectionist Temporal Classification）算法，它可以让RNN直接对序列数据进行学习，而无需事先标注好训练数据中输入序列和输出序列的映射关系，打破了RNN应用于语音识别、手写字识别等领域的数据依赖约束，使得RNN模型在序列学习任务中取得更好的应用效果。 </p>
 <p>在序列学习任务中，RNN模型对训练样本一般有这样的依赖条件：输入序列和输出序列之间的映射关系已经事先标注好了。比如，在词性标注任务中，训练样本中每个词（或短语）对应的词性会事先标注好，如下图（DT、NN等都是词性的标注，具体含义请参考 <a href="https://www.ling.upenn.edu/courses/Fall_2003/ling001/penn_treebank_pos.html" target="_blank" rel="noopener">链接</a> ）。由于输入序列和输出序列是一一对应的，所以RNN模型的训练和预测都是端到端的，即可以根据输出序列和标注样本间的差异来直接定义RNN模型的Loss函数，传统的RNN训练和预测方式可直接适用。 </p>
-<img src="/ck4k0hnuc0057s0g41yqe0w02/image-20191125192036324.png" class="">
+<img src="/ck4o7l9a2005d40g4etekh14d/image-20191125192036324.png" class="">
 
 <p>然而，在语音识别、手写字识别等任务中，由于音频数据和图像数据都是从现实世界中将模拟信号转为数字信号采集得到，这些数据天然就很难进行“分割”，这使得我们很难获取到包含输入序列和输出序列映射关系的大规模训练样本（人工标注成本巨高，且启发式挖掘方法存在很大局限性）。因此，在这种条件下，RNN无法直接进行端到端的训练和预测。</p>
 <p>如下图，输入是“apple”对应的一段说话音频和手写字图片，从连续的音频信号和图像信号中逐一分割并标注出对应的输出序列非常费时费力，在大规模训练下这种数据要求是完全不切实际的。而如果输入序列和输出序列之间映射关系没有提前标注好，那传统的RNN训练方式就不能直接适用了，无法直接对音频数据和图像数据进行训练。</p>
-<img src="/ck4k0hnuc0057s0g41yqe0w02/image-20191125192114162.png" class="">
+<img src="/ck4o7l9a2005d40g4etekh14d/image-20191125192114162.png" class="">
 
 <p>因此，在语音识别、图像识别等领域中，由于数据天然无法切割，且难以标注出输入和输出的序列映射关系，导致传统的RNN训练方法不能直接适用。那么，如何让RNN模型实现端到端的训练成为了关键问题。 </p>
 <p>Connectionist Temporal Classification（CTC）[1]是Alex Graves等人在ICML 2006上提出的一种端到端的RNN训练方法，它可以让RNN直接对序列数据进行学习，而无需事先标注好训练数据中输入序列和输入序列的映射关系，使得RNN模型在语音识别等序列学习任务中取得更好的效果，在语音识别和图像识别等领域CTC算法都有很比较广泛的应用。总的来说，CTC的核心思路主要分为以下几部分： </p>
@@ -1096,7 +1183,7 @@
   </entry>
   <entry>
     <title>全卷积序列识别网络用于水表数字识别</title>
-    <url>/ck4k0hnwm006xs0g4cbrhc5n7.html</url>
+    <url>/ck4o7l9p0007040g47zmd9loi.html</url>
     <content><![CDATA[<p>最近，读了一篇FCN的论文，然后记录一下，准备回看~</p>
 <h2 id="Fully-Convolutional-Sequence-Recognition-Network-for-Water-Meter-Number-Reading"><a href="#Fully-Convolutional-Sequence-Recognition-Network-for-Water-Meter-Number-Reading" class="headerlink" title="Fully Convolutional Sequence Recognition Network for Water Meter Number Reading"></a>Fully Convolutional Sequence Recognition Network for Water Meter Number Reading</h2><p>全卷积序列识别网络用于水表数字识别（团队来自华南理工大学电子与信息工程学院）</p>
 <a id="more"></a>
@@ -1119,23 +1206,23 @@
 <p>水表数字识别WNR与文本识别任务相似，但其解码过程略有不同，因为在WNR中存在一些“中间状态”字符。为了建立一个快速、准确的WNR系统，我们提出了一个全卷积序列识别网络（FCSRN），它将全卷积网络（FCN）和CTC结合起来，不需要任何中间循环连接。此外，通过分析解码后的后处理方法，我们提出了一个增加损失（AugLoss）函数来有效地提高网络性能。</p>
 <p>实验结果表明，FCSRN具有捕获上下文信息、消除循环层的能力，同时所需参数少、计算量小。带AugLoss的FCSRN优于基于RNN和基于注意的模型。此外，AugLoss可以有效地提高基于RNN和基于注意的模型的性能。</p>
 <p>本文的其余部分组织如下：在第二节中，我们描述了构建的水表图像数据集。然后，我们在第三节介绍了所提出的FCSRN，在第四节介绍了AugLoss，在第五节介绍了实验结果，并对本文进行了总结。</p>
-<h3 id="II-水表图像数据集"><a href="#II-水表图像数据集" class="headerlink" title="II.水表图像数据集"></a>II.水表图像数据集</h3><img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191124170829347.png" class="">
+<h3 id="II-水表图像数据集"><a href="#II-水表图像数据集" class="headerlink" title="II.水表图像数据集"></a>II.水表图像数据集</h3><img src="/ck4o7l9p0007040g47zmd9loi/image-20191124170829347.png" class="">
 
 <pre><code>图1</code></pre><p>为了研究WNR，我们构建了一个名为SCUT-WMN的非商业用途数据集，可在<a href="https://github.com/HCIILAB/Water-Meter-Number-dataset" target="_blank" rel="noopener">https://github.com/HCIILAB/Water-Meter-Number-dataset</a> 上获得。据我们所知，这是第一个公共水表图像数据集。水表图像由摄像机拍摄，并使用边界框和水表数字进行标记。我们裁剪了边界框区域以构建用于识别的数据集。数据集由两部分组成。第一部分包含5000个困难样品（如图1a所示）。在这些困难的样本中，由于光照、折射和遮挡等原因，会产生很大的变化。第二部分包含1000个简单样本（如图1b所示）。困难样本和简单样本都用连续字符标记，如“1  2 2 5 8”。此外，数据集中每个字符的数量如下图表所示。</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191124171646580.png" class="">    
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191124171646580.png" class="">    
 
 <p>​                                                                                                            图2</p>
 <p>在WNR中，存在一些“中间状态”字符，如图2所示。考虑到第4个图片，图2b（第二行第一列）中的图片作为示例，数字超过“20369”，但未达到“20370”，因此数字中的最后两个字符显示在“中间状态”。此外，正确的水表编号应为“20369.5”。为了管理“中间状态”字符，我们将它们视为单独的类，标签范围从“10”到“19”，如图2所示。标签L∈[10,19]表示超过“L-10”（称为“低状态”）但未达到“L-9”（称为“高状态”）的字符。举个例子吧，比较直观，你看16（还是上文中的图），他就代表超过了6（16-10，这个我们叫低状态），但是没有超过7（16-9，这个我们叫高状态） = =！</p>
 <p>特殊情况下，标签“L=19”表示字符处于“9”和“0”之间的“中间状态”（忽略进位）。在这种设置中，图2b中的第四章图片的标签是“2  0 3 16 19”。该标签序列可进一步处理为第III-D节所述的水表编号“20369.5”，这在实际应用中更为合理和实用。</p>
-<h3 id="全卷积序列识别网络"><a href="#全卷积序列识别网络" class="headerlink" title="|||.全卷积序列识别网络"></a>|||.全卷积序列识别网络</h3><img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191124173018340.png" class="">    
+<h3 id="全卷积序列识别网络"><a href="#全卷积序列识别网络" class="headerlink" title="|||.全卷积序列识别网络"></a>|||.全卷积序列识别网络</h3><img src="/ck4o7l9p0007040g47zmd9loi/image-20191124173018340.png" class="">    
 
 <p>​                                                                                                        图3</p>
 <p>所提出的FCSRN由三个部分组成：全卷积骨干网、时间映射器和转录层（如图3所示）。卷积层在从图像中学习特征方面非常强大，我们使用FCN作为骨干网络。在FCN的基础上，利用时间映射器从二维特征图中生成一维特征序列。最后，转录层将这些序列特征转化为最终的标签序列。</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191124173318716.png" class="">    
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191124173318716.png" class="">    
 
 <p>​                                                                                                                        图4</p>
 <h4 id="A-全卷积网络"><a href="#A-全卷积网络" class="headerlink" title="A.全卷积网络"></a>A.全卷积网络</h4><p>我们使用何恺明大神在深度残差网络中提出的剩余块来构建FCN作为骨干网。我们的FCSRN采用了两种类型的剩余块，如图4所示。当输入x和输出y的维数相同时，剩余块A（如左图所示）用于从增加深度的模型中获得较大的感受野，并避免臭名昭著的梯度消失/爆炸问题，而剩余块B（右示）用于减少特征映射，并增加一倍滤波器数量以增加模型能力并保持模型复杂度。在每个卷积层之后使用BN层（批处理归一化，也是用于防止梯度消失/爆炸）和ReLU激活函数。</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191124174235546.png" class="">    
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191124174235546.png" class="">    
 
 <p>​                                                                                                                                表2</p>
 <p>我们构造了一个16层FCN，其中包含残差块，用于从输入图像中提取特征，如表2所示。我们使用较小的卷积核大小（3×3）来学习精细的局部特征，并使用堆栈多卷积层来提取具有大感受野的长期特征。响应图中的位置对应于输入图像中的矩形区域（称为感受野）。计算准确位置和感受野大小的分层公式如下（1，2）：</p>
@@ -1148,55 +1235,55 @@
 <p>让我们将字符表示为C={0,1，···，19，blank}，其中blank表示在相应的时间步没有预测。给定输入特征序列“s^k=s1^k  s2^k··st^k” ，通道k=21，总时间步长t，CTC通过对每个时间步长应用softmax函数指定序列上的分布，并提供在相应时间步长输出预测字符的概率。从该分布中采样的每个潜序列可以使用映射函数SGM变换成输出序列，该映射函数首先将连续重复的非空字符合并为一个字符，然后去除空白字符。例如，“1 2 2 5 8”可以由序列“b b 1 1 b 2 2 2 b b 2 b b b 5 8 8 b b b”的σ变换（其中b表示空白，T=20，过程就是先把连续重复的数字合并为一个字符，比如”b b 1 b 2 b b 2 b b b 5 8 b b b “，然后再把空字符删掉，就变成了”1 2 2 5 8”）。最终的输出序列概率是应用函数σ后对模拟目标结果的所有可能序列的总和。</p>
 <h4 id="D-解码"><a href="#D-解码" class="headerlink" title="D.解码"></a>D.解码</h4><p>我们使用naive(天真的)解码算法（也称为最佳路径解码）来对FCSRN的输出进行预测。我们首先在每个时间步上使用一个softmax函数，然后在每个时间步t上考虑最可能的标签lt，得到预测序列，最后使用函数σ（见第III-C节）映射结果。</p>
 <p>如第二节所述，解码后的图像（在图2b中，在第2行，第1列）的转换结果为：“2 0 3 16  19”，并且在实际应用中，该预测应转换为“20369.5”。因此，我们为处于“中间状态”的每个字符c引入一种后处理方法：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191124192303530.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191124192303530.png" class="">
 
 
 
 <p>如果预测的数字在序列的末尾并且处于“中间状态”（详见第二节），则我们从该数字中减去9.5。例如，对于预测结果“12”，即对应的数字超过“2”，但未达到“3”，我们选择将其预测为“2”，并通过将0.5添加到最终数字来向结果附加“中间状态”标志。如果“中间状态”字符不是最后一个字符，那么我们只需从数字中减去10，从而表明选择了“较低状态”，这在直觉上更为合理。</p>
 <h3 id="IV-增广损失函数"><a href="#IV-增广损失函数" class="headerlink" title="IV.增广损失函数"></a>IV.增广损失函数</h3><h4 id="A-CTC的增广损失函数"><a href="#A-CTC的增广损失函数" class="headerlink" title="A.CTC的增广损失函数"></a>A.CTC的增广损失函数</h4><p>对于基于FCSRN和RNN的模型，我们使用CTC作为目标函数。给定长度为T的输入序列x，使用softmax函数对向量yt进行规范化，然后解释为在时间步t时刻索引k的标签（或空白）的概率（对应于数字）：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125141133902.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125141133902.png" class="">
 
 <p>其中yk是yt的元素k。CTC校准a是长度为T的空白和标签序列。a的概率Pr（a |x）是每个时间步的排放概率的乘积：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125141601563.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125141601563.png" class="">
 
 <p>对于一个给定的转录序列，有尽可能多的可能的排列方式，以不同的方式将标签与空白区分开。另外，输出转录y的总概率等于与之对应的排列的概率之和：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125141731428.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125141731428.png" class="">
 
 <p>给定目标转录y*，然后可以训练该模型以最小化CTC目标函数</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125141817667.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125141817667.png" class="">
 
 <p>如第二节所述，超过“5”（“低状态”）但未达到“6”（“高状态”）的字符定义为“中间状态”，应标记为“15”。直观地说，模型区分“低状态”、“中状态”和“高状态”字符是令人困惑的。然而，对于标签为“1 2 12 15 8”的样本，我们是是可以容忍将他们转换成这样的，举个例子：例如“1 12 12 15 8”或“1 12 2 15 8”，因为所有这些可能的预测都可以解码为相同的结果“12258”，如第III-D节所述。因此，我们引入一个增加损失（表示为AugLoss），它用相应的“低状态”标签（表示为y’）计算预测的CTC损失，以及用真值标签计算的正常CTC损失（表示为CTCLoss）：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125142604569.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125142604569.png" class="">
 
 <p>直观地说，这两个损失都是WNR中识别精度的指标。我们联合训练这两种损失的网络，以提高辨别能力：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125142707145.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125142707145.png" class="">
 
 <p>其中调整参数α表示AugLoss损失的权重。AugLoss可以解释为将“中间状态”偏向“较低状态”，而不是“高状态”或“非状态”（例如预测“1”到“7”）预测。我们将第一种情况称为“错误状态”错误（MSE），将其他情况称为“错误识别”错误（MRE）。如V-E节所示，Au’gLoss损失可以有效地降MRE，提高性能。</p>
 <h4 id="B-基于注意力的模型的增加损失"><a href="#B-基于注意力的模型的增加损失" class="headerlink" title="B.基于注意力的模型的增加损失"></a>B.基于注意力的模型的增加损失</h4><p>对于基于注意的模型，我们使用softmax交叉熵函数作为目标函数。输出y的概率PrA（y | x）是每个时间步的排放概率的乘积：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125143147521.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125143147521.png" class="">
 
 <p>给定目标转录y∗，然后可以训练该模型以最小化以下目标函数：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125143242520.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125143242520.png" class="">
 
 <p>如第IV-A节所述，我们将增加损失函数定义如下：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125143325808.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125143325808.png" class="">
 
 <p>此外，基于注意力的模型的损失函数是：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125143354016.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125143354016.png" class="">
 
 <h3 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h3><h4 id="A-数据预处理"><a href="#A-数据预处理" class="headerlink" title="A.数据预处理"></a>A.数据预处理</h4><p>SCUT-WMN数据集包含5000个困难样本和1000个简单样本，这些样本包含广泛的图像大小和比率。所有（困难和容易）样本的最大和最小宽度分别为418和201像素。最大和最小高度分别为111和37像素。此外，最大和最小纵横比（宽度/高度）分别为6.619和2.933。</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125143609688.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125143609688.png" class="">
 
 <p>为了并行计算，我们调整了所有图像的大小，使其具有相同的高度和宽度w，并在图像的相对较短的一侧使用必要的零填充（通过将图像比率与w/H进行比较）。数据预处理的目的是管理不同的图像大小，同时保留比例以避免失真。设W（宽度）=160，H（高度）=48，如图5所示。</p>
 <h4 id="B-性能评估"><a href="#B-性能评估" class="headerlink" title="B.性能评估"></a>B.性能评估</h4><p>对于WNR，我们使用两个标准来衡量性能：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125143905837.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125143905837.png" class="">
 
 <p>其中，LCR表示线正确率，AR表示准确率。Nc是正确识别的样本数，Nl是测试样本数，Nt是测试集中的字符数。替换错误、删除错误和插入错误是通过使用动态编程的纠错字符串匹配来计算的。我们还提出了另一个标准，称为线部分准确率（LPR）：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125144508213.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125144508213.png" class="">
 
 <p>其中Nc’是部分正确识别的样本数，指预测包含错误字符但可以解码为正确目标数的样本，如第III-D节所述。例如，真实值“1  2 12 15 8”和预测值“1 12 12 15 8”或“1 12 2 15  8”的样本是部分正确识别的样本，因为这两个预测值可以解码为相同的水表数字：“12258”。</p>
 <p>存在几种可能的预测，在解码后产生相同的目标数。因此，LPR是一种更精确的模型性能测量方法。此外，由“错误识别”和“错误状态”（如第四节所述）引起的错误率分别表示为：</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125144820237.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125144820237.png" class="">
 
 <h4 id="C-训练细节"><a href="#C-训练细节" class="headerlink" title="C.训练细节"></a>C.训练细节</h4><p>我们基于SCUT-WMN数据集构造训练集。训练集包含4000个困难样本，测试集由剩余的1000个困难样本构成。对于数据增强实验，我们在训练集中添加了1000个简单样本。</p>
 <p>使用随机梯度下降法最小化模型的目标函数，使用100的批量大小，将学习率、动量和重量衰减分别设置为0.01、0.9和0.0001。网络参数的初始化使用了一个范围为0.01的均匀分布。我们使用MxNet深度学习框架对每个模型进行了100个轮次的训练。</p>
@@ -1207,19 +1294,19 @@
 <li>2）基于RNN的CRNN和基于注意的CONVS2：为了公平比较FCSRN和CRNN，我们构造了一系列模型来确定最优超参数。CRNN模型的骨干网与FCSRN中的FCN相同。我们使用了一个多层LSTM（有k层，其中每层包含n个隐藏单元）和两个完全连接的层（分别输出c和2121通道特征），然后在最后的CTC层之上。我们训练了一系列k∈[1,2,3,4]，n∈[32,48,64128]和c∈[32,48,64,96128256]的模型，得到了在k=1，n=32，c=64时的最优结果。对于基于注意的ConvS2S模型，骨干网与FCSRN相同。我们对编码器和解码器都使用了64个隐藏单元。所有的嵌入，包括解码器在最终线性层（linear）之前产生的输出，都有32个维度。</li>
 <li>3）提出的FCSRN和增加损失：我们评估了有/无AugLoss的FCSRN。对于有AugLoss的FCSRN，分别采用两个时间映射器和两个转录层来计算CTCLoss和AugLoss，并在两个损失中共享相同的FCN。我们训练了一系列模型来确定等式（9）中定义的最优超参数α，并报告了在α=0.2时获得的最佳结果（在下一节中解释）。</li>
 </ul>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125150708754.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125150708754.png" class="">
 
 <p>​                                                                                                                        表3</p>
 <p>上述模型的实验结果见表3。我们可以观察到，FCSRN比数字识别模型（ResNet18和CharNet）表现得更好，并且与最佳CRNN和ConvS2S模型具有可比性。因此，我们可以得出结论，具有足够深度和一个大的上下文窗口的卷积模型也能够学习转录所需的上下文依赖性（如第III-a节所述）。与CRNN（convs2）相比，FCSRN的训练时间减少了35%（25%），所涉及的参数减少了45%（33%）。</p>
 <p>FCSRN比CRNN和convs2具有更高的训练速度，这主要是由于卷积运算的并行性，因为循环模型中的计算是连续的，不容易并行化，而注意机制中的解码器需要参数，因此需要更多的训练时间。</p>
 <p>带有AugLoss的FCSRN在很大程度上优于单独字符识别、基于RNN和基于注意机制的模型。与无AugLoss的FCSRN相比，MRE相对降低了54.29%。AugLoss将“低状态”和“中间状态”字符视为同一类；也就是说，标签为“2”且预测为“2”或“12”，不会导致AugLoss出错。但是，标签为“5”的字符预测为“12”时，CTCLoss和AugLoss都会产生错误。因此，该模型学会了在针对AugLoss进行优化时避免MRE，并区分“不同状态”以最小化CTCLoss。因此，AugLoss有效地降低了MRE，提高了性能。</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125151543102.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125151543102.png" class="">
 
 <p>​                                                                                                                 表4</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125151643981.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125151643981.png" class="">
 
 <p>​                                                                                                                 表5</p>
-<img src="/ck4k0hnwm006xs0g4cbrhc5n7/image-20191125151712556.png" class="">
+<img src="/ck4o7l9p0007040g47zmd9loi/image-20191125151712556.png" class="">
 
 <p>​                                                                                                                 表6</p>
 <h4 id="E-增加损失的效率"><a href="#E-增加损失的效率" class="headerlink" title="E.增加损失的效率"></a>E.增加损失的效率</h4><p>所提出的AugLoss不仅可以用于FCSRN，而且可以改善CharNet、CRNN和ConvS2S的性能，我们用所提出的损失函数对这些模型进行训练，并进行了一系列实验来确定每个模型的最优超参数α。实验结果见表6，最佳结果见表4进行比较。FCSRN、CRNN、ConvS2S和CharNet的最佳优化超参数α* 分别是0.2、0.3、0.2和0.8，相对MRE分别降低54.29%、64.00%、40.30%和40.26%。我们的结论是，AugLoss是一种有效提高WNR任务性能的通用技术。</p>
@@ -1237,7 +1324,7 @@
   </entry>
   <entry>
     <title>Django单元测试</title>
-    <url>/ck4k0hnuy005fs0g41hh010fc.html</url>
+    <url>/ck4o7l9aw005i40g4dwqb8qny.html</url>
     <content><![CDATA[<p>今天又重新回头看了一点关于Django单元测试的内容，写测试真的是一个很好的事情，对于代码重构，后期维护都非常有用。以下是Django文档中关于测试方面的内容，可以作为参考，当然，面对不同的项目，测试也不尽相同，写测试，真的很需要经验，一开始还真是无从下手= =！</p>
 <a id="more"></a>
 
@@ -1309,7 +1396,7 @@
   </entry>
   <entry>
     <title>46全排列</title>
-    <url>/ck4k0hnrx0031s0g4hsq9dj5m.html</url>
+    <url>/ck4o7l8u4003440g4coyng6my.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个<strong>没有重复</strong>数字的序列，返回其所有可能的全排列。 </p>
 <a id="more"></a>
 
@@ -1329,7 +1416,7 @@
   </entry>
   <entry>
     <title>63不同路径II</title>
-    <url>/ck4k0hntf004bs0g44le03fb8.html</url>
+    <url>/ck4o7l91v004b40g4fh8e4ra4.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>一个机器人位于一个 <em>m x n</em> 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
 <p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
 <p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
@@ -1355,7 +1442,7 @@
   </entry>
   <entry>
     <title>PyTorch_CNN</title>
-    <url>/ck4k0hnv4005ls0g4daphdlke.html</url>
+    <url>/ck4o7l9d0005t40g42yhh4bsi.html</url>
     <content><![CDATA[<h3 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h3><ul>
 <li>MNIST举例</li>
 </ul>
@@ -1599,7 +1686,7 @@ Epoch [30/30], Step [600/600], Loss: 0.0403</code></pre><figure class="highlight
   </entry>
   <entry>
     <title>PyTorch-Day5</title>
-    <url>/ck4k0hnvn0061s0g4cr6n4xmz.html</url>
+    <url>/ck4o7l9fw006440g4a25jfsbm.html</url>
     <content><![CDATA[<h3 id="前馈神经网络"><a href="#前馈神经网络" class="headerlink" title="前馈神经网络"></a>前馈神经网络</h3><ul>
 <li>这里仍然使用MNIST数据集</li>
 </ul>
@@ -1819,7 +1906,7 @@ Epoch [30/30], Step [600/600], Loss: 0.4667</code></pre><figure class="highlight
   </entry>
   <entry>
     <title>安装anaconda虚拟环境、pytorch和jupyter notebook（远程访问）</title>
-    <url>/ck4k0hnx2007ds0g44fcw05sm.html</url>
+    <url>/ck4o7l9v6007g40g41bt8eaum.html</url>
     <content><![CDATA[<p>最近在学习Pytorch，然后实验室有一台双卡的服务器，显卡是特斯拉（貌似很nb），所以就想在服务器上跑代码，炼丹。今天花了点时间配置了一下环境，主要安装了anaconda和pytorch(gpu版本)，为此记录一下= =。</p>
 <a id="more"></a>
 
@@ -1913,7 +2000,7 @@ Epoch [30/30], Step [600/600], Loss: 0.4667</code></pre><figure class="highlight
   </entry>
   <entry>
     <title>139单词拆分</title>
-    <url>/ck4k0hnnh000es0g4awds4x3m.html</url>
+    <url>/ck4o7l8a7000h40g46qz2auth.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个<strong>非空</strong>字符串 <em>s</em> 和一个包含<strong>非空</strong>单词列表的字典 wordDict，判定 s 是否可以被空格拆分为一个或多个在字典中出现的单词。 </p>
 <p><strong>说明：</strong></p>
 <ul>
@@ -1944,7 +2031,7 @@ Epoch [30/30], Step [600/600], Loss: 0.4667</code></pre><figure class="highlight
   </entry>
   <entry>
     <title>DFS深优先度搜索</title>
-    <url>/ck4k0hnup005as0g4at3j4v7g.html</url>
+    <url>/ck4o7l98y005a40g4bsbjh5e8.html</url>
     <content><![CDATA[<p> 讲搜索当然不能撇开图，搜索思想在图问题中能以最直观的方式展现。 </p>
 <p><strong>深度优先搜索的步骤分为 1.递归下去 2.回溯上来。顾名思义，深度优先，则是以深度为准则，先一条路走到底，直到达到目标。这里称之为递归下去。</strong></p>
 <p><strong>如果既没有达到目标又无路可走了，那么则退回到上一步的状态，走其他路。这便是回溯上来。</strong></p>
@@ -1959,7 +2046,7 @@ Epoch [30/30], Step [600/600], Loss: 0.4667</code></pre><figure class="highlight
   </entry>
   <entry>
     <title>PyTorch-Day4</title>
-    <url>/ck4k0hnvj005ys0g4d1ea6fsu.html</url>
+    <url>/ck4o7l9fs006140g48rwl39pj.html</url>
     <content><![CDATA[<p>看完官方的入门文档之后，又在github上找了一个教程，这是一个韩国人写的教程，感觉还不错。</p>
 <ul>
 <li>这个资源为深度学习研究人员提供了学习PyTorch的教程</li>
@@ -2009,7 +2096,7 @@ dl/db: tensor([0.1189, 0.1488])</code></pre><ul>
 
 <pre><code>Files already downloaded and verified
 torch.Size([3, 32, 32])
-6</code></pre><img src="/ck4k0hnvj005ys0g4d1ea6fsu/1.jpg" class="">
+6</code></pre><img src="/ck4o7l9fs006140g48rwl39pj/1.jpg" class="">
 
 <p> 我们可以看出，图片是彩色图像（3通道），尺寸大小是32x32，标签的索引为6，我们知道cifar10：它有如下10个类别:(’airplane’,’automobile’,’bird’,’cat’,’deer’,’dog’,’frog’,’horse’,’ship’,’truck’)，猜测这个6就应该是frog青蛙。嘿，果然他就是！</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义一个显示图片的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">imshow</span><span class="params">(img)</span>:</span></span><br><span class="line">    img=img/<span class="number">2</span>+<span class="number">0.5</span></span><br><span class="line">    npimg=img.numpy()</span><br><span class="line">    <span class="comment">#transpose对换数组的维度</span></span><br><span class="line">    plt.imshow(np.transpose(npimg,(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>)))</span><br><span class="line">    print(np.transpose(npimg,(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>)).shape)</span><br><span class="line">    plt.show();</span><br><span class="line"></span><br><span class="line">imshow(image)</span><br></pre></td></tr></table></figure>
@@ -2058,7 +2145,7 @@ Epoch [40/60],Loss:0.2860
 Epoch [45/60],Loss:0.2745
 Epoch [50/60],Loss:0.2696
 Epoch [55/60],Loss:0.2675
-Epoch [60/60],Loss:0.2665</code></pre><img src="/ck4k0hnvj005ys0g4d1ea6fsu/2.jpg" class="">
+Epoch [60/60],Loss:0.2665</code></pre><img src="/ck4o7l9fs006140g48rwl39pj/2.jpg" class="">
 
 
 <h3 id="逻辑回归练习"><a href="#逻辑回归练习" class="headerlink" title="逻辑回归练习"></a>逻辑回归练习</h3><h4 id="设置超参数Hyper-Parameters-就是人工设定的参数，不是从网络中学到的-1"><a href="#设置超参数Hyper-Parameters-就是人工设定的参数，不是从网络中学到的-1" class="headerlink" title="设置超参数Hyper-Parameters(就是人工设定的参数，不是从网络中学到的)"></a>设置超参数Hyper-Parameters(就是人工设定的参数，不是从网络中学到的)</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">input_size=<span class="number">784</span></span><br><span class="line">num_classes=<span class="number">10</span></span><br><span class="line">num_epochs=<span class="number">5</span></span><br><span class="line">batch_size=<span class="number">100</span></span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br></pre></td></tr></table></figure>
@@ -2210,7 +2297,7 @@ outside: input size 5 output size 2</code></pre><h4 id="但是，我只有一个
   </entry>
   <entry>
     <title>Python之进程和线程_2</title>
-    <url>/ck4k0hnvx0069s0g4ffkjg6xg.html</url>
+    <url>/ck4o7l9jh006h40g45d5k0uln.html</url>
     <content><![CDATA[<h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p>多任务可以由多进程完成，也可以由一个进程内的多线程完成。</p>
 <p>我们前面提到了进程是由若干线程组成的，一个进程至少有一个线程。</p>
 <p>由于线程是操作系统直接支持的执行单元，因此，高级语言通常都内置多线程的支持，Python也不例外，并且，Python的线程是真正的Posix Thread，而不是模拟出来的线程。</p>
@@ -2292,11 +2379,11 @@ outside: input size 5 output size 2</code></pre><h4 id="但是，我只有一个
 <p>首先，要实现多任务，通常我们会设计Master-Worker模式，Master负责分配任务，Worker负责执行任务，因此，多任务环境下，通常是一个Master，多个Worker。</p>
 <h4 id="简单介绍一下Master-Worker模式："><a href="#简单介绍一下Master-Worker模式：" class="headerlink" title="简单介绍一下Master-Worker模式："></a>简单介绍一下Master-Worker模式：</h4><ul>
 <li>Master-Worker模式是常用的并行设计模式。它的核心思想是，系统有两个进程协议工作：Master进程和Worker进程。Master进程负责接收和分配任务，Worker进程负责处理子任务。当各个Worker进程将子任务处理完后，将结果返回给Master进程，由Master进行归纳和汇总，从而得到系统结果。</li>
-<li><img src="/ck4k0hnvx0069s0g4ffkjg6xg/1.jpg" class=""></li>
+<li><img src="/ck4o7l9jh006h40g45d5k0uln/1.jpg" class=""></li>
 <li>Master-Worker模式的好处是，它能将大任务分解成若干个小任务，并发执行，从而提高系统性能。而对于系统请求者Client来说，任务一旦提交，Master进程就会立刻分配任务并立即返回，并不会等系统处理完全部任务再返回，其处理过程是异步的。</li>
 </ul>
 <h4 id="Master-Worker模式结构"><a href="#Master-Worker模式结构" class="headerlink" title="Master-Worker模式结构"></a>Master-Worker模式结构</h4><ul>
-<li><img src="/ck4k0hnvx0069s0g4ffkjg6xg/2.jpg" class=""></li>
+<li><img src="/ck4o7l9jh006h40g45d5k0uln/2.jpg" class=""></li>
 <li>如上图所示，Master进程是主要进程，它维护着一个Worker进程队列、子任务队列和子结果集，Worker进程中的Worker进程不断的从任务队列中提取要处理的子任务，并将子任务的处理结果放入到子结果集中。</li>
 <li>在上图中，Master：用于任务的分配和最终结果的合并；Worker：用于实际处理一个任务；客户端进程：用于启动系统，调度开启Master。</li>
 </ul>
@@ -2345,7 +2432,7 @@ outside: input size 5 output size 2</code></pre><h4 id="但是，我只有一个
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">liuchuang@ubuntu<span class="number">-4</span>:~/python$ python3 task_master.py</span><br><span class="line">put task <span class="number">4270</span></span><br><span class="line">put task <span class="number">7611</span></span><br><span class="line">put task <span class="number">6983</span></span><br><span class="line">put task <span class="number">2863</span></span><br><span class="line">put task <span class="number">9611</span></span><br><span class="line">put task <span class="number">2283</span></span><br><span class="line">put task <span class="number">3883</span></span><br><span class="line">put task <span class="number">9928</span></span><br><span class="line">put task <span class="number">5946</span></span><br><span class="line">put task <span class="number">7511</span></span><br><span class="line">Try get results</span><br><span class="line">result : <span class="number">4270</span> * <span class="number">4270</span> = <span class="number">18232900</span></span><br><span class="line">result : <span class="number">7611</span> * <span class="number">7611</span> = <span class="number">57927321</span></span><br><span class="line">result : <span class="number">6983</span> * <span class="number">6983</span> = <span class="number">48762289</span></span><br><span class="line">result : <span class="number">2863</span> * <span class="number">2863</span> = <span class="number">8196769</span></span><br><span class="line">result : <span class="number">9611</span> * <span class="number">9611</span> = <span class="number">92371321</span></span><br><span class="line">result : <span class="number">2283</span> * <span class="number">2283</span> = <span class="number">5212089</span></span><br><span class="line">result : <span class="number">3883</span> * <span class="number">3883</span> = <span class="number">15077689</span></span><br><span class="line">result : <span class="number">9928</span> * <span class="number">9928</span> = <span class="number">98565184</span></span><br><span class="line">result : <span class="number">5946</span> * <span class="number">5946</span> = <span class="number">35354916</span></span><br><span class="line">result : <span class="number">7511</span> * <span class="number">7511</span> = <span class="number">56415121</span></span><br><span class="line">master.exit.</span><br></pre></td></tr></table></figure>
 
 <p>这个简单的Master/Worker模型有什么用？其实这就是一个简单但真正的分布式计算，把代码稍加改造，启动多个worker，就可以把任务分布到几台甚至几十台机器上，比如把计算<code>n*n</code>的代码换成发送邮件，就实现了邮件队列的异步发送。</p>
-<p>Queue对象存储在哪？注意到task_worker.py中根本没有创建Queue的代码，所以，Queue对象存储在task_master.py进程中： <img src="/ck4k0hnvx0069s0g4ffkjg6xg/3.jpg" class="">而Queue之所以能通过网络访问，就是通过QueueManager实现的。由于QueueManager管理的不止一个Queue，所以，要给每个Queue的网络调用接口起个名字，比如get_task_queue。</p>
+<p>Queue对象存储在哪？注意到task_worker.py中根本没有创建Queue的代码，所以，Queue对象存储在task_master.py进程中： <img src="/ck4o7l9jh006h40g45d5k0uln/3.jpg" class="">而Queue之所以能通过网络访问，就是通过QueueManager实现的。由于QueueManager管理的不止一个Queue，所以，要给每个Queue的网络调用接口起个名字，比如get_task_queue。</p>
 <p>authkey有什么用？这是为了保证两台机器正常通信，不被其他机器恶意干扰。如果task_worker.py的authkey和task_master.py的authkey不一致，肯定连接不上。</p>
 <h4 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h4><p>Python的分布式进程接口简单，封装良好，适合需要把繁重任务分布到多台机器的环境下。</p>
 <p>注意Queue的作用是用来传递任务和接收结果，每个任务的描述数据量要尽量小。比如发送一个处理日志文件的任务，就不要发送几百兆的日志文件本身，而是发送日志文件存放的完整路径，由Worker进程再去共享的磁盘上读取文件。</p>
@@ -2355,13 +2442,13 @@ outside: input size 5 output size 2</code></pre><h4 id="但是，我只有一个
         <category>OS</category>
       </categories>
       <tags>
-        <tag>Python</tag>
         <tag>OS</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
     <title>PyTorch_Day3</title>
-    <url>/ck4k0hnvc005ts0g4cp404ik6.html</url>
+    <url>/ck4o7l9e5005w40g4d6mmexox.html</url>
     <content><![CDATA[<h2 id="训练一个分类器"><a href="#训练一个分类器" class="headerlink" title="训练一个分类器"></a>训练一个分类器</h2><p>在了解了如何定义一个神经网络、计算损失值和更新网络的权重之后，那么数据从哪里来呢？</p>
 <p>关于数据<br>通常，当你处理图像，文本，音频和视频数据时，你可以使用标准的Python包来加载数据到一个numpy数组中.然后把这个数组转换成torch.Tensor。</p>
 <a id="more"></a>
@@ -2398,7 +2485,7 @@ outside: input size 5 output size 2</code></pre><h4 id="但是，我只有一个
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="comment">#定义一个显示图片的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">imshow</span><span class="params">(img)</span>:</span></span><br><span class="line">    img=img/<span class="number">2</span>+<span class="number">0.5</span></span><br><span class="line">    npimg=img.numpy()</span><br><span class="line">    plt.imshow(np.transpose(npimg,(<span class="number">1</span>,<span class="number">2</span>,<span class="number">0</span>)))</span><br><span class="line">    plt.show();</span><br><span class="line"></span><br><span class="line"><span class="comment">#获取一些随机的训练图片</span></span><br><span class="line">dataiter=iter(trainloader)</span><br><span class="line">images,labels=dataiter.next()</span><br><span class="line"></span><br><span class="line"><span class="comment">#显示图片</span></span><br><span class="line">imshow(torchvision.utils.make_grid(images))</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出标签</span></span><br><span class="line">print(<span class="string">' '</span>.join(<span class="string">'%11s'</span>%classes[labels[j]] <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">4</span>)))</span><br></pre></td></tr></table></figure>
 
 
-<img src="/ck4k0hnvc005ts0g4cp404ik6/1.png" class="">
+<img src="/ck4o7l9e5005w40g4d6mmexox/1.png" class="">
 
 
 <pre><code>plane       truck       plane         car</code></pre><h4 id="定义一个卷积神经网络"><a href="#定义一个卷积神经网络" class="headerlink" title="定义一个卷积神经网络"></a>定义一个卷积神经网络</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net,self).__init__()</span><br><span class="line">        <span class="comment">#输入是三通道的图，然后输出的是6通道的图，采用5x5的卷积框</span></span><br><span class="line">        self.conv1=nn.Conv2d(<span class="number">3</span>,<span class="number">6</span>,<span class="number">5</span>)</span><br><span class="line">        <span class="comment">#2x2的最大池化层</span></span><br><span class="line">        self.pool=nn.MaxPool2d(<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">        <span class="comment">#这里的输入时6通道，因为上边输出的6通道，我们用来接收，最后输出15通道的图，继续采用5x5的卷积框</span></span><br><span class="line">        self.conv2=nn.Conv2d(<span class="number">6</span>,<span class="number">16</span>,<span class="number">5</span>)</span><br><span class="line">        <span class="comment">#定义三个全连接层，对输入数据做线性变换，最后输出图像是120通道数</span></span><br><span class="line">        self.fc1=nn.Linear(<span class="number">16</span>*<span class="number">5</span>*<span class="number">5</span>,<span class="number">120</span>)</span><br><span class="line">        self.fc2=nn.Linear(<span class="number">120</span>,<span class="number">84</span>)</span><br><span class="line">        self.fc3=nn.Linear(<span class="number">84</span>,<span class="number">10</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#上边定义的并没有激活</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self,x)</span>:</span></span><br><span class="line">        x=self.pool(F.relu(self.conv1(x)))</span><br><span class="line">        x=self.pool(F.relu(self.conv2(x)))</span><br><span class="line">        x=x.view(<span class="number">-1</span>,<span class="number">16</span>*<span class="number">5</span>*<span class="number">5</span>)</span><br><span class="line">        x=F.relu(self.fc1(x))</span><br><span class="line">        x=F.relu(self.fc2(x))</span><br><span class="line">        x=self.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    </span><br><span class="line">net=Net()</span><br></pre></td></tr></table></figure>
@@ -2477,7 +2564,7 @@ Finished Training</code></pre><h4 id="在测试集上测试网络"><a href="#在
   </entry>
   <entry>
     <title>Python之进程和线程</title>
-    <url>/ck4k0hnw2006es0g4br48h7jr.html</url>
+    <url>/ck4o7l9i2006c40g4er9d5stz.html</url>
     <content><![CDATA[<p>刚开始学习Python的时候，只是简单的学习了基础的语法和面向对象相关的资料，但是对于进程和线程并没有花时间来看，并且到这一章，和底层实现就密切相关了，和OS更是密不可分，面试非常喜欢问这类的问题，所以还是花点时间来看看，不妨多看看，多找找相关资料，很有帮助，本人是看的廖雪峰的教程，感觉还可以，就是这一章，最好还是在ubuntu环境下跑，因为linux和windows在进程和线程实现细节上有些不同！</p>
 <a id="more"></a>
 
@@ -2576,13 +2663,13 @@ exit code: 0</code></pre><p>这是我在Ubuntu下运行的结果</p>
         <category>OS</category>
       </categories>
       <tags>
-        <tag>OS</tag>
         <tag>python</tag>
+        <tag>OS</tag>
       </tags>
   </entry>
   <entry>
     <title>Django项目的自动化测试</title>
-    <url>/ck4k0hnv1005is0g46xakc78b.html</url>
+    <url>/ck4o7l9bq005l40g4c7lvdzfp.html</url>
     <content><![CDATA[<p>最近，实验室有个小项目，关于企业上云，然后我们这边要做一个Django的web(已经做了很多功能，需要添加和修改一些功能)，所以要给项目添加一些测试，以备后期更改，自动化测试看的是Django 的官方文档。网址是： <a href="https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial05/" target="_blank" rel="noopener">https://docs.djangoproject.com/zh-hans/2.2/intro/tutorial05/</a> 。</p>
 <a id="more"></a>
 
@@ -2646,7 +2733,7 @@ exit code: 0</code></pre><p>这是我在Ubuntu下运行的结果</p>
   </entry>
   <entry>
     <title>279完全平方数</title>
-    <url>/ck4k0hnqh001hs0g46y4khzip.html</url>
+    <url>/ck4o7l8n7001p40g43sip7mxw.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定正整数 <em>n</em>，找到若干个完全平方数（比如 <code>1, 4, 9, 16, ...</code>）使得它们的和等于 <em>n</em>。你需要让组成和的完全平方数的个数最少。 </p>
 <a id="more"></a>
 
@@ -2669,7 +2756,7 @@ exit code: 0</code></pre><p>这是我在Ubuntu下运行的结果</p>
   </entry>
   <entry>
     <title>152乘积最大子序列</title>
-    <url>/ck4k0hnnq000gs0g4bzjr322j.html</url>
+    <url>/ck4o7l8b3000j40g466m42nmr.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组 <code>nums</code> ，找出一个序列中乘积最大的连续子序列（该序列至少包含一个数）。 </p>
 <a id="more"></a>
 
@@ -2692,7 +2779,7 @@ exit code: 0</code></pre><p>这是我在Ubuntu下运行的结果</p>
   </entry>
   <entry>
     <title>Python回顾之OOP</title>
-    <url>/ck4k0hnw5006hs0g43s1phgk4.html</url>
+    <url>/ck4o7l9kn006k40g4hk9i3jqf.html</url>
     <content><![CDATA[<h3 id="面向对象的两个基本概念"><a href="#面向对象的两个基本概念" class="headerlink" title="面向对象的两个基本概念"></a>面向对象的两个基本概念</h3><p>编程语言中，一般有两种编程思维，面向过程和面向对象。</p>
 <p>面向过程，看重的是解决问题的过程。</p>
 <p>这好比我们解决日常生活问题差不多，分析解决问题的步骤，然后一步一步的解决。</p>
@@ -2877,7 +2964,7 @@ True
   </entry>
   <entry>
     <title>300最长上升子序列</title>
-    <url>/ck4k0hnqq001ps0g4f0v619xy.html</url>
+    <url>/ck4o7l8nn001s40g4bblf2mf3.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个无序的整数数组，找到其中最长上升子序列的长度。 </p>
 <a id="more"></a>
 
@@ -2908,7 +2995,7 @@ True
   </entry>
   <entry>
     <title>62不同路径</title>
-    <url>/ck4k0hntc0048s0g4dgy28wnw.html</url>
+    <url>/ck4o7l914004640g42la71tmv.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>一个机器人位于一个 <em>m x n</em> 网格的左上角 （起始点在下图中标记为“Start” ）。</p>
 <p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p>
 <p>问总共有多少条不同的路径？</p>
@@ -2934,7 +3021,7 @@ True
   </entry>
   <entry>
     <title>55跳跃游戏</title>
-    <url>/ck4k0hnsv003xs0g4bt55b9f2.html</url>
+    <url>/ck4o7l8yr003v40g4eaj1fdqu.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非负整数数组，你最初位于数组的第一个位置。</p>
 <p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
 <p>判断你是否能够到达最后一个位置。</p>
@@ -2959,7 +3046,7 @@ True
   </entry>
   <entry>
     <title>198打家劫舍</title>
-    <url>/ck4k0hnol000ns0g4hqsqbkbp.html</url>
+    <url>/ck4o7l8d0000q40g40hp8gudz.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，<strong>如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警</strong>。</p>
 <p>给定一个代表每个房屋存放金额的非负整数数组，计算你<strong>在不触动警报装置的情况下，</strong>能够偷窃到的最高金额。</p>
 <a id="more"></a>
@@ -2983,7 +3070,7 @@ True
   </entry>
   <entry>
     <title>53最大子序和</title>
-    <url>/ck4k0hns7003ks0g47q65chv0.html</url>
+    <url>/ck4o7l8ya003s40g4flou29py.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。 </p>
 <a id="more"></a>
 
@@ -3006,7 +3093,7 @@ True
   </entry>
   <entry>
     <title>121买卖股票的最佳时机</title>
-    <url>/ck4k0hnm60002s0g46hpgadnh.html</url>
+    <url>/ck4o7l83r000640g4cguua9qe.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个数组，它的第 <em>i</em> 个元素是一支给定股票第 <em>i</em> 天的价格。</p>
 <p>如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。</p>
 <p>注意你不能在买入股票前卖出股票。</p>
@@ -3031,7 +3118,7 @@ True
   </entry>
   <entry>
     <title>70爬楼梯</title>
-    <url>/ck4k0hntl004is0g4f66g0noh.html</url>
+    <url>/ck4o7l92d004i40g4ehc19aqp.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>假设你正在爬楼梯。需要 <em>n</em> 阶你才能到达楼顶。每次你可以爬 1 或 2 个台阶。</p>
 <p>你有多少种不同的方法可以爬到楼顶呢？</p>
 <p><strong>注意：</strong>给定 <em>n</em> 是一个正整数。</p>
@@ -3058,7 +3145,7 @@ True
   </entry>
   <entry>
     <title>322零钱兑换</title>
-    <url>/ck4k0hnqv001us0g4acqvgksv.html</url>
+    <url>/ck4o7l8oi001x40g47i1l4gxz.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 <code>-1</code>。 </p>
 <a id="more"></a>
 
@@ -3083,7 +3170,7 @@ True
   </entry>
   <entry>
     <title>动态规划</title>
-    <url>/ck4k0hnwq0071s0g4dkx56jpt.html</url>
+    <url>/ck4o7l9qy007440g49m8jgio2.html</url>
     <content><![CDATA[<p>最近在知乎上看到了一篇讲动态规划的文章，感觉还可以，比较好理解。</p>
 <p>出于对作者的尊重，特别感谢作者，其知乎： <a href="https://www.zhihu.com/search?type=content&q=动态规划" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92</a> </p>
 <p>动态规划算法似乎是一种很高深莫测的算法，你会在一些面试或算法书籍的高级技巧部分看到相关内容，什么状态转移方程，重叠子问题，最优子结构等高大上的词汇也可能让你望而却步。</p>
@@ -3100,7 +3187,7 @@ True
 
 <p>这个不用多说了，学校老师讲递归的时候似乎都是拿这个举例。我们也知道这样写代码虽然简洁易懂，但是十分低效，低效在哪里？假设 n = 20，请画出递归树。</p>
 <p>PS：但凡遇到需要递归的问题，最好都画出递归树，这对你分析算法的复杂度，寻找算法低效的原因都有巨大帮助。</p>
-<img src="/ck4k0hnwq0071s0g4dkx56jpt/1.jpg" class="">
+<img src="/ck4o7l9qy007440g49m8jgio2/1.jpg" class="">
 
 <p>这个递归树怎么理解？就是说想要计算原问题 f(20)，我就得先计算出子问题 f(19) 和 f(18)，然后要计算 f(19)，我就要先算出子问题 f(18) 和 f(17)，以此类推。最后遇到 f(1) 或者 f(2) 的时候，结果已知，就能直接返回结果，递归树不再向下生长了。</p>
 <p> <strong>递归算法的时间复杂度怎么计算？子问题个数乘以解决一个子问题需要的时间。</strong> </p>
@@ -3115,7 +3202,7 @@ True
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (N &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 备忘录全初始化为 0</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; memo(N + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 初始化最简情况</span></span><br><span class="line">    memo[<span class="number">1</span>] = memo[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> helper(memo, N);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">helper</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; memo, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 未被计算过</span></span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">0</span> &amp;&amp; memo[n] == <span class="number">0</span>) </span><br><span class="line">        memo[n] = helper(memo, n - <span class="number">1</span>) + </span><br><span class="line">                  helper(memo, n - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">return</span> memo[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 现在，画出递归树，你就知道「备忘录」到底做了什么。 </p>
-<img src="/ck4k0hnwq0071s0g4dkx56jpt/2.jpg" class="">
+<img src="/ck4o7l9qy007440g49m8jgio2/2.jpg" class="">
 
 <p>实际上，带「备忘录」的递归算法，把一棵存在巨量冗余的递归树通过「剪枝」，改造成了一幅不存在冗余的递归图，极大减少了子问题（即递归图中节点）的个数。</p>
 <p>递归算法的时间复杂度怎么算？子问题个数乘以解决一个子问题需要的时间。</p>
@@ -3129,11 +3216,11 @@ True
 <p> 有了上一步「备忘录」的启发，我们可以把这个「备忘录」独立出来成为一张表，就叫做 DP table 吧，在这张表上完成「自底向上」的推算岂不美哉！ </p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fib</span><span class="params">(<span class="keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(N + <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    dp[<span class="number">1</span>] = dp[<span class="number">2</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= N; i++)</span><br><span class="line">        dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>];</span><br><span class="line">    <span class="keyword">return</span> dp[N];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/ck4k0hnwq0071s0g4dkx56jpt/3.jpg" class="">
+<img src="/ck4o7l9qy007440g49m8jgio2/3.jpg" class="">
 
 <p>画个图就很好理解了，而且你发现这个 DP table 特别像之前那个「剪枝」后的结果，只是反过来算而已。实际上，带备忘录的递归解法中的「备忘录」，最终完成后就是这个 DP table，所以说这两种解法其实是差不多的，大部分情况下，效率也基本相同。</p>
 <p>这里，引出「动态转移方程」这个名词，实际上就是描述问题结构的数学形式：</p>
-<img src="/ck4k0hnwq0071s0g4dkx56jpt/4.jpg" class="">
+<img src="/ck4o7l9qy007440g49m8jgio2/4.jpg" class="">
 
 <p>为啥叫「状态转移方程」？为了听起来高端。你把 f(n) 想做一个状态 n，这个状态 n 是由状态 n - 1 和状态 n - 2 相加转移而来，这就叫状态转移，仅此而已。</p>
 <p>你会发现，上面的几种解法中的所有操作，例如 return f(n - 1) + f(n - 2)，dp[i] = dp[i - 1] + dp[i - 2]，以及对备忘录或 DP table 的初始化操作，都是围绕这个方程式的不同表现形式。可见列出「状态转移方程」的重要性，它是解决问题的核心。很容易发现，其实状态转移方程直接代表着暴力解法。</p>
@@ -3147,7 +3234,7 @@ True
 <p>比如说，k = 3，面值分别为 1，2，5，总金额 n = 11，那么最少需要 3 枚硬币，即 11 = 5 + 5 + 1 。下面走流程。</p>
 <p><strong>一、暴力解法</strong></p>
 <p>首先是最困难的一步，写出状态转移方程，这个问题比较好写：</p>
-<img src="/ck4k0hnwq0071s0g4dkx56jpt/5.jpg" class="">
+<img src="/ck4o7l9qy007440g49m8jgio2/5.jpg" class="">
 
 <p>其实，这个方程就用到了<strong>「最优子结构」性质：原问题的解由子问题的最优解构成。</strong>即 f(11) 由 f(10), f(9), f(6) 的最优解转移而来。</p>
 <p>记住，<strong>要符合「最优子结构」，子问题间必须互相独立。</strong>啥叫相互独立？你肯定不想看数学证明，我用一个直观的例子来讲解。</p>
@@ -3159,7 +3246,7 @@ True
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (amount == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ans = INT_MAX;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> coin : coins) &#123;</span><br><span class="line">        <span class="comment">// 金额不可达</span></span><br><span class="line">        <span class="keyword">if</span> (amount - coin &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">int</span> subProb = coinChange(coins, amount - coin);</span><br><span class="line">        <span class="comment">// 子问题无解</span></span><br><span class="line">        <span class="keyword">if</span> (subProb == <span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">        ans = min(ans, subProb + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans == INT_MAX ? <span class="number">-1</span> : ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p> 画出递归树： </p>
-<img src="/ck4k0hnwq0071s0g4dkx56jpt/6.jpg" class="">
+<img src="/ck4o7l9qy007440g49m8jgio2/6.jpg" class="">
 
 <p> 时间复杂度分析：子问题总数 x 每个子问题的时间。子问题总数为递归树节点个数，这个比较难看出来，是 O(n^k)，总之是指数级别的。每个子问题中含有一个 for 循环，复杂度为 O(k)。所以总时间复杂度为 O(k*n^k)，指数级别。 </p>
 <p><strong>二、带备忘录的递归算法</strong></p>
@@ -3169,7 +3256,7 @@ True
 <p> <strong>三、动态规划</strong> </p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; coins, <span class="keyword">int</span> amount)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; dp(amount + <span class="number">1</span>, amount + <span class="number">1</span>);</span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; dp.size(); i++) &#123;</span><br><span class="line">        <span class="comment">// 内层 for 在求所有子问题 + 1 的最小值</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> coin : coins) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i - coin &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            dp[i] = min(dp[i], <span class="number">1</span> + dp[i - coin]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (dp[amount] == amount + <span class="number">1</span>) ? <span class="number">-1</span> : dp[amount];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/ck4k0hnwq0071s0g4dkx56jpt/7.jpg" class="">
+<img src="/ck4o7l9qy007440g49m8jgio2/7.jpg" class="">
 
 <p><strong>最后总结</strong></p>
 <p>如果你不太了解动态规划，还能看到这里，真得给你鼓掌，相信你已经掌握了这个算法的设计技巧。</p>
@@ -3186,7 +3273,7 @@ True
   </entry>
   <entry>
     <title>PyTorch_Day2</title>
-    <url>/ck4k0hnv9005qs0g42nys5jo8.html</url>
+    <url>/ck4o7l9c6005o40g45w1ohdp7.html</url>
     <content><![CDATA[<h2 id="Autograd-自动求导机制"><a href="#Autograd-自动求导机制" class="headerlink" title="Autograd: 自动求导机制"></a>Autograd: 自动求导机制</h2><p>PyTorch 中所有神经网络的核心是 autograd 包。 我们先简单介绍一下这个包，然后训练第一个简单的神经网络。<br>autograd包为张量上的所有操作提供了自动求导。 它是一个在运行时定义的框架，这意味着反向传播是根据你的代码来确定如何运行，并且每次迭代可以是不同的。</p>
 <h3 id="张量Tensor"><a href="#张量Tensor" class="headerlink" title="张量Tensor"></a>张量Tensor</h3><ul>
 <li>torch.Tensor 是包的核心类。如果将其属性 .requires_grad 设置为 True，则会开始跟踪针对 tensor 的所有操作。完成计算后，您可以调用 .backward() 来自动计算所有梯度。该张量的梯度将累积到 .grad 属性中。</li>
@@ -3227,7 +3314,7 @@ True
 <pre><code>True
 True
 False</code></pre><h2 id="神经网络Neural-Networks"><a href="#神经网络Neural-Networks" class="headerlink" title="神经网络Neural Networks"></a>神经网络Neural Networks</h2><p>神经网络可以通过 torch.nn 包来构建。<br>上一讲已经讲过了autograd，nn包依赖autograd包来定义模型并求导。 一个nn.Module包含各个层和一个forward(input)方法，该方法返回output。<br>例如，看一下数字图片识别的网络：</p>
-<img src="/ck4k0hnv9005qs0g42nys5jo8/1.jpg" class="">
+<img src="/ck4o7l9c6005o40g45w1ohdp7/1.jpg" class="">
 <p>它是一个简单的前馈神经网络，它接受一个输入，然后一层接着一层地传递，最后输出计算的结果。<br>神经网络的典型训练过程如下：</p>
 <ul>
 <li>定义包含一些可学习的参数(或者叫权重)神经网络模型；</li>
@@ -3325,7 +3412,7 @@ tensor([-0.0026,  0.0136, -0.0092, -0.0128, -0.0098, -0.0080])</code></pre><h4 i
   </entry>
   <entry>
     <title>PyTorch_Day1</title>
-    <url>/ck4k0hnvu0066s0g4cdmn8nkr.html</url>
+    <url>/ck4o7l9gt006940g4cobf12ja.html</url>
     <content><![CDATA[<p>之前一直在看keras，但是看了之后，给我一种感觉就是：本来深度学习就已经够黑盒了，你再给我封装的这么死，我不想成为调包侠= =，然后Pytorch最近比较流行，在封装性上也没有keras那么死板，所以尝试学习一下。</p>
 <a id="more"></a>
 
@@ -3473,7 +3560,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>347前K个高频元素</title>
-    <url>/ck4k0hnr40022s0g46y0fhrq8.html</url>
+    <url>/ck4o7l8qd002540g4hr1t3twd.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个非空的整数数组，返回其中出现频率前 <strong>k</strong> 高的元素。 </p>
 <a id="more"></a>
 
@@ -3500,7 +3587,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>454四数相加II</title>
-    <url>/ck4k0hnru002ws0g4cf2igu63.html</url>
+    <url>/ck4o7l8to002z40g41n3d9owp.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定四个包含整数的数组列表 A , B , C , D ,计算有多少个元组 <code>(i, j, k, l)</code> ，使得 <code>A[i] + B[j] + C[k] + D[l] = 0</code>。</p>
 <p>为了使问题简单化，所有的 A, B, C, D 具有相同的长度 N，且 0 ≤ N ≤ 500 。所有整数的范围在 -2^28 到 2^28 - 1 之间，最终结果不会超过 2^31 - 1 。</p>
 <a id="more"></a>
@@ -3518,7 +3605,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>652寻找重复的子树</title>
-    <url>/ck4k0hntj004fs0g4ae7575et.html</url>
+    <url>/ck4o7l91y004e40g4ekws3hbm.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一棵二叉树，返回所有重复的子树。对于同一类的重复子树，你只需要返回其中任意<strong>一棵</strong>的根结点即可。</p>
 <p>两棵树重复是指它们具有相同的结构以及相同的结点值。</p>
 <a id="more"></a>
@@ -3545,46 +3632,46 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>理解LSTM</title>
-    <url>/ck4k0hnxd007os0g4hmj1d5cw.html</url>
+    <url>/ck4o7l9yr007w40g4864uf7kb.html</url>
     <content><![CDATA[<p>SimpleRNN并不是keras中唯一的循环层，另外还有两个：LSTM和GRU。SimpleRNN最大的问题就是：在t时刻，理论上讲它能记住许多时间步之前见过的信息，但是实际上他是不可能学到这种长期依赖的。其原因就在于梯度消失问题，这一问题有点类似于在层数比较多的非循环网络（前馈网络）中观察到的效应：随着层数的增加，网络最终无法训练（具体原因没有深究，以后一定要看看论文），而LSTM和GRU就是为了解决SimpleRNN梯度消失这个问题设计的。<a id="more"></a></p>
 <h4 id="LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。"><a href="#LSTM-长短期记忆-算法的提出，是研究梯度消失的重要成果，-解决长依赖问题-。" class="headerlink" title="LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。"></a>LSTM(长短期记忆)算法的提出，是研究梯度消失的重要成果， 解决长依赖问题 。</h4><p>所有循环神经网络都具有神经网络的重复模块链的形式。 在标准的RNN中，该重复模块将具有非常简单的结构，例如单个tanh层。标准的RNN网络如下图所示：</p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/1.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/1.png" class="">
 
 <p> LSTM也具有这种链式结构，但是它的重复单元不同于标准RNN网络里的单元只有一个网络层，它的内部有四个网络层。LSTMs的结构如下图所示：</p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/2.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/2.png" class="">
 
 <p> 在解释LSTMs的详细结构时先定义一下图中各个符号的含义，符号包括下面几种 </p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/3.jpg" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/3.jpg" class="">
 
 <p>图中黄色类似于CNN里的激活函数操作，粉色圆圈表示点操作，单箭头表示数据流向，箭头合并表示向量的合并（concat）操作，箭头分叉表示向量的拷贝操作 </p>
 <h4 id="LSTM核心思想"><a href="#LSTM核心思想" class="headerlink" title="LSTM核心思想"></a>LSTM核心思想</h4><p>LSTM的关键在于细胞的状态(整个绿色的图表示的是一个cell)，和穿过细胞的那条水平线。</p>
 <p>细胞状态类似于传送带。直接在整个链上运行，只有一些少量的线性交互。信息在上面流传保持不变会很容易。</p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/4.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/4.png" class="">
 
 <p>若只有上面的那条水平线是没办法实现添加或者删除信息的。而是通过一种叫做 门（gates） 的结构来实现的。</p>
 <p>门 可以实现选择性地让信息通过，主要是通过一个 sigmoid 的神经层 和一个逐点相乘的操作来实现的。</p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/5.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/5.png" class="">
 
 <p>sigmoid 层输出（是一个向量）的每个元素都是一个在 0 和 1 之间的实数，表示让对应信息通过的权重（或者占比）。比如， 0 表示“不让任何信息通过”， 1 表示“让所有信息通过”。</p>
 <p>LSTM通过三个这样的结构来实现信息的保护和控制。这三个门分别输入门、遗忘门和输出门。</p>
 <h4 id="逐步理解LSTM"><a href="#逐步理解LSTM" class="headerlink" title="逐步理解LSTM"></a>逐步理解LSTM</h4><p>接下来通过三个门来逐步理解LSTM的原理</p>
 <h5 id="遗忘门"><a href="#遗忘门" class="headerlink" title="遗忘门"></a>遗忘门</h5><p>在我们 LSTM 中的第一步是决定我们会从细胞状态中丢弃什么信息。这个决定通过一个称为忘记门层完成。该门会读取 h(t-1)和x(t)， 输出一个在 0到 1之间的数值即每个在细胞状态C(t-1)中的数字， 1 表示“完全保留”，0 表示“完全舍弃” 。</p>
 <p>举个例子，在语言中我们基于已经看到的词来预测下一个词。在这个问题中，细胞状态可能包含当前主语的性别，因此正确的代词可以被选择出来。当我们看到新的主语，我们希望忘记旧的主语。 </p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/6.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/6.png" class="">
 
 <p> 其中h(t-1)表示的是上一个cell的输出，x(t)表示的是当前细胞的输入。σ表示sigmod函数。 </p>
 <h5 id="输入门"><a href="#输入门" class="headerlink" title="输入门"></a>输入门</h5><p>下一步是决定给细胞状态添加哪些新的信息。这一步又分为两个步骤，首先，利用h(t-1)和x(t)通过一个称为输入门的操作来决定更新哪些信息。然后利用h(t-1)和x(t)通过一个tanh层得到新的候选细胞信息~Ct，这些信息可能会被更新到细胞信息中。这两步描述如下图所示：</p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/7.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/7.png" class="">
 
 <p> 下面将更新旧的细胞信息C(t-1)，变为新的细胞信息Ct。更新的规则就是通过忘记门选择忘记旧细胞信息的一部分，通过输入门选择添加候选细胞信息~Ct的一部分得到新的细胞信息Ct。更新操作如下图所示:</p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/8.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/8.png" class="">
 
 <h5 id="输出门"><a href="#输出门" class="headerlink" title="输出门"></a>输出门</h5><p>最终，我们需要确定输出什么值。这个输出将会基于我们的细胞状态，但是也是一个过滤后的版本。首先，我们运行一个 sigmoid 层来确定细胞状态的哪个部分将输出出去。接着，我们把细胞状态通过 tanh 进行处理（得到一个在 -1 到 1 之间的值）并将它和 sigmoid 门的输出相乘，最终我们仅仅会输出我们确定输出的那部分。</p>
 <p> 还是拿语言模型来举例说明，在预测动词形式的时候，我们需要通过输入的主语是单数还是复数来推断输出门输出的预测动词是单数形式还是复数形式。 </p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/9.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/9.png" class="">
 
 <h4 id="LSTM变体"><a href="#LSTM变体" class="headerlink" title="LSTM变体"></a>LSTM变体</h4><p>下面主要讲一下其中比较著名的变种 GRU（Gated Recurrent Unit ），这是由 Cho, et al. (2014) 提出。在 GRU 中，如下图所示，只有两个门：重置门（reset gate）和更新门（update gate）。同时在这个结构中，把细胞状态和隐藏状态进行了合并。最后模型比标准的 LSTM 结构要简单，而且这个结构后来也非常流行。</p>
-<img src="/ck4k0hnxd007os0g4hmj1d5cw/10.png" class="">
+<img src="/ck4o7l9yr007w40g4864uf7kb/10.png" class="">
 
 <p> 其中，<strong>r</strong>表示重置门，<strong>t</strong>表示更新门。重置门决定是否将之前的状态忘记。(作用相当于合并了 LSTM 中的遗忘门和传入门）当<strong>r</strong>趋于0的时候，前一个时刻的状态信息 h(t-1)会被忘掉，隐藏状态^ht 会被重置为当前输入的信息。更新门决定是否要将隐藏状态更新为新的状态 ht(作用相当于 LSTM 中的输出门)</p>
 <p>其中重置门为上图中前面那个门，决定了如何将新的输入信息与前面的记忆相结合。更新门为上图中后面那个门，定义了前面记忆保存到当前时间步的量。</p>
@@ -3598,7 +3685,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>3无重复字符的最长子串</title>
-    <url>/ck4k0hnrp002os0g470tl13fq.html</url>
+    <url>/ck4o7l8t8002r40g421419onl.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个字符串，请你找出其中不含有重复字符的 <strong>最长子串</strong> 的长度。</p>
 <a id="more"></a>
 
@@ -3622,7 +3709,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>771宝石与石头</title>
-    <url>/ck4k0hntw004ts0g4altnefxu.html</url>
+    <url>/ck4o7l95q005040g4ehiz82cr.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定字符串<code>J</code> 代表石头中宝石的类型，和字符串 <code>S</code>代表你拥有的石头。 <code>S</code> 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。</p>
 <p><code>J</code> 中的字母不重复，<code>J</code> 和 <code>S</code>中的所有字符都是字母。字母区分大小写，因此<code>&quot;a&quot;</code>和<code>&quot;A&quot;</code>是不同类型的石头。</p>
 <a id="more"></a>
@@ -3650,7 +3737,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>36有效的数独</title>
-    <url>/ck4k0hnrg002ds0g4ba6jawkd.html</url>
+    <url>/ck4o7l8rz002g40g4dm5qh5gd.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>判断一个 9x9 的数独是否有效。只需要<strong>根据以下规则</strong>，验证已经填入的数字是否有效即可。</p>
 <a id="more"></a>
 
@@ -3659,7 +3746,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 <li>数字 <code>1-9</code> 在每一列只能出现一次。</li>
 <li>数字 <code>1-9</code> 在每一个以粗实线分隔的 <code>3x3</code> 宫内只能出现一次。</li>
 </ol>
-<img src="/ck4k0hnrg002ds0g4ba6jawkd/1.jpg" class="">
+<img src="/ck4o7l8rz002g40g4dm5qh5gd/1.jpg" class="">
 
 <p>上图是一个部分填充的有效的数独。</p>
 <p>数独部分空格内已填入了数字，空白格用 <code>&#39;.&#39;</code> 表示。</p>
@@ -3688,7 +3775,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>49字母异位词分组</title>
-    <url>/ck4k0hns3003cs0g4dg6qafgr.html</url>
+    <url>/ck4o7l8vt003f40g42cx7cahq.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个字符串数组，将字母异位词组合在一起。字母异位词指字母相同，但排列不同的字符串。 </p>
 <a id="more"></a>
 
@@ -3712,7 +3799,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>RNN循环神经网络</title>
-    <url>/ck4k0hnwb006ms0g4esdlg5y2.html</url>
+    <url>/ck4o7l9lm006p40g4035i5xr8.html</url>
     <content><![CDATA[<h5 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h5><ul>
 <li>之前见过的神经网络都有一个特点，就是没有记忆，只能单独处理每个输入，在输入与输入之间没有保存任何状态，对于这种网络，要想处理数据点的序列或时间序列，需要向网络同时展示整个序列，即将序列转换成单个数据点，然后一次性处理，这种网络叫做前馈网络。</li>
 </ul>
@@ -3726,26 +3813,26 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 </li>
 <li><p>RNN之所以称为循环神经网路，即一个序列当前的输出与前面的输出也有关。具体的表现形式为网络会对前面的信息进行记忆并应用于当前输出的计算中，即隐藏层之间的节点不再无连接而是有连接的，并且隐藏层的输入不仅包括输入层的输出还包括上一时刻隐藏层的输出。</p>
 </li>
-<li><img src="/ck4k0hnwb006ms0g4esdlg5y2/1.png" class="">
+<li><img src="/ck4o7l9lm006p40g4035i5xr8/1.png" class="">
 
 </li>
 </ul>
-<h5 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h5><img src="/ck4k0hnwb006ms0g4esdlg5y2/2.png" class="">
+<h5 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h5><img src="/ck4o7l9lm006p40g4035i5xr8/2.png" class="">
 
 <p>我们可以看到RNN层级结构较之于CNN来说比较简单, 它主要有<strong>输入层</strong>,<strong>Hidden Layer</strong>, <strong>输出层</strong>组成。</p>
 <p>并且会发现在<strong>Hidden Layer</strong> 有一个箭头表示数据的循环更新, 这个就是实现时间记忆功能的方法。</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/3.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/3.png" class="">
 
 <p>所示为Hidden Layer的层级展开图. t-1, t, t+1表示时间序列. X表示输入的样本. St表示样本在时间t处的的记忆,<strong>St = f(W*St-1 +U*Xt)</strong>. W表示输入的权重, U表示此刻输入的样本的权重, V表示输出的样本权重。</p>
 <p> 在t =1时刻, 一般初始化输入S0=0, 随机初始化W,U,V, 进行下面的公式计算:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/4.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/4.png" class="">
 
 <p>其中,f和g均为激活函数. 其中f可以是tanh,relu,sigmoid等激活函数，g通常是softmax也可以是其他。</p>
 <p>时间就向前推进，此时的状态s1作为时刻1的记忆状态将参与下一个时刻的预测活动，也就是:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/5.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/5.png" class="">
 
 <p>以此类推, 可以得到最终的输出值为:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/6.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/6.png" class="">
 
 <p><strong>注意</strong>: </p>
 <ul>
@@ -3755,38 +3842,38 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 </li>
 </ul>
 <h5 id="RNN反向传播"><a href="#RNN反向传播" class="headerlink" title="RNN反向传播"></a>RNN反向传播</h5><p>我们介绍了RNN的前向传播的方式, 那么RNN的权重参数W,U,V都是怎么更新的呢?</p>
-<p>每一次的输出值Ot都会产生一个误差值Et, 则总的误差可以表示为:<img src="/ck4k0hnwb006ms0g4esdlg5y2/7.png" class=""></p>
+<p>每一次的输出值Ot都会产生一个误差值Et, 则总的误差可以表示为:<img src="/ck4o7l9lm006p40g4035i5xr8/7.png" class=""></p>
 <p>则损失函数可以使用交叉熵损失函数也可以使用平方误差损失函数。</p>
 <p>由于每一步的输出不仅仅依赖当前步的网络，并且还需要前若干步网络的状态，那么这种BP改版的算法叫做Backpropagation Through Time(BPTT) , 也就是将输出端的误差值反向传递,运用梯度下降法进行更新。</p>
 <p>也就是要求参数的梯度：</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/8.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/8.png" class="">
 
 <p>首先我们求解<strong>W的更新方法</strong>, 由前面的W的更新可以看出它是每个时刻的偏差的偏导数之和. </p>
 <p> 在这里我们以 t = 3时刻为例, 根据链式求导法则可以得到t = 3时刻的偏导数为:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/9.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/9.png" class="">
 
-<p>此时, 根据公式<img src="/ck4k0hnwb006ms0g4esdlg5y2/10.png" class="">我们会发现, S3除了和W有关之外, 还和前一时刻S2有关。</p>
+<p>此时, 根据公式<img src="/ck4o7l9lm006p40g4035i5xr8/10.png" class="">我们会发现, S3除了和W有关之外, 还和前一时刻S2有关。</p>
 <p>对于S3直接展开得到下面的式子:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/11.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/11.png" class="">
 
 <p>对于S2直接展开得到下面的式子:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/12.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/12.png" class="">
 
 <p>对于S1直接展开得到下面的式子:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/13.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/13.png" class="">
 
 <p>将上述三个式子合并得到:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/14.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/14.png" class="">
 
 <p>这样就得到了公式:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/15.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/15.png" class="">
 
-<p>这里要说明的是:<img src="/ck4k0hnwb006ms0g4esdlg5y2/18.png" class="">表示的是S3对W直接求导, 不考虑S2的影响.(也就是例如y = f(x)*g(x)对x求导一样)</p>
+<p>这里要说明的是:<img src="/ck4o7l9lm006p40g4035i5xr8/18.png" class="">表示的是S3对W直接求导, 不考虑S2的影响.(也就是例如y = f(x)*g(x)对x求导一样)</p>
 <p>其次是对<strong>U的更新方法</strong>. 由于参数U求解和W求解类似,这里就不在赘述了,最终得到的具体的公式如下:</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/16.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/16.png" class="">
 
 <p>最后,给出<strong>V的更新公式</strong>(V只和输出O有关):</p>
-<img src="/ck4k0hnwb006ms0g4esdlg5y2/17.png" class="">
+<img src="/ck4o7l9lm006p40g4035i5xr8/17.png" class="">
 
 
 ]]></content>
@@ -3799,7 +3886,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>深度学习应用于文本和序列</title>
-    <url>/ck4k0hnxa007ls0g4d61v36kv.html</url>
+    <url>/ck4o7l9ye007o40g44cvk6236.html</url>
     <content><![CDATA[<p>文本可以理解成单词序列、字符序列，序列又有时间序列和其他的一般序列。<a id="more"></a></p>
 <p>处理序列的两种基本的深度学习模型</p>
 <ul>
@@ -3818,7 +3905,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 </ul>
 <p>将文本分解而成的单元（单词、字符、n-gram）叫做标记</p>
 <p>将文本分解成标记的过程叫做分词</p>
- <img src="/ck4k0hnxa007ls0g4d61v36kv/fenci.png" class="" title="分词的过程">
+ <img src="/ck4o7l9ye007o40g44cvk6236/fenci.png" class="" title="分词的过程">
 
 <p>将向量与标记关联的方法：</p>
 <ul>
@@ -3826,7 +3913,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 <li>标记嵌入（token embedding），该方法通常只用于单词，叫做词嵌入（word embedding）<ul>
 <li>one-hot得到的向量是二进制的、稀疏的（绝大部分元素都是0）、维数很高的（维数等于词表中单词个数）</li>
 <li>词嵌入是低维的浮点数向量（密集向量），并且是从数据中学习得到的，常见的维度是256、512、1024（处理非常大的词表），而one-hot编码维度很高（20000或更高）</li>
-<li><img src="/ck4k0hnxa007ls0g4d61v36kv/bianma.png" class="" title="不同方法编码对比">
+<li><img src="/ck4o7l9ye007o40g44cvk6236/bianma.png" class="" title="不同方法编码对比">
 
 </li>
 </ul>
@@ -3843,7 +3930,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
 <ul>
 <li>embedding层：可以理解成一个字典，将整数序列（二维整数张量）（表示特定单词）映射为密集向量</li>
 </ul>
-<img src="/ck4k0hnxa007ls0g4d61v36kv/embedding.png" class="" title="embedding层作用过程">
+<img src="/ck4o7l9ye007o40g44cvk6236/embedding.png" class="" title="embedding层作用过程">
 
 <ul>
 <li>接收整数序列作为输入，然后在字典中查找整数，最后返回相关联的向量（返回的是一个三维浮点数张量）</li>
@@ -3874,7 +3961,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>219存在重复元素II</title>
-    <url>/ck4k0hnpo0011s0g47kwccopz.html</url>
+    <url>/ck4o7l8hn001440g45k3lgnyy.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个整数数组和一个整数 <em>k</em>，判断数组中是否存在两个不同的索引 <em>i</em> 和 <em>j</em>，使得 <strong>nums [i] = nums [j]</strong>，并且 <em>i</em> 和 <em>j</em> 的差的绝对值最大为 <em>k</em>。 </p>
 <a id="more"></a>
 
@@ -3895,7 +3982,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>350两个数组的交集II</title>
-    <url>/ck4k0hnrd002as0g4aqzd0dhm.html</url>
+    <url>/ck4o7l8ri002d40g443sr876v.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定两个数组，编写一个函数来计算它们的交集。<a id="more"></a> </p>
 <blockquote>
 <p><strong>示例 1:</strong></p>
@@ -3923,7 +4010,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>387字符串中的第一个唯一字符</title>
-    <url>/ck4k0hnrj002hs0g4dfj85nry.html</url>
+    <url>/ck4o7l8si002k40g462rzbdsn.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p> 给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。 <a id="more"></a></p>
 <blockquote>
 <p>案例:</p>
@@ -3938,7 +4025,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>599两个列表的最小索引总和</title>
-    <url>/ck4k0hnsz0040s0g4g0cxbon4.html</url>
+    <url>/ck4o7l955004t40g4gu6p872i.html</url>
     <content><![CDATA[<h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>假设Andy和Doris想在晚餐时选择一家餐厅，并且他们都有一个表示最喜爱餐厅的列表，每个餐厅的名字用字符串表示。<a id="more"></a></p>
 <p>你需要帮助他们用<strong>最少的索引和</strong>找出他们<strong>共同喜爱的餐厅</strong>。 如果答案不止一个，则输出所有答案并且不考虑顺序。 你可以假设总是存在一个答案。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"Piatti"</span>, <span class="string">"The Grill at Torrey Pines"</span>, <span class="string">"Hungry Hunter Steakhouse"</span>, <span class="string">"Shogun"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们唯一共同喜爱的餐厅是“Shogun”。</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[<span class="string">"Shogun"</span>, <span class="string">"Tapioca Express"</span>, <span class="string">"Burger King"</span>, <span class="string">"KFC"</span>]</span><br><span class="line">[<span class="string">"KFC"</span>, <span class="string">"Shogun"</span>, <span class="string">"Burger King"</span>]</span><br><span class="line">输出: [<span class="string">"Shogun"</span>]</span><br><span class="line">解释: 他们共同喜爱且具有最小索引和的餐厅是“Shogun”，它有最小的索引和<span class="number">1</span>(<span class="number">0</span>+<span class="number">1</span>)。</span><br><span class="line">提示:</span><br><span class="line"></span><br><span class="line">两个列表的长度范围都在 [<span class="number">1</span>, <span class="number">1000</span>]内。</span><br><span class="line">两个列表中的字符串的长度将在[<span class="number">1</span>，<span class="number">30</span>]的范围内。</span><br><span class="line">下标从<span class="number">0</span>开始，到列表的长度减<span class="number">1</span>。</span><br><span class="line">两个列表都没有重复的元素。</span><br></pre></td></tr></table></figure>
@@ -3950,7 +4037,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>349两个数组的交集</title>
-    <url>/ck4k0hnr70025s0g40bvqewdu.html</url>
+    <url>/ck4o7l8qw002840g483hyfxau.html</url>
     <content><![CDATA[<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><h6 id="题目描述：给定两个数组，编写一个函数来计算它们的交集"><a href="#题目描述：给定两个数组，编写一个函数来计算它们的交集" class="headerlink" title="题目描述：给定两个数组，编写一个函数来计算它们的交集"></a>题目描述：给定两个数组，编写一个函数来计算它们的交集<a id="more"></a></h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>], nums2 = [<span class="number">2</span>,<span class="number">2</span>]</span><br><span class="line">输出: [<span class="number">2</span>]</span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>], nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line">输出: [<span class="number">9</span>,<span class="number">4</span>]</span><br><span class="line">说明:</span><br><span class="line"></span><br><span class="line">输出结果中的每个元素一定是唯一的。</span><br><span class="line">我们可以不考虑输出结果的顺序。</span><br></pre></td></tr></table></figure>
 
 <h6 id="解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"><a href="#解题思路：本题比较容易想到使用哈希集合，因为哈希集合-unordered-set-寻找速度快，是o-1-级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O-logn-故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。" class="headerlink" title="解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。"></a>解题思路：本题比较容易想到使用哈希集合，因为哈希集合(unordered_set)寻找速度快，是o(1)级别（底层使用哈希表，而set底层使用红黑树，所以查找速度为O(logn),故使用前者），将其两个数组全部插入到哈希集合，然后再以一个哈希集合循环，能在另一个找到同元素，即为交集。</h6><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; intersection(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums1, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums2) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;result;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s1;</span><br><span class="line">        <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;s2;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums1.size();i++)&#123;</span><br><span class="line">            s1.insert(nums1[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums2.size();i++)&#123;</span><br><span class="line">            s2.insert(nums2[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> it=s2.begin();it!=s2.end();it++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1.count(*it)&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                result.push_back(*it);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
@@ -3963,7 +4050,7 @@ torch.Size([5, 3])</code></pre><h3 id="操作"><a href="#操作" class="headerli
   </entry>
   <entry>
     <title>136只出现一次的数字</title>
-    <url>/ck4k0hnn6000bs0g434hn8tj9.html</url>
+    <url>/ck4o7l88l000e40g4c7boeown.html</url>
     <content><![CDATA[<h2 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a>只出现一次的数字</h2><h6 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h6><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
 <p>说明：</p>
 <p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
